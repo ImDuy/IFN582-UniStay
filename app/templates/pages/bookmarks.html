@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Properties</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-
+LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-xl navbar-light sticky-top shadow-sm">
+        <div class="container">
+          <div class="d-flex align-items-center">
+            <div class="logo_container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-home"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+              </svg>
+            </div>
+            <div class="ms-2 d-flex flex-column gap-0">
+              <p class="fw-bold fs-5 lh-1 mb-0">Saved Properties</p>
+              <small class="text-secondary">Welcome back, Bill Gate</small>
+            </div>
+          </div>
+
+          <button
+            class="btn d-flex align-items-center gap-1 outlined_btn"
+            type="button"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+              />
+              <path d="M9 12h12l-3 -3" />
+              <path d="M18 15l3 -3" />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="py-4">
+      <!-- summary section -->
+      <div
+        class="container d-flex flex-column flex-sm-row align-items-center gap-3 gap-sm-5 p-3 rounded-4 bg-white shadow-sm"
+      >
+        <div>
+          <small class="text-muted">Total Saved</small>
+          <p class="text-center text-sm-start fw-bold fs-3 mb-0">10</p>
+        </div>
+        <div>
+          <small class="text-muted">High Priority</small>
+          <p class="text-danger text-center text-sm-start fw-bold fs-3 mb-0">
+            4
+          </p>
+        </div>
+        <div>
+          <small class="text-muted">Medium Priority</small>
+          <p class="text-warning text-center text-sm-start fw-bold fs-3 mb-0">
+            3
+          </p>
+        </div>
+        <div>
+          <small class="text-muted">Low Priority</small>
+          <p class="text-success text-center text-sm-start fw-bold fs-3 mb-0">
+            3
+          </p>
+        </div>
+      </div>
+
+      <!-- summary section -->
+      <div
+        class="container d-flex flex-column flex-sm-row align-items-center gap-2 gap-sm-3 p-3 rounded-4 bg-white shadow-sm mt-4"
+      >
+        <div
+          class="d-flex align-self-stretch align-items-center flex-sm-fill px-3 py-2 bg-light border border-secondary-subtle rounded-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000ad"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+          </svg>
+          <input
+            class="flex-fill bg-light border-0 ms-2"
+            type="search"
+            placeholder="Search name | address | city | state | note"
+          />
+        </div>
+        <div class="btn-group align-self-stretch align-self-end">
+          <button
+            type="button"
+            class="btn btn-primary dropdown-toggle rounded-3 bg-light border-secondary-subtle text-dark"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            All Priorities
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item active" href="#">All Priorities</a></li>
+            <li><a class="dropdown-item" href="#">High Priority</a></li>
+            <li><a class="dropdown-item" href="#">Medium Priority</a></li>
+            <li><a class="dropdown-item" href="#">Low Priority</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- table section -->
+      <div
+        class="container rounded-4 overflow-hidden shadow-sm bg-white mt-4 p-0"
+      >
+        <div class="hover_item d-flex align-items-start gap-3 px-4 py-3">
+          <img
+            src="img/properties_1.jpeg"
+            id="property_rental_img"
+            style="width: 80px"
+            class="rounded-3 object-fit-cover"
+          />
+          <div class="flex-fill" style="min-width: 0">
+            <div
+              class="d-flex align-items-center justify-content-between gap-4 mb-1"
+            >
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">
+                Modern Downtown Apartment
+              </h6>
+              <div
+                class="d-flex align-items-center gap-1 bg-danger-subtle text-danger rounded-2 px-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-star"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"
+                  />
+                </svg>
+                <small class="mb-0 fw_600" style><small>High</small></small>
+              </div>
+            </div>
+
+            <p class="small text-muted lh-1 mb-2 text-truncate">
+              123 Main Street, Seattle
+            </p>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">$250/wk</h6>
+              <span class="small d-flex align-items-center gap-1"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-bed text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                2</span
+              >
+              <span class="small d-flex align-items-center"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-bath text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                2</span
+              >
+              <small class="text-muted">120 sqm</small>
+            </div>
+            <div
+              class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
+            >
+              Perfect location for work commute. Close to subway station. Ask
+              about parking availability.
+            </div>
+
+            <small class="text-muted"
+              ><small>Saved on Mar 15, 2025</small></small
+            >
+          </div>
+
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">View</small>
+            </button>
+
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-message"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 9h8" />
+                <path d="M8 13h6" />
+                <path
+                  d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Notes</small>
+            </button>
+
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 26 26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Remove</small>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="hover_item d-flex align-items-start gap-3 px-4 py-3 border-top"
+        >
+          <img
+            src="img/properties_2.jpeg"
+            id="property_rental_img"
+            style="width: 80px"
+            class="rounded-3 object-fit-cover"
+          />
+          <div class="flex-fill">
+            <div
+              class="d-flex align-items-center justify-content-between gap-4 mb-1"
+            >
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">
+                Cozy Studio Apartment
+              </h6>
+              <div
+                class="d-flex align-items-center gap-1 bg-success-subtle text-success rounded-2 px-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-star"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"
+                  />
+                </svg>
+                <small class="mb-0 fw_600"><small>Low</small></small>
+              </div>
+            </div>
+            <p class="small text-muted lh-1 mb-2 text-truncate">
+              321 Pine Street, Portland, OR
+            </p>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">$160/wk</h6>
+              <span class="small d-flex align-items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bed text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                1
+              </span>
+              <span class="small d-flex align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bath text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                1
+              </span>
+              <small class="text-muted">65 sqm</small>
+            </div>
+            <div
+              class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
+            >
+              Good backup option. Budget-friendly. Check if utilities are
+              included.
+            </div>
+            <small class="text-muted"
+              ><small>Saved on Mar 18, 2024</small></small
+            >
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">View</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-message"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 9h8" />
+                <path d="M8 13h6" />
+                <path
+                  d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Notes</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 26 26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-trash"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Remove</small>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="hover_item d-flex align-items-start gap-3 px-4 py-3 border-top"
+        >
+          <img
+            src="img/properties_3.jpeg"
+            id="property_rental_img"
+            style="width: 80px"
+            class="rounded-3 object-fit-cover"
+          />
+          <div class="flex-fill">
+            <div
+              class="d-flex align-items-center justify-content-between gap-4 mb-1"
+            >
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">Urban Townhouse</h6>
+              <div
+                class="d-flex align-items-center gap-1 bg-danger-subtle text-danger rounded-2 px-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-star"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"
+                  />
+                </svg>
+                <small class="mb-0 fw_600"><small>High</small></small>
+              </div>
+            </div>
+            <p class="small text-muted lh-1 mb-2 text-truncate">
+              654 Maple Lane, Seattle, WA
+            </p>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">$380/wk</h6>
+              <span class="small d-flex align-items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bed text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                3
+              </span>
+              <span class="small d-flex align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bath text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                3
+              </span>
+              <small class="text-muted">200 sqm</small>
+            </div>
+            <div
+              class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
+            >
+              Love the garage and outdoor space. Great for family. Schedule
+              viewing ASAP!
+            </div>
+            <small class="text-muted"
+              ><small>Saved on Mar 20, 2024</small></small
+            >
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">View</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-message"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 9h8" />
+                <path d="M8 13h6" />
+                <path
+                  d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Notes</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 26 26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-trash"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Remove</small>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="hover_item d-flex align-items-start gap-3 px-4 py-3 border-top"
+        >
+          <img
+            src="img/properties_4.jpeg"
+            id="property_rental_img"
+            style="width: 80px"
+            class="rounded-3 object-fit-cover"
+          />
+          <div class="flex-fill">
+            <div
+              class="d-flex align-items-center justify-content-between gap-4 mb-1"
+            >
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">
+                Luxury Family House
+              </h6>
+              <div
+                class="d-flex align-items-center gap-1 bg-warning-subtle text-warning-emphasis rounded-2 px-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-star"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"
+                  />
+                </svg>
+                <small class="mb-0 fw_600"><small>Medium</small></small>
+              </div>
+            </div>
+            <p class="small text-muted lh-1 mb-2 text-truncate">
+              456 Oak Avenue, Portland, OR
+            </p>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">$420/wk</h6>
+              <span class="small d-flex align-items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bed text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                4
+              </span>
+              <span class="small d-flex align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bath text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                3
+              </span>
+              <small class="text-muted">280 sqm</small>
+            </div>
+            <div
+              class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
+            >
+              Dream home but slightly over budget. Negotiate rent. Check school
+              district ratings.
+            </div>
+            <small class="text-muted"
+              ><small>Saved on Mar 22, 2024</small></small
+            >
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">View</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-message"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 9h8" />
+                <path d="M8 13h6" />
+                <path
+                  d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Notes</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 26 26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-trash"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Remove</small>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="hover_item d-flex align-items-start gap-3 px-4 py-3 border-top"
+        >
+          <img
+            src="img/properties_5.jpeg"
+            id="property_rental_img"
+            style="width: 80px"
+            class="rounded-3 object-fit-cover"
+          />
+          <div class="flex-fill">
+            <div
+              class="d-flex align-items-center justify-content-between gap-4 mb-1"
+            >
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">
+                Waterfront Penthouse
+              </h6>
+              <div
+                class="d-flex align-items-center gap-1 bg-success-subtle text-success rounded-2 px-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-star"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"
+                  />
+                </svg>
+                <small class="mb-0 fw_600"><small>Low</small></small>
+              </div>
+            </div>
+            <p class="small text-muted lh-1 mb-2 text-truncate">
+              100 Harbor View, Seattle, WA
+            </p>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">$550/wk</h6>
+              <span class="small d-flex align-items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bed text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                3
+              </span>
+              <span class="small d-flex align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bath text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                3
+              </span>
+              <small class="text-muted">220 sqm</small>
+            </div>
+            <div
+              class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
+            >
+              Amazing views! Maybe too expensive but worth considering for
+              special occasions.
+            </div>
+            <small class="text-muted"
+              ><small>Saved on Mar 14, 2024</small></small
+            >
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">View</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-message"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 9h8" />
+                <path d="M8 13h6" />
+                <path
+                  d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Notes</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 26 26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-trash"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Remove</small>
+            </button>
+          </div>
+        </div>
+        <div class="d-flex align-items-start gap-3 px-4 py-3 border-top">
+          <img
+            src="img/properties_6.jpeg"
+            id="property_rental_img"
+            style="width: 80px"
+            class="rounded-3 object-fit-cover"
+          />
+          <div class="flex-fill">
+            <div
+              class="d-flex align-items-center justify-content-between gap-4 mb-1"
+            >
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">
+                Historic Brick Loft
+              </h6>
+              <div
+                class="d-flex align-items-center gap-1 bg-warning-subtle text-warning-emphasis rounded-2 px-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-star"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"
+                  />
+                </svg>
+                <small class="mb-0 fw_600"><small>Medium</small></small>
+              </div>
+            </div>
+            <p class="small text-muted lh-1 mb-2 text-truncate">
+              234 Industrial Way, Portland, OR
+            </p>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">$290/wk</h6>
+              <span class="small d-flex align-items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bed text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                2
+              </span>
+              <span class="small d-flex align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icon-tabler-bath text-muted"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                2
+              </span>
+              <small class="text-muted">140 sqm</small>
+            </div>
+            <div
+              class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
+            >
+              Love the industrial aesthetic! Check noise levels from nearby
+              businesses.
+            </div>
+            <small class="text-muted"
+              ><small>Saved on Mar 19, 2024</small></small
+            >
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">View</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-message"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 9h8" />
+                <path d="M8 13h6" />
+                <path
+                  d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"
+                />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Notes</small>
+            </button>
+            <button
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 26 26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icon-tabler-trash"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              <small class="d-none d-md-inline fw_600">Remove</small>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- pagination -->
+      <div class="d-flex flex-column align-items-center mt-4">
+        <small class="text-muted mb-2">Page 1 of 2</small>
+
+        <nav>
+          <ul class="pagination pagination-sm gap-2">
+            <li class="page-item disabled">
+              <div
+                class="page-link bg-light-subtle rounded px-3 py-2 text-secondary border-light-subtle"
+              >
+                <i class="bi bi-chevron-left small me-0 me-md-1"></i>
+                <p class="mb-0 d-none d-md-inline">Previous</p>
+              </div>
+            </li>
+
+            <li class="page-item">
+              <a
+                class="page-link rounded bg-dark text-white border-dark px-3 py-2"
+                href="#"
+                >1</a
+              >
+            </li>
+
+            <li class="page-item">
+              <a
+                class="page-link rounded text-dark border-light-subtle px-3 py-2"
+                href="#"
+                >2</a
+              >
+            </li>
+
+            <li class="page-item">
+              <div
+                class="page-link d-flex align-items-center rounded px-3 py-2 text-dark border-light-subtle"
+              >
+                <p class="mb-0 d-none d-md-inline">Next</p>
+                <i class="bi bi-chevron-right small ms-0 ms-md-1"></i>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
