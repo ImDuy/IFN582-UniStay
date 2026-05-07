@@ -98,3 +98,10 @@ class University:
         # as we dont really implement any distance calculation feature, we gonna create a nearby table in the database and get the nearby data from that
         pass
 
+
+@dataclass
+class Nearby:
+    id: str
+    property: Property
+    university: University
+    distance: float = 0

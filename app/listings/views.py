@@ -18,7 +18,10 @@ def index():
     # check if user logged in or not
     if not user_id:
         # if user hasn't logged in -> redirect to login page
-        return redirect(url_for('auth.login'))
+        # return redirect(url_for('auth.login'))
+
+        # for now just render the listings page for testing (will be replace with the above return)
+        return render_template('/pages/listings.html', listings = properties)
 
     # check user role
     user_role = session.get('role') 

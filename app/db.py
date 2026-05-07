@@ -88,12 +88,34 @@ uni2 = University(
     name="QUT",
     address="Gardent Point Rd"
 )
+nearby1 = Nearby(
+    id="N001",
+    property=prop1,
+    university=uni1,
+    distance_km=0.5
+)
+
+nearby2 = Nearby(
+    id="N002",
+    property=prop1,
+    university=uni1,
+    distance_km=7.2
+)
+
+nearby3 = Nearby(
+    id="N003",
+    property=prop2,
+    university=uni1,
+    distance_km=1.2
+)
+
 mockAgents = [agent1, agent2]
 mockProperties = [prop1, prop2]
 mockTenants = [tenant1]
 mockBookmarks = [bookmark1]
 mockEnquiries = [enquiry1]
 mockUniversities = [uni1, uni2]
+mockNearby = [nearby1, nearby2, nearby3]
 
 def get_properties_by_agent(agentId):
     agentId = str(agentId)

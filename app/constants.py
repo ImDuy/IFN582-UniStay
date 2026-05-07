@@ -15,3 +15,4 @@ class PropertyAmenity(Enum):
     FITNESS = 'Fitness Center'
     PARKING = 'Parking Space'
     SHARED_KITCHEN = 'Shared Kitchen'
+
