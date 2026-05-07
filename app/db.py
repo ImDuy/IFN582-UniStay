@@ -83,12 +83,17 @@ uni1 = University(
     address="St Lucia QLD 4072"
 )
 
+uni2 = University(
+    id="U002",
+    name="QUT",
+    address="Gardent Point Rd"
+)
 mockAgents = [agent1, agent2]
 mockProperties = [prop1, prop2]
 mockTenants = [tenant1]
 mockBookmarks = [bookmark1]
 mockEnquiries = [enquiry1]
-mockUniversities = [uni1]
+mockUniversities = [uni1, uni2]
 
 def get_properties_by_agent(agentId):
     agentId = str(agentId)
