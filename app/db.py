@@ -92,21 +92,21 @@ nearby1 = Nearby(
     id="N001",
     property=prop1,
     university=uni1,
-    distance_km=0.5
+    distance=0.5
 )
 
 nearby2 = Nearby(
     id="N002",
     property=prop1,
     university=uni1,
-    distance_km=7.2
+    distance=7.2
 )
 
 nearby3 = Nearby(
     id="N003",
     property=prop2,
     university=uni1,
-    distance_km=1.2
+    distance=1.2
 )
 
 mockAgents = [agent1, agent2]
