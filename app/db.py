@@ -28,7 +28,6 @@ prop1 = Property(
     #amenities=["Wifi", "Gym", "AirCon"], ????
     amenities=[PropertyAmenity.WIFI],
     propertyType=[PropertyTypes.STUDIO], # Studio
-    propertyType=1,
     rentPerWeek=450.0,
     numBedrooms=1,
     numBathrooms=1,
