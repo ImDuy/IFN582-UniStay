@@ -27,6 +27,7 @@ prop1 = Property(
     imageUrls=["studio1.jpg", "studio2.jpg"],
     #amenities=["Wifi", "Gym", "AirCon"], ????
     amenities=[PropertyAmenity.WIFI],
+    documentations=["contract_p1.pdf"],
     propertyType=[PropertyTypes.STUDIO], # Studio
     rentPerWeek=450.0,
     numBedrooms=1,
