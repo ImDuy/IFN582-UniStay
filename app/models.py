@@ -41,8 +41,8 @@ class Property:
     imageUrls: List[str]
     amenities: List[PropertyAmenity]
     documentations: List[str]
-    #propertyType: int // I don't understand why you define this to int, I think str is more suitable.
-    propertyType: List[PropertyTypes]
+    #propertyType: int // I don't understand why you define this to int, I think str or this is more suitable.
+    propertyType: PropertyTypes
     rentPerWeek: float
     numBedrooms: int
     numBathrooms: int
