@@ -16,3 +16,9 @@ class PropertyAmenity(Enum):
     PARKING = 'Parking Space'
     SHARED_KITCHEN = 'Shared Kitchen'
 
+class PropertyTypes(Enum): #defining property types
+    APARTMENT = 'Apartment'
+    HOUSE = 'House'
+    CONDO = 'Condo'
+    TOWNHOUSE = 'Townhouse'
+    STUDIO = 'Studio'
