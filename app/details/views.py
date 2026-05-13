@@ -1,5 +1,5 @@
-from flask import Blueprint, render_temlplate, flash, url_for
-from . import details.bp
+from flask import Blueprint, render_template, flash, url_for
+from . import details_bp
 
 @details_bp.route("/details")
 def details():

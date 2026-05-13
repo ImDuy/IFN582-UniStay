@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime, date
 from typing import List
-from app.constants import EnquiryStatus, PropertyAmenity
+from app.constants import EnquiryStatus, PropertyAmenity, PropertyTypes
 
 @dataclass
 class User:

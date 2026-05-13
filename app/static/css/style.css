@@ -215,6 +215,18 @@ input:placeholder-shown {
   aspect-ratio: 1;
 }
 
+.btn_footer {
+  background-color: #101828;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.btn_footer:hover {
+  background-color: #2d4a6b;
+  color: white;
+  transform: translateY(-2px);
+}
+
 /* .flex_row {
   display: flex;
   flex-wrap: wrap;

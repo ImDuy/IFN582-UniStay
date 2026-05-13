@@ -24,14 +24,13 @@ def create_app():
     app.register_blueprint(details_bp, url_prefix = '/properties')
     app.register_blueprint(home_bp)
 
+    @app.errorhandler(404) 
+    # inbuilt function which takes error as parameter 
+    def not_found(e): 
+      return render_template("errors/404.html"),404
+
+    @app.errorhandler(500)
+    def internal_error(e):
+      return render_template("errors/500.html"),500
 
     return app
-
-@app.errorhandler(404) 
-# inbuilt function which takes error as parameter 
-def not_found(e): 
-  return render_template("404.html")
-
-@app.errorhandler(500)
-def internal_error(e):
-  return render_template("500.html")

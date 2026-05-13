@@ -1,5 +1,7 @@
 from datetime import date
 from app.models import *
+from app.constants import PropertyTypes, PropertyAmenity
+
 
 agent1 = Agent(
     id="A001",
@@ -46,7 +48,7 @@ prop2 = Property(
     #amenities=["Laundry", "Kitchen"], ????
     amenities=[PropertyAmenity.SHARED_KITCHEN],
     documentations=["policy.pdf"],
-    propertyType=[PropertyTypes.HOUSE]
+    propertyType=[PropertyTypes.HOUSE],
     rentPerWeek=250.0,
     numBedrooms=4,
     numBathrooms=2,
