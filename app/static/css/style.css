@@ -114,11 +114,11 @@ header .outlined_btn:hover {
 
 /* universities tab  */
 .tab-logo-wrap {
-  width: 0;
+  max-width: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
-  transition: width 0.3s ease, margin-right 0.3s ease;
+  transition: max-width 0.3s ease, margin-right 0.3s ease;
   margin-right: 0;
   flex-shrink: 0;
 }
@@ -132,8 +132,12 @@ header .outlined_btn:hover {
 
 .nav-link:hover .tab-logo-wrap,
 .nav-link.active .tab-logo-wrap {
-  width: 20px;
+  max-width: 20px;
   margin-right: 6px;
+}
+
+.nav-link {
+  white-space: nowrap;
 }
 
 #pills-tab {
