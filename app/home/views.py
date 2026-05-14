@@ -4,4 +4,8 @@ from . import home_bp
 
 @home_bp.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('/pages/index.html')
+
+@home_bp.route('/test-500')
+def error():
+    return render_template('/errors/500.html')

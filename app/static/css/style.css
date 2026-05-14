@@ -201,7 +201,9 @@ input:placeholder-shown {
 
 #home_hero_section {
   padding: 80px 20px;
-  background: linear-gradient(to bottom right, #2563eb, #7e22ce);
+  background-image: url('../img/cities_brisbane.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 #home_search_bar {
