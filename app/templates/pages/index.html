@@ -119,36 +119,48 @@
           </a>
 
             <a
-              class="nav-link"
+              class="nav-link d-flex align-items-center"
               id="pills-uq-tab"
               data-bs-toggle="pill"
               href="#pills-uq"
               role="tab"
               aria-controls="pills-uq"
               aria-selected="true"
-              >University of Queensland</a
+              >
+              <span class="tab-logo-wrap">
+              <img src="{{ url_for('static', filename='img/logo_uq.jpg') }}" class="tab-logo" alt="UQ">
+              </span>
+              University of Queensland</a
             >
             <a
-              class="nav-link"
+              class="nav-link d-flex align-items-center"
               id="pills-qut-tab"
               data-bs-toggle="pill"
               href="#pills-qut"
               role="tab"
               aria-controls="pills-qut"
               aria-selected="false"
-              >Queensland University of Technology</a
+              >
+              <span class="tab-logo-wrap">
+              <img src="{{ url_for('static', filename='img/logo_qut.jpg') }}" class="tab-logo" alt="UQ">
+              </span>
+              Queensland University of Technology</a
             >
             <a
-              class="nav-link"
+              class="nav-link d-flex align-items-center"
               id="pills-gu-tab"
               data-bs-toggle="pill"
               href="#pills-gu"
               role="tab"
               aria-controls="pills-gu"
               aria-selected="false"
-              >Griffith University</a
+              >
+              <span class="tab-logo-wrap">
+              <img src="{{ url_for('static', filename='img/logo_gu.png') }}" class="tab-logo" alt="UQ">
+              </span>Griffith University</a
             >
           </nav>
+
 
           <div class="tab-content" id="pills-tabContent">
             <div

@@ -1,5 +1,5 @@
 html {
-  --main-color: black;
+  --main-color: #101828;
   --contrast-color: white;
   /* --alt-color: rgb(13, 185, 36); */
   --hover-color: rgba(0, 0, 0, 0.642);
@@ -38,8 +38,6 @@ input:placeholder-shown {
   padding: 10px;
 }
 
-
-
 .btn {
   padding: 9px 15px;
   border-radius: 12px;
@@ -61,13 +59,12 @@ input:placeholder-shown {
 }
 
 .primary_btn {
-  background-color: #f3f3f5;
-  color:#101828;
+  background-color: var(--main-color);
 }
 .outlined_btn {
-  border-color: #f3f3f5;
-  background-color: transparent;
-  color: #f3f3f5;
+  border-color: var(--main-color);
+  background-color: var(--contrast-color);
+  color: var(--main-color);
 }
 
 .rounded_btn {
@@ -75,11 +72,35 @@ input:placeholder-shown {
 }
 
 .primary_btn:hover {
+  background-color: var(--hover-color);
+  color: var(--contrast-color);
+}
+
+.outlined_btn:hover {
+  border-color: var(--hover-color);
+  background-color: rgba(0, 0, 0, 0.069);
+  color: var(--hover-color);
+  opacity: 80%;
+}
+
+header .primary_btn {
+  background-color: #f3f3f5;
+  color:#101828;
+}
+
+header .outlined_btn {
+  border-color: #f3f3f5;
+  background-color: transparent;
+  color: #f3f3f5;
+}
+
+
+header .primary_btn:hover {
   background-color: rgba(255, 255, 255, 0.85);
   color:#101828;
 }
 
-.outlined_btn:hover {
+header .outlined_btn:hover {
   border-color: #f3f3f5;
   background-color: rgba(255, 255, 255, 0.15);
   color: #f3f3f5;
@@ -90,6 +111,38 @@ input:placeholder-shown {
   background-color: rgba(0, 0, 0, 0.03);
   cursor: pointer;
 }
+
+/* universities tab  */
+.tab-logo-wrap {
+  width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  transition: width 0.3s ease, margin-right 0.3s ease;
+  margin-right: 0;
+  flex-shrink: 0;
+}
+
+.tab-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.nav-link:hover .tab-logo-wrap,
+.nav-link.active .tab-logo-wrap {
+  width: 20px;
+  margin-right: 6px;
+}
+
+#pills-tab {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* universities tab end */
+
 
 .icon_btn:hover {
   opacity: 50%;
