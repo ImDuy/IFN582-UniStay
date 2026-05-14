@@ -7,10 +7,17 @@ html {
 
 body {
   background-color: #f3f3f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 footer {
-  padding: 60px 20px;
+  padding: 30px 20px;
   background-color: #101828;
 }
 
@@ -27,9 +34,11 @@ input:placeholder-shown {
 }
 
 .navbar {
-  background-color: var(--contrast-color);
+  background-color: #101828;
   padding: 10px;
 }
+
+
 
 .btn {
   padding: 9px 15px;
@@ -52,12 +61,13 @@ input:placeholder-shown {
 }
 
 .primary_btn {
-  background-color: var(--main-color);
+  background-color: #f3f3f5;
+  color:#101828;
 }
 .outlined_btn {
-  border-color: var(--main-color);
-  background-color: var(--contrast-color);
-  color: var(--main-color);
+  border-color: #f3f3f5;
+  background-color: transparent;
+  color: #f3f3f5;
 }
 
 .rounded_btn {
@@ -65,14 +75,14 @@ input:placeholder-shown {
 }
 
 .primary_btn:hover {
-  background-color: var(--hover-color);
-  color: var(--contrast-color);
+  background-color: rgba(255, 255, 255, 0.85);
+  color:#101828;
 }
 
 .outlined_btn:hover {
-  border-color: var(--hover-color);
-  background-color: rgba(0, 0, 0, 0.069);
-  color: var(--hover-color);
+  border-color: #f3f3f5;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #f3f3f5;
   opacity: 80%;
 }
 
@@ -200,8 +210,8 @@ input:placeholder-shown {
 }
 
 #home_hero_section {
-  padding: 80px 20px;
-  background-image: url('../img/cities_brisbane.jpg');
+  padding: 160px 20px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('../img/cities_brisbane.jpg');
   background-size: cover;
   background-position: center;
 }
