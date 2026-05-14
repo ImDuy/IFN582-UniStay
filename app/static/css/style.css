@@ -267,8 +267,8 @@ header .outlined_btn:hover {
 }
 
 #home_hero_section {
-  padding: 160px 20px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('../img/cities_brisbane.jpg');
+  padding: 190px 20px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url('../img/brisbane-2.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -277,6 +277,12 @@ header .outlined_btn:hover {
   max-width: 700px;
   /* padding: 12px 18px; */
   border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+#home_search_bar input {
+  background-color: transparent;
 }
 
 #property_rental_img {
