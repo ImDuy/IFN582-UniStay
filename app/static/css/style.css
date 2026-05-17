@@ -142,9 +142,13 @@ header .outlined_btn:hover {
 
 #pills-tab {
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
+#pills-tab .nav-link {
+  white-space: normal;
+  text-align: center;
+}
 /* universities tab end */
 
 
@@ -268,22 +272,36 @@ header .outlined_btn:hover {
 
 #home_hero_section {
   padding: 190px 20px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url('../img/brisbane-2.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../img/brisbane-2.jpg');
   background-size: cover;
   background-position: center;
 }
 
+#hero_search_wrap {
+  width: 90%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
 #home_search_bar {
+  width: 100%;
   max-width: 700px;
   /* padding: 12px 18px; */
   border-radius: 100px;
   background-color: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(8px);
+  min-height: 70px;
 }
 
 #home_search_bar input {
   background-color: transparent;
+  min-width: 0;
 }
+
+
 
 #property_rental_img {
   width: 66px;
@@ -300,6 +318,16 @@ header .outlined_btn:hover {
   background-color: #2d4a6b;
   color: white;
   transform: translateY(-2px);
+}
+
+#filterModal .btn-outline-dark {
+  color: #101828;
+}
+
+#filterModal .btn-check:checked + .btn-outline-dark {
+  color: white;
+  background-color: #101828;
+  border-color: #101828;
 }
 
 /* .flex_row {

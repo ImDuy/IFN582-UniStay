@@ -14,87 +14,73 @@
         <p class="fs-5 text-center opacity-75 contrast_color">
           Search thousands of rental properties near your university
         </p>
-        <div
-          class="container d-flex align-items-center border border-dark px-2 px-md-3 py-1 py-sm-2"
-          id="home_search_bar"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#000000ad"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-search d-none d-md-inline"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-            <path d="M21 21l-6 -6" />
-          </svg>
-          <input
-            class="flex-fill border-0 ms-2 me-2 me-md-3"
-            type="search"
-            placeholder="Search University | Suburb | City | State"
-          />
-          <button
-            type="button"
-            class="btn d-flex justify-content-center gap-2 me-1 outlined_btn rounded-pill more_pd_btn"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-              stroke="#00000098"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments-horizontal"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-              <path d="M4 6l8 0" />
-              <path d="M16 6l4 0" />
-              <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-              <path d="M4 12l2 0" />
-              <path d="M10 12l10 0" />
-              <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-              <path d="M4 18l11 0" />
-              <path d="M19 18l1 0" />
-            </svg>
-            <p class="d-none d-md-inline mb-0">Filter</p>
-          </button>
-          <button
-            type="button"
-            class="btn primary_btn rounded-pill more_pd_btn"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-search d-inline d-md-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-              <path d="M21 21l-6 -6" />
-            </svg>
-            <p class="d-none d-md-inline mb-0">Search</p>
-          </button>
-        </div>
-      </section>
+          <div id="hero_search_wrap">
+            <!-- search bar -->
+            <div class="d-flex align-items-center px-2 px-md-3 py-1 py-sm-2" id="home_search_bar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000ad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-none d-md-inline">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                <path d="M21 21l-6 -6"/>
+              </svg>
+              <input class="flex-fill border-0 ms-2 me-2" type="search" placeholder="Search University | Suburb | City | State"/>
 
-      <!-- Popular cities -->
-      
+              <!-- big screen (buttons in bar) -->
+              <div class="d-none d-sm-flex gap-2">
+                <button 
+                type="button" 
+                class="btn outlined_btn rounded-pill more_pd_btn" 
+                data-bs-toggle="modal" 
+                data-bs-target="#filterModal"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#00000098" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                    <path d="M4 6l8 0"/><path d="M16 6l4 0"/>
+                    <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                    <path d="M4 12l2 0"/><path d="M10 12l10 0"/>
+                    <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                    <path d="M4 18l11 0"/><path d="M19 18l1 0"/>
+                  </svg>
+                  <p class="d-none d-md-inline mb-0">Filter</p>
+                </button>
+                <button type="button" class="btn primary_btn rounded-pill more_pd_btn">
+                  <p class="mb-0">Search</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- small screen (buttons outside bar) -->
+            <div class="d-flex d-sm-none gap-2">
+              <!-- filter -->
+              <button type="button" class="btn outlined_btn rounded-pill more_pd_btn hero_filter_btn" 
+              data-bs-toggle="modal" 
+              data-bs-target="#filterModal"
+              style="background-color:#f0f0f0;"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#00000098" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                  <path d="M4 6l8 0"/><path d="M16 6l4 0"/>
+                  <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                  <path d="M4 12l2 0"/><path d="M10 12l10 0"/>
+                  <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                  <path d="M4 18l11 0"/><path d="M19 18l1 0"/>
+                </svg>
+              </button>
+              <!-- search -->
+              <button 
+              type="button" 
+              class="btn primary_btn rounded-pill more_pd_btn"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                  <path d="M21 21l-6 -6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+      </section>      
 
       <!-- Top rental properties near universities -->
       <section class="bg-light">
@@ -105,7 +91,7 @@
 
           <!-- university tabs -->
           <nav
-            class="nav nav-pills align-items-center justify-content-center"
+            class="nav nav-pills align-items-center justify-content-cente flex-column flex-lg-row"
             id="pills-tab"
             role="tablist"
           >
@@ -2154,4 +2140,145 @@
       </section>
     </main>
 
+{% endblock %}
+
+{% block modals%}
+<!-- Filter Modal -->
+          <div class="modal fade" id="filterModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content rounded-4">
+
+                <div class="modal-header border-bottom position-relative">
+                  <h5 class="modal-title w-100 text-center">Filters</h5>
+                  <button 
+                  type="button" 
+                  class="btn-close position-absolute end-0 me-3" 
+                  data-bs-dismiss="modal"
+                  >
+                  </button>
+                </div>
+
+                <div class="modal-body d-flex flex-column gap-4">
+
+                  <!-- University -->
+                  <div>
+                    <p class="fw-semibold mb-2">University</p>
+                    <div class="d-flex flex-wrap gap-2">
+                      <input type="radio" class="btn-check" name="uni" id="uni-all" checked>
+                      <label class="btn btn-outline-dark rounded-pill" for="uni-all">All</label>
+
+                      <input type="radio" class="btn-check" name="uni" id="uni-uq">
+                      <label class="btn btn-outline-dark rounded-pill" for="uni-uq">UQ</label>
+
+                      <input type="radio" class="btn-check" name="uni" id="uni-qut">
+                      <label class="btn btn-outline-dark rounded-pill" for="uni-qut">QUT</label>
+
+                      <input type="radio" class="btn-check" name="uni" id="uni-griffith">
+                      <label class="btn btn-outline-dark rounded-pill" for="uni-griffith">Griffith</label>
+                    </div>
+                  </div>
+
+                  <hr class="m-0">
+
+                  <!-- price -->
+                   <div>
+                    <p class="fw-semibold mb-2">Price per week</p>
+                    <div class="d-flex align-items-center gap-2">
+                      <select class="form-select rounded-pill" name="price_min">
+                        <option value="200">Min $200</option>
+                        <option value="400">Min $400</option>
+                        <option value="600">Min $600</option>
+                        <option value="800">Min $800</option>
+                      </select>
+                      <span class="text-muted">–</span>
+                      <select class="form-select rounded-pill" name="price_max">
+                        <option value="1000">Max $1,000</option>
+                        <option value="1200" selected>Max $1,200</option>
+                        <option value="1500">Max $1,500</option>
+                        <option value="2000">Max $2,000</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <hr class="m-0">
+
+                  <!-- Room Type -->
+                  <div>
+                    <p class="fw-semibold mb-2">Room type</p>
+                    <div class="d-flex flex-wrap gap-2">
+                      <input type="radio" class="btn-check" name="type" id="type-all" checked>
+                      <label class="btn btn-outline-dark rounded-pill" for="type-all">All</label>
+
+                      <input type="radio" class="btn-check" name="type" id="type-studio">
+                      <label class="btn btn-outline-dark rounded-pill" for="type-studio">Studio</label>
+
+                      <input type="radio" class="btn-check" name="type" id="type-1bed">
+                      <label class="btn btn-outline-dark rounded-pill" for="type-1bed">1 Bedroom</label>
+
+                      <input type="radio" class="btn-check" name="type" id="type-2bed">
+                      <label class="btn btn-outline-dark rounded-pill" for="type-2bed">2 Bedroom</label>
+
+                      <input type="radio" class="btn-check" name="type" id="type-shared">
+                      <label class="btn btn-outline-dark rounded-pill" for="type-shared">Shared</label>
+                    </div>
+                  </div>
+
+                  <hr class="m-0">
+
+                  <!-- Distance -->
+                  <div>
+                    <p class="fw-semibold mb-2">Distance to campus</p>
+                    <div class="d-flex flex-wrap gap-2">
+                      <input type="radio" class="btn-check" name="dist" id="dist-any" checked>
+                      <label class="btn btn-outline-dark rounded-pill" for="dist-any">Any</label>
+
+                      <input type="radio" class="btn-check" name="dist" id="dist-500">
+                      <label class="btn btn-outline-dark rounded-pill" for="dist-500">Under 500m</label>
+
+                      <input type="radio" class="btn-check" name="dist" id="dist-1k">
+                      <label class="btn btn-outline-dark rounded-pill" for="dist-1k">Under 1 km</label>
+
+                      <input type="radio" class="btn-check" name="dist" id="dist-2k">
+                      <label class="btn btn-outline-dark rounded-pill" for="dist-2k">Under 2 km</label>
+                    </div>
+                  </div>
+
+                  <hr class="m-0">
+
+                  <!-- Amenities -->
+                  <div>
+                    <p class="fw-semibold mb-2">Amenities</p>
+                    <div class="d-flex flex-wrap gap-2">
+                      <input type="checkbox" class="btn-check" id="am-wifi">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-wifi">Wi-Fi</label>
+
+                      <input type="checkbox" class="btn-check" id="am-ac">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-ac">Air conditioning</label>
+
+                      <input type="checkbox" class="btn-check" id="am-washer">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-washer">Washing machine</label>
+
+                      <input type="checkbox" class="btn-check" id="am-gym">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-gym">Gym</label>
+
+                      <input type="checkbox" class="btn-check" id="am-bills">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-bills">Bills included</label>
+
+                      <input type="checkbox" class="btn-check" id="am-pets">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-pets">Pet friendly</label>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="modal-footer border-top">
+                  <button type="button" class="btn w-100 py-3 rounded-3 fw-semibold"
+                    style="background:#101828; color:white;" data-bs-dismiss="modal">
+                    Show results
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
 {% endblock %}
