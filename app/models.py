@@ -53,7 +53,7 @@ class Property:
     agent: Agent  # the agent who manages this property
 
     # these attributes are for showing on listings page only, other pages no need to use them
-    newEnquiryCount
+    new_enquiry_count: int = 0
 
     def get_nearby_universities(self):
         # this one is to show nearby universities in the property details page
