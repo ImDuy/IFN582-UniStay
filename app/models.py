@@ -38,6 +38,7 @@ class Property:
     id: str
     title: str
     address: str
+    description: str
     imageUrls: List[str]
     amenities: List[PropertyAmenity]
     documentations: List[str]
