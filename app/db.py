@@ -1,23 +1,23 @@
 from datetime import date
 from app.models import *
-from app.constants import PropertyTypes, PropertyAmenity
+from app.constants import PropertyType, PropertyAmenity
 
 
 agent1 = Agent(
     id="A001",
     username="jack_realtor",
-    firstName="Jack",
-    lastName="Smith",
+    first_name="Jack",
+    last_name="Smith",
     email="jack@agency.com",
     phone="0412345678",
-    avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=Jack"
+    avatar_url="https://api.dicebear.com/7.x/avataaars/svg?seed=Jack"
 )
 
 agent2 = Agent(
     id="A002",
     username="sarah_pro",
-    firstName="Sarah",
-    lastName="Wilson",
+    first_name="Sarah",
+    last_name="Wilson",
     email="sarah@agency.com",
     phone="0488776655"
 )
@@ -27,15 +27,15 @@ prop1 = Property(
     title="Modern Studio near UQ",
     address="123 Saint Lucia, Brisbane",
     description= "Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.",
-    imageUrls=["img/properties_1.jpeg", "studio2.jpg"],
+    image_urls=["properties_1.jpeg", "studio2.jpg"],
     amenities=[PropertyAmenity.WIFI],
     documentations=["contract_p1.pdf"],
-    propertyType=PropertyTypes.STUDIO, # Studio
-    rentPerWeek=450.0,
-    numBedrooms=1,
-    numBathrooms=1,
-    livingArea=45.5,
-    availableDate=date(2026, 6, 1),
+    property_type=PropertyType.STUDIO, # Studio
+    rent_per_week=450.0,
+    bedroom_count=1,
+    bathroom_count=1,
+    living_area=45.5,
+    available_date=date(2026, 6, 1),
     rating=4.8,
     agent=agent1
 )
@@ -45,15 +45,15 @@ prop2 = Property(
     title="Shared House for Students",
     address="456 Toowong, Brisbane",
     description= "Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.",
-    imageUrls=["img/properties_2.jpeg"],
+    image_urls=["properties_2.jpeg"],
     amenities=[PropertyAmenity.SHARED_KITCHEN],
     documentations=["policy.pdf"],
-    propertyType=PropertyTypes.HOUSE,
-    rentPerWeek=250.0,
-    numBedrooms=4,
-    numBathrooms=2,
-    livingArea=120.0,
-    availableDate=date(2026, 5, 20),
+    property_type=PropertyType.HOUSE,
+    rent_per_week=250.0,
+    bedroom_count=4,
+    bathroom_count=2,
+    living_area=120.0,
+    available_date=date(2026, 5, 20),
     rating=4.2,
     agent=agent2
 )
@@ -63,15 +63,15 @@ prop3 = Property(
     title="Luxury Riverside Studio",
     address="789 Marine Parade, South Bank",
     description="Stunning studio apartment overlooking the Brisbane River. This premium space boasts top-of-the-line appliances, a private balcony, and floor-to-ceiling windows. Residents get exclusive access to the rooftop infinity pool and gym. Perfect for a young professional or couple looking for a vibrant lifestyle.",
-    imageUrls=["img/properties_3.jpeg"],
+    image_urls=["properties_3.jpeg"],
     amenities=[PropertyAmenity.PARKING, PropertyAmenity.WIFI, PropertyAmenity.FITNESS],
     documentations=["contract_p3.pdf"],
-    propertyType=PropertyTypes.APARTMENT,
-    rentPerWeek=550.0,
-    numBedrooms=1,
-    numBathrooms=1,
-    livingArea=55.0,
-    availableDate=date(2026, 6, 1),
+    property_type=PropertyType.APARTMENT,
+    rent_per_week=550.0,
+    bedroom_count=1,
+    bathroom_count=1,
+    living_area=55.0,
+    available_date=date(2026, 6, 1),
     rating=4.8,
     agent=agent1
 )
@@ -81,15 +81,15 @@ prop4 = Property(
     title="Spacious Family Home with Backyard",
     address="12 Chelmer Street, Chelmer",
     description="Charming Queenslander home in a quiet, leafy suburb. Features a massive fully-fenced backyard perfect for kids and pets, a massive wrap-around veranda, and character features throughout. Located within a top-tier school catchment zone and just a short walk to the train station.",
-    imageUrls=["img/properties_4.jpeg", "img/properties_4_yard.jpeg"],
+    image_urls=["properties_4.jpeg", "properties_4_yard.jpeg"],
     amenities=[PropertyAmenity.PARKING],
     documentations=["pet_policy.pdf"],
-    propertyType=PropertyTypes.HOUSE,
-    rentPerWeek=820.0,
-    numBedrooms=4,
-    numBathrooms=2.5,
-    livingArea=210.0,
-    availableDate=date(2026, 5, 25),
+    property_type=PropertyType.HOUSE,
+    rent_per_week=820.0,
+    bedroom_count=4,
+    bathroom_count=2.5,
+    living_area=210.0,
+    available_date=date(2026, 5, 25),
     rating=4.5,
     agent=agent2
 )
@@ -97,8 +97,8 @@ prop4 = Property(
 tenant1 = Tenant(
     id="T001",
     username="minh_nguyen",
-    firstName="Minh",
-    lastName="Nguyen",
+    first_name="Minh",
+    last_name="Nguyen",
     email="minh@student.edu.au",
     phone="0411223344"
 )
@@ -113,7 +113,7 @@ bookmark1 = Bookmark(
 enquiry1 = Enquiry(
     id="E001",
     sender=tenant1,
-    targetProperty=prop1,
+    target_property=prop1,
     status= EnquiryStatus.NEW
 )
 

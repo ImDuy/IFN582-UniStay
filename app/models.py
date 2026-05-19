@@ -1,17 +1,17 @@
 from dataclasses import dataclass, field
 from datetime import datetime, date
 from typing import List
-from app.constants import EnquiryStatus, PropertyAmenity, PropertyTypes
+from app.constants import EnquiryStatus, PropertyAmenity, PropertyType
 
 @dataclass
 class User:
     id: str
     username: str
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
     email: str
     phone: str
-    avatarUrl: str | None = None
+    avatar_url: str | None = None
 
     def register(self):
         pass
@@ -39,18 +39,21 @@ class Property:
     title: str
     address: str
     description: str
-    imageUrls: List[str]
+    image_urls: List[str]
     amenities: List[PropertyAmenity]
     documentations: List[str]
     #propertyType: int // I don't understand why you define this to int, I think str or this is more suitable.
-    propertyType: PropertyTypes
-    rentPerWeek: float
-    numBedrooms: int
-    numBathrooms: int
-    livingArea: float
-    availableDate: date
+    property_type: PropertyType
+    rent_per_week: float
+    bedroom_count: int
+    bathroom_count: int
+    living_area: float
+    available_date: date
     rating: float
     agent: Agent  # the agent who manages this property
+
+    # these attributes are for showing on listings page only, other pages no need to use them
+    newEnquiryCount
 
     def get_nearby_universities(self):
         # this one is to show nearby universities in the property details page
@@ -77,9 +80,9 @@ class Tenant(User):
 class Enquiry:
     id: str
     sender: Tenant
-    targetProperty: Property
+    target_property: Property
     status: EnquiryStatus
-    submittedDate: datetime = datetime.now()
+    created_at: datetime = datetime.now()
 
 @dataclass
 class Bookmark:
@@ -87,7 +90,7 @@ class Bookmark:
     tenant: Tenant
     property: Property
     note: str
-    createdAt: datetime = datetime.now()
+    created_at: datetime = datetime.now()
 
 @dataclass
 class University:
