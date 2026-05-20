@@ -44,7 +44,7 @@ class Property:
     documentations: List[str]
     #propertyType: int // I don't understand why you define this to int, I think str or this is more suitable.
     property_type: PropertyType
-    rent_per_week: float
+    rent_per_week: int
     bedroom_count: int
     bathroom_count: int
     living_area: float
