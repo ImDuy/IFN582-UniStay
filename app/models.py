@@ -39,18 +39,17 @@ class Property:
     title: str
     address: str
     description: str
-    image_urls: List[str]
     amenities: List[PropertyAmenity]
-    documentations: List[str]
-    #propertyType: int // I don't understand why you define this to int, I think str or this is more suitable.
     property_type: PropertyType
     rent_per_week: int
     bedroom_count: int
     bathroom_count: int
     living_area: float
     available_date: date
-    rating: float
     agent: Agent  # the agent who manages this property
+    rating: float = None # should be removed as our app doesnt have any rating system
+    image_urls: List[str] = field(default_factory=lambda: ['properties_1.jpeg'])
+    documentations: List[str] = field(default_factory=lambda: ['documentation_1.pdf'])
 
     # these attributes are for showing on listings page only, other pages no need to use them
     new_enquiry_count: int = 0
