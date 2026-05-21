@@ -1,4 +1,5 @@
 from datetime import date
+import uuid
 from app.models import *
 from app.constants import PropertyType, PropertyAmenity
 
@@ -169,3 +170,30 @@ def get_nearby():
 
 def get_university():
     return mockUniversities
+def add_property(form):
+    mockProperties.append(Property(id=str(uuid.uuid4()),title = form.title.data,address=form.address.data,
+                                   description = form.description.data,amenities = form.amenities.data, 
+                                   property_type = form.property_type.data,rent_per_week = form.rent_per_week.data,
+                                   bedroom_count = form.bedroom_count.data,bathroom_count = form.bathroom_count.data,
+                                   living_area = form.living_area.data,available_date = form.available_date.data,
+                                   agent=Agent(id=uuid.uuid4(),username='',first_name='',last_name='',email='', phone='') # mock agent as currently the auth system hasnt been implemented
+                                   ))
+def update_property(property_id, form):
+    for prop in mockProperties:
+        if prop.id == property_id:
+            prop.title = form.title.data
+            prop.address = form.address.data
+            prop.description = form.description.data
+            prop.amenities = form.amenities.data
+            prop.property_type = form.property_type.data
+            prop.rent_per_week = form.rent_per_week.data
+            prop.bedroom_count = form.bedroom_count.data
+            prop.bathroom_count = form.bathroom_count.data
+            prop.living_area = form.living_area.data
+            prop.available_date = form.available_date.data
+            break
+def delete_property(property_id):
+    for idx in range(len(mockProperties)):
+        if mockProperties[idx].id == property_id:
+            del mockProperties[idx]
+            break
