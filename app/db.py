@@ -37,7 +37,6 @@ prop1 = Property(
     bathroom_count=1,
     living_area=45.5,
     available_date=date(2026, 6, 1),
-    rating=4.8,
     agent=agent1
 )
 
@@ -55,7 +54,6 @@ prop2 = Property(
     bathroom_count=2,
     living_area=120.0,
     available_date=date(2026, 5, 20),
-    rating=4.2,
     agent=agent2
 )
 
@@ -73,7 +71,6 @@ prop3 = Property(
     bathroom_count=1,
     living_area=55.0,
     available_date=date(2026, 6, 1),
-    rating=4.8,
     agent=agent1
 )
 
@@ -91,7 +88,6 @@ prop4 = Property(
     bathroom_count=2,
     living_area=210.0,
     available_date=date(2026, 5, 25),
-    rating=4.5,
     agent=agent2
 )
 

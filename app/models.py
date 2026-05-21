@@ -47,7 +47,6 @@ class Property:
     living_area: float
     available_date: date
     agent: Agent  # the agent who manages this property
-    rating: float = None # should be removed as our app doesnt have any rating system
     image_urls: List[str] = field(default_factory=lambda: ['properties_1.jpeg'])
     documentations: List[str] = field(default_factory=lambda: ['documentation_1.pdf'])
 
