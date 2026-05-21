@@ -166,6 +166,20 @@ def get_nearby():
 
 def get_university():
     return mockUniversities
+
+def get_properties_by_university(uni_name):
+    uq_properties = [prop1, prop2]
+    qut_properties = [prop3]
+    griffith_properties = [prop4]
+
+    if uni_name == "uq":
+        return uq_properties
+    elif uni_name == "qut":
+        return qut_properties
+    elif uni_name == "griffith":
+        return griffith_properties
+    return mockProperties
+
 def add_property(form):
     mockProperties.append(Property(id=str(uuid.uuid4()),title = form.title.data,address=form.address.data,
                                    description = form.description.data,amenities = form.amenities.data, 

@@ -147,18 +147,19 @@
             >
           </nav>
 
-<!-- property cards -->
+      <!-- property cards -->
+      <div class="tab-content" id="pills-tabContent">
 
-          <div class="tab-content" id="pills-tabContent">
+            <!-- view all -->
             <div
               class="tab-pane fade show active"
-              id="pills-uq"
+              id="pills-all"
               role="tabpanel"
             >
               <div
                 class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
               >
-              {% for property in properties %}
+                {% for property in all_properties %}
                 <div class="col">
                   <div class="card rounded-4 property_card">
                     <div class="rounded-top-4 overflow-hidden">
@@ -200,8 +201,7 @@
                         <div class="border rounded-3 border-gray p-1">
                           <small class="text_max_2_lines"
                             ><small>
-                              <span class="fw-bold">{{ nearby.distance }}</span> from
-                              {{ nearby.university.name }}
+                              <span class="fw-bold">{{ nearby.distance }}</span>
                             </small></small
                           >
                           <div class="border-top border-gray my-1"></div>
@@ -271,25 +271,280 @@
                     </div>
                   </div>
                 </div>
+                {% endfor %}
+              </div>
+            </div> 
+            <!-- UQ -->
+            <div class="tab-pane fade" 
+              id="pills-uq"
+              role="tabpanel">
+              <div 
+              class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
+              >
+                {# pills-uq-tab #}
+                {% for property in uq_properties %}
+                <div class="col">
+                  <div class="card rounded-4 property_card">
+                    <div class="rounded-top-4 overflow-hidden">
+                      <img
+                        src="{{ property.image_urls[0] }}"
+                        class="card-img-top"
+                        alt="{{ property.title }}"
+                      />
+                    </div>
+                    <div class="card-body px-0">
+                      <div class="property_card_body_pd_x">
+                        <h5 class="card-title mb-0 property_card_title">
+                          {{ property.title }}
+                        </h5>
+                        <div class="d-flex align-items-center my-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            <path
+                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
+                            />
+                          </svg>
+                          <small class="card-text flex-1 text-truncate ms-1">
+                            {{ property.address }}
+                          </small>
+                        </div>
 
+                        <div class="border rounded-3 border-gray p-1">
+                          <small class="text_max_2_lines"
+                            ><small>
+                              <span class="fw-bold">{{ nearby.distance }}</span>
+                            </small></small
+                          >
+                          <div class="border-top border-gray my-1"></div>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="currentColor"
+                                class="bi bi-car-front-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"
+                                />
+                              </svg>
+                              <small><small>{{ nearby.distance }}</small></small>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="currentColor"
+                                class="bi bi-train-front-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M10.621.515C8.647.02 7.353.02 5.38.515c-.924.23-1.982.766-2.78 1.22C1.566 2.322 1 3.432 1 4.582V13.5A2.5 2.5 0 0 0 3.5 16h9a2.5 2.5 0 0 0 2.5-2.5V4.583c0-1.15-.565-2.26-1.6-2.849-.797-.453-1.855-.988-2.779-1.22ZM6.5 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m-2 2h7A1.5 1.5 0 0 1 13 5.5v2A1.5 1.5 0 0 1 11.5 9h-7A1.5 1.5 0 0 1 3 7.5v-2A1.5 1.5 0 0 1 4.5 4m.5 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m0 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0m8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2M4 5.5a.5.5 0 0 1 .5-.5h3v3h-3a.5.5 0 0 1-.5-.5zM8.5 8V5h3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5z"
+                                />
+                              </svg>
+                              <small><small>{{ nearby.distance }}</small></small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="currentColor"
+                                class="bi bi-person-walking"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6.44 3.752A.75.75 0 0 1 7 3.5h1.445c.742 0 1.32.643 1.243 1.38l-.43 4.083a1.8 1.8 0 0 1-.088.395l-.318.906.213.242a.8.8 0 0 1 .114.175l2 4.25a.75.75 0 1 1-1.357.638l-1.956-4.154-1.68-1.921A.75.75 0 0 1 6 8.96l.138-2.613-.435.489-.464 2.786a.75.75 0 1 1-1.48-.246l.5-3a.75.75 0 0 1 .18-.375l2-2.25Z"
+                                />
+                                <path
+                                  d="M6.25 11.745v-1.418l1.204 1.375.261.524a.8.8 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843.006-.067 1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"
+                                />
+                              </svg>
+                              <small><small>{{ nearby.distance }}</small></small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="border-top mt-3 mb-2"></div>
+
+                      <div
+                        class="d-flex justify-content-center property_card_body_pd_x"
+                      >
+                        <small class="card-text text-">
+                          From
+                          <span class="property_card_title">${{ property.rent_per_week }}</span>/week
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div> 
+            <!-- QUT -->
+            <div 
+                class="tab-pane fade" 
+                id="pills-qut" 
+                role="tabpanel">
+              <div
+                class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 justify-content-center mt-4 mt-xl-5"
+              >
+              {# pills-uq-tab #}
+              {% for property in qut_properties %}
+                <div class="col">
+                  <div class="card rounded-4 property_card">
+                    <div class="rounded-top-4 overflow-hidden">
+                      <img
+                        src="{{ property.image_urls[0] }}"
+                        class="card-img-top"
+                        alt="{{ property.title }}"
+                      />
+                    </div>
+                    <div class="card-body px-0">
+                      <div class="property_card_body_pd_x">
+                        <h5 class="card-title mb-0 property_card_title">
+                          {{ property.title }}
+                        </h5>
+                        <div class="d-flex align-items-center my-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            <path
+                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
+                            />
+                          </svg>
+                          <small class="card-text flex-1 text-truncate ms-1">
+                            {{ property.address }}
+                          </small>
+                        </div>
+
+                        <div class="border rounded-3 border-gray p-1">
+                          <small class="text_max_2_lines"
+                            ><small>
+                              <span class="fw-bold">{{ nearby.distance }}</span> 
+                            </small></small
+                          >
+                          <div class="border-top border-gray my-1"></div>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="currentColor"
+                                class="bi bi-car-front-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"
+                                />
+                              </svg>
+                              <small><small>{{ nearby.distance }}</small></small>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="currentColor"
+                                class="bi bi-train-front-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M10.621.515C8.647.02 7.353.02 5.38.515c-.924.23-1.982.766-2.78 1.22C1.566 2.322 1 3.432 1 4.582V13.5A2.5 2.5 0 0 0 3.5 16h9a2.5 2.5 0 0 0 2.5-2.5V4.583c0-1.15-.565-2.26-1.6-2.849-.797-.453-1.855-.988-2.779-1.22ZM6.5 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m-2 2h7A1.5 1.5 0 0 1 13 5.5v2A1.5 1.5 0 0 1 11.5 9h-7A1.5 1.5 0 0 1 3 7.5v-2A1.5 1.5 0 0 1 4.5 4m.5 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m0 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0m8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2M4 5.5a.5.5 0 0 1 .5-.5h3v3h-3a.5.5 0 0 1-.5-.5zM8.5 8V5h3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5z"
+                                />
+                              </svg>
+                              <small><small>{{ nearby.distance }}</small></small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="currentColor"
+                                class="bi bi-person-walking"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6.44 3.752A.75.75 0 0 1 7 3.5h1.445c.742 0 1.32.643 1.243 1.38l-.43 4.083a1.8 1.8 0 0 1-.088.395l-.318.906.213.242a.8.8 0 0 1 .114.175l2 4.25a.75.75 0 1 1-1.357.638l-1.956-4.154-1.68-1.921A.75.75 0 0 1 6 8.96l.138-2.613-.435.489-.464 2.786a.75.75 0 1 1-1.48-.246l.5-3a.75.75 0 0 1 .18-.375l2-2.25Z"
+                                />
+                                <path
+                                  d="M6.25 11.745v-1.418l1.204 1.375.261.524a.8.8 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843.006-.067 1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"
+                                />
+                              </svg>
+                              <small><small>{{ nearby.distance }}</small></small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="border-top mt-3 mb-2"></div>
+
+                      <div
+                        class="d-flex justify-content-center property_card_body_pd_x"
+                      >
+                        <small class="card-text text-">
+                          From
+                          <span class="property_card_title">${{ property.rent_per_week }}</span>/week
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               {% endfor %}
+              </div>
+            </div>
 
+              <!-- Griffith -->
+            <div 
+              class="tab-pane fade" 
+              id="pills-gu" 
+              role="tabpanel">
+              <div
+                class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 justify-content-center mt-4 mt-xl-5"
+              >
+                {# pills-gu-tab #}
+                {% for property in griffith_properties %}
                 <div class="col">
                   <div class="card rounded-4 property_card">
                     <div class="rounded-top-4 overflow-hidden">
                       <img
-                        src="img/properties_2.jpeg"
+                        src="{{ property.image_urls[0] }}"
                         class="card-img-top"
-                        alt="card-img-top"
+                        alt="{{ property.title }}"
                       />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.8</small></small>
-                      </div>
                     </div>
                     <div class="card-body px-0">
                       <div class="property_card_body_pd_x">
                         <h5 class="card-title mb-0 property_card_title">
-                          Riverside Gardens
+                          {{ property.title }}
                         </h5>
                         <div class="d-flex align-items-center my-1">
                           <svg
@@ -311,15 +566,14 @@
                             />
                           </svg>
                           <small class="card-text flex-1 text-truncate ms-1">
-                            127 Macquarie St, St Lucia
+                            {{ property.address }}
                           </small>
                         </div>
 
                         <div class="border rounded-3 border-gray p-1">
                           <small class="text_max_2_lines"
                             ><small>
-                              <span class="fw-bold">1.1 km</span> from
-                              University of Queensland
+                              <span class="fw-bold">{{ nearby.distance }}</span> 
                             </small></small
                           >
                           <div class="border-top border-gray my-1"></div>
@@ -337,7 +591,7 @@
                                   d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"
                                 />
                               </svg>
-                              <small><small>3 min</small></small>
+                              <small><small>{{ nearby.distance }}</small></small>
                             </div>
                             <div class="d-flex align-items-center gap-1">
                               <svg
@@ -352,7 +606,7 @@
                                   d="M10.621.515C8.647.02 7.353.02 5.38.515c-.924.23-1.982.766-2.78 1.22C1.566 2.322 1 3.432 1 4.582V13.5A2.5 2.5 0 0 0 3.5 16h9a2.5 2.5 0 0 0 2.5-2.5V4.583c0-1.15-.565-2.26-1.6-2.849-.797-.453-1.855-.988-2.779-1.22ZM6.5 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m-2 2h7A1.5 1.5 0 0 1 13 5.5v2A1.5 1.5 0 0 1 11.5 9h-7A1.5 1.5 0 0 1 3 7.5v-2A1.5 1.5 0 0 1 4.5 4m.5 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m0 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0m8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2M4 5.5a.5.5 0 0 1 .5-.5h3v3h-3a.5.5 0 0 1-.5-.5zM8.5 8V5h3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5z"
                                 />
                               </svg>
-                              <small><small>6 min</small></small>
+                              <small><small>{{ nearby.distance }}</small></small>
                             </div>
                             <div class="d-flex align-items-center">
                               <svg
@@ -370,7 +624,7 @@
                                   d="M6.25 11.745v-1.418l1.204 1.375.261.524a.8.8 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843.006-.067 1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"
                                 />
                               </svg>
-                              <small><small>14 min</small></small>
+                              <small><small>{{ nearby.distance }}</small></small>
                             </div>
                           </div>
                         </div>
@@ -383,1762 +637,15 @@
                       >
                         <small class="card-text text-">
                           From
-                          <span class="property_card_title">$780</span>/week
+                          <span class="property_card_title">${{ property.rent_per_week }}</span>/week
                         </small>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_3.jpeg"
-                        class="card-img-top"
-                        alt="card-img-top"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.9</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Carmody Court
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1">
-                            182 Carmody Rd, St Lucia
-                          </small>
-                        </div>
-
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small>
-                              <span class="fw-bold">1.4 km</span> from
-                              University of Queensland
-                            </small></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="15"
-                                height="15"
-                                fill="currentColor"
-                                class="bi bi-car-front-fill"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"
-                                />
-                              </svg>
-                              <small><small>4 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="15"
-                                height="15"
-                                fill="currentColor"
-                                class="bi bi-train-front-fill"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  d="M10.621.515C8.647.02 7.353.02 5.38.515c-.924.23-1.982.766-2.78 1.22C1.566 2.322 1 3.432 1 4.582V13.5A2.5 2.5 0 0 0 3.5 16h9a2.5 2.5 0 0 0 2.5-2.5V4.583c0-1.15-.565-2.26-1.6-2.849-.797-.453-1.855-.988-2.779-1.22ZM6.5 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m-2 2h7A1.5 1.5 0 0 1 13 5.5v2A1.5 1.5 0 0 1 11.5 9h-7A1.5 1.5 0 0 1 3 7.5v-2A1.5 1.5 0 0 1 4.5 4m.5 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m0 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0m8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2M4 5.5a.5.5 0 0 1 .5-.5h3v3h-3a.5.5 0 0 1-.5-.5zM8.5 8V5h3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5z"
-                                />
-                              </svg>
-                              <small><small>8 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="15"
-                                height="15"
-                                fill="currentColor"
-                                class="bi bi-person-walking"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6.44 3.752A.75.75 0 0 1 7 3.5h1.445c.742 0 1.32.643 1.243 1.38l-.43 4.083a1.8 1.8 0 0 1-.088.395l-.318.906.213.242a.8.8 0 0 1 .114.175l2 4.25a.75.75 0 1 1-1.357.638l-1.956-4.154-1.68-1.921A.75.75 0 0 1 6 8.96l.138-2.613-.435.489-.464 2.786a.75.75 0 1 1-1.48-.246l.5-3a.75.75 0 0 1 .18-.375l2-2.25Z"
-                                />
-                                <path
-                                  d="M6.25 11.745v-1.418l1.204 1.375.261.524a.8.8 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843.006-.067 1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"
-                                />
-                              </svg>
-                              <small><small>18 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="border-top mt-3 mb-2"></div>
-
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text text-">
-                          From
-                          <span class="property_card_title">$695</span>/week
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_4.jpeg"
-                        class="card-img-top"
-                        alt="Toowong Central"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 5.0</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Toowong Central
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >50 High St, Toowong</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.5 km</span> from
-                              University of Queensland</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>10 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>32 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$650</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_5.jpeg"
-                        class="card-img-top"
-                        alt="Ironbark Terrace"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.9</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Ironbark Terrace
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >92 Ironside St, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.8 km</span> from
-                              University of Queensland</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>5 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>12 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>22 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$750</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_6.jpeg"
-                        class="card-img-top"
-                        alt="Taringa Vista"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.6</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Taringa Vista
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >12 Montrose Rd, Taringa</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">3.2 km</span> from
-                              University of Queensland</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>15 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>40 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$620</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_7.jpeg"
-                        class="card-img-top"
-                        alt="West End Loft"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.7</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          West End Loft
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >45 Duncan St, West End</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.1 km</span> from
-                              University of Queensland</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>15 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-ship-front-fill"></i
-                              ><small><small>5 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-water"></i
-                              ><small><small>Ferry</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$850</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_8.jpeg"
-                        class="card-img-top"
-                        alt="Gailey Lodge"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.8</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Gailey Lodge
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >240 Carmody Rd, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.3 km</span> from
-                              University of Queensland</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>11 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>28 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$680</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {% endfor %}
               </div>
-            </div>
-
-            <div class="tab-pane fade" id="pills-qut" role="tabpanel">
-              <div
-                class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 justify-content-center mt-4 mt-xl-5"
-              >
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_6.jpeg"
-                        class="card-img-top"
-                        alt="Taringa Vista"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.3</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Taringa Vista
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >12 Montrose Rd, Taringa</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">3.2 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>15 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>40 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$620</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_2.jpeg"
-                        class="card-img-top"
-                        alt="card-img-top"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 5.0</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Riverside Gardens
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >127 Macquarie St, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.1 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>3 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>14 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$780</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_8.jpeg"
-                        class="card-img-top"
-                        alt="Gailey Lodge"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.8</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Gailey Lodge
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >240 Carmody Rd, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.3 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>11 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>28 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$680</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_4.jpeg"
-                        class="card-img-top"
-                        alt="Toowong Central"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.7</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Toowong Central
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >50 High St, Toowong</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.5 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>10 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>32 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$650</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_1.jpeg"
-                        class="card-img-top"
-                        alt="card-img-top"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.5</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          The Scholar’s Nook
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >42 Sir Fred Schonell Dr, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">650 m</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>2 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>4 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$720</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_7.jpeg"
-                        class="card-img-top"
-                        alt="West End Loft"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 5.0</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          West End Loft
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >45 Duncan St, West End</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.1 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>15 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-ship-front-fill"></i
-                              ><small><small>5 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-water"></i
-                              ><small><small>Ferry</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$850</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_3.jpeg"
-                        class="card-img-top"
-                        alt="card-img-top"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.9</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Carmody Court
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >182 Carmody Rd, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.4 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>4 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>18 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$695</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_5.jpeg"
-                        class="card-img-top"
-                        alt="Ironbark Terrace"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.7</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Ironbark Terrace
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >92 Ironside St, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.8 km</span> from
-                              Queensland University of Technology</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>5 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>12 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>22 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$750</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="pills-gu" role="tabpanel">
-              <div
-                class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 justify-content-center mt-4 mt-xl-5"
-              >
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_8.jpeg"
-                        class="card-img-top"
-                        alt="Gailey Lodge"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.8</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Gailey Lodge
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >240 Carmody Rd, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.3 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>11 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>28 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$680</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_3.jpeg"
-                        class="card-img-top"
-                        alt="Carmody Court"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.8</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Carmody Court
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >182 Carmody Rd, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.4 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>4 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>18 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$695</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_5.jpeg"
-                        class="card-img-top"
-                        alt="Ironbark Terrace"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.5</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Ironbark Terrace
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >92 Ironside St, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.8 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>5 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>12 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>22 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$750</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_1.jpeg"
-                        class="card-img-top"
-                        alt="Scholar’s Nook"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.9</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          The Scholar’s Nook
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >42 Sir Fred Schonell Dr, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">650 m</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>2 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>4 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$720</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_7.jpeg"
-                        class="card-img-top"
-                        alt="West End Loft"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.4</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          West End Loft
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >45 Duncan St, West End</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.1 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>15 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-ship-front-fill"></i
-                              ><small><small>5 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-water"></i
-                              ><small><small>Ferry</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$850</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_2.jpeg"
-                        class="card-img-top"
-                        alt="Riverside Gardens"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.7</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Riverside Gardens
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >127 Macquarie St, St Lucia</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">1.1 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>3 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>14 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$780</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_4.jpeg"
-                        class="card-img-top"
-                        alt="Toowong Central"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 5.0</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Toowong Central
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >50 High St, Toowong</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">2.5 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>6 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>10 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>32 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$650</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card rounded-4 property_card">
-                    <div class="rounded-top-4 overflow-hidden">
-                      <img
-                        src="img/properties_6.jpeg"
-                        class="card-img-top"
-                        alt="Taringa Vista"
-                      />
-                      <div class="rounded-pill property_rating">
-                        <small><small>⭐️ 4.5</small></small>
-                      </div>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="property_card_body_pd_x">
-                        <h5 class="card-title mb-0 property_card_title">
-                          Taringa Vista
-                        </h5>
-                        <div class="d-flex align-items-center my-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icon-tabler-map-pin"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                            <path
-                              d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                            />
-                          </svg>
-                          <small class="card-text flex-1 text-truncate ms-1"
-                            >12 Montrose Rd, Taringa</small
-                          >
-                        </div>
-                        <div class="border rounded-3 border-gray p-1">
-                          <small class="text_max_2_lines"
-                            ><small
-                              ><span class="fw-bold">3.2 km</span> from Griffith
-                              University</small
-                            ></small
-                          >
-                          <div class="border-top border-gray my-1"></div>
-                          <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-car-front-fill"></i
-                              ><small><small>8 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                              <i class="bi bi-train-front-fill"></i
-                              ><small><small>15 min</small></small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                              <i class="bi bi-person-walking"></i
-                              ><small><small>40 min</small></small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="border-top mt-3 mb-2"></div>
-                      <div
-                        class="d-flex justify-content-center property_card_body_pd_x"
-                      >
-                        <small class="card-text"
-                          >From
-                          <span class="property_card_title">$620</span
-                          >/week</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </div>  
       </section>
     </main>
 
