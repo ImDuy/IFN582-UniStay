@@ -163,3 +163,9 @@ def get_properties_by_agent(agentId):
 
 def get_all_properties():
     return mockProperties
+
+def get_nearby():
+    return mockNearby
+
+def get_university():
+    return mockUniversities
