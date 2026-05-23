@@ -8,9 +8,9 @@ def login():
     if form.validate_on_submit():
 
         pass
-    return render_template('pages/login.html', form=form)
+    return render_template('pages/login.html')
 
-@auth_login_bp.route('/register', methods=['GET', 'POST'])
+@auth_register_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():

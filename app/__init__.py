@@ -29,8 +29,8 @@ def create_app():
     from .bookmarks import bookmarks_bp
     from .details import details_bp
 
-    app.register_blueprint(auth_login_bp, url_prefix = '/login')
-    app.register_blueprint(auth_register_bp, url_prefix = '/auth/register')
+    app.register_blueprint(auth_login_bp, url_prefix = '/auth')
+    # app.register_blueprint(auth_register_bp, url_prefix = '/auth/register')
     app.register_blueprint(listings_bp, url_prefix = '/listings')
     app.register_blueprint(bookmarks_bp, url_prefix = '/bookmarks')
     app.register_blueprint(details_bp, url_prefix = '/properties')
