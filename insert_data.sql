@@ -1,0 +1,157 @@
+use unistay;
+
+insert into user (
+username, password, firstName, lastName, email, phone, avatarUrl, role
+) values 
+-- Agent values sample
+(
+'jack_realtor',
+'password',
+'Jack',
+'Smith',
+'jack@agency.com',
+'0412345678',
+Null,
+'Agent'
+),(
+"sarah_pro",
+'password',
+"Sarah",
+"Wilson",
+"sarah@agency.com",
+"0488776655",
+Null,
+'Agent'
+),
+-- Tenant values sample
+(
+"minh_nguyen",
+"password",
+"Minh",
+"Nguyen",
+"minh@student.edu.au",
+"0411223344",
+Null,
+'Tenant'
+);
+
+insert into property (
+title, address, description, propertyType,
+rentPerWeek, numBedrooms, numBathrooms, livingArea,
+availableDate, agentId
+) values ( 
+'Modern Studio near UQ', 
+'123 Saint Lucia, Brisbane',
+'Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.',
+'Studio',
+450,
+1,
+1,
+45.5,
+'2026-09-20',
+1
+), (
+'Shared House for Students',
+'456 Toowong, Brisbane',
+'Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.',
+'House',
+250,
+4,
+2,
+120.0,
+'2026-07-20',
+1
+), (
+'Luxury Riverside Studio',
+'789 Marine Parade, South Bank',
+'Stunning studio apartment overlooking the Brisbane River. This premium space boasts top-of-the-line appliances, a private balcony, and floor-to-ceiling windows. Residents get exclusive access to the rooftop infinity pool and gym. Perfect for a young professional or couple looking for a vibrant lifestyle.',
+'Apartment',
+550,
+1,
+1,
+55.0,
+'2026-08-11',
+2
+), (
+'Spacious Family Home with Backyard',
+"12 Chelmer Street, Chelmer",
+"Charming Queenslander home in a quiet, leafy suburb. Features a massive fully-fenced backyard perfect for kids and pets, a massive wrap-around veranda, and character features throughout. Located within a top-tier school catchment zone and just a short walk to the train station.",
+'House',
+820,
+4,
+2,
+210.0,
+'2026-06-10',
+2
+);
+
+insert into university (name, address) values (
+"University of Queensland",
+"St Lucia QLD 4072"
+),(
+"QUT",
+"Gardent Point Rd"
+), (
+"Griffith University",
+"Nathan QLD 4111"
+);
+
+insert into nearby (propertyId, universityId, distance) values (
+1,
+1,
+0.5
+), (
+1,
+2,
+7.2
+), (
+2,
+1,
+1.2
+);
+
+insert into bookmark (tenantId, propertyId, note, createdAt) values (
+3,
+1,
+'Very close to my campus.',
+'2026-05-22'
+), (
+3,
+2,
+'Fantastic',
+'2026-05-22'
+);
+
+insert into enquiry (senderId, targetPropertyId, submittedDate, status) values (
+3,
+1,
+'2026-05-22',
+'New'
+);
+
+insert into offer (senderId, targetPropertyId, submittedDate, status) values (
+3,
+1,
+'2026-05-22',
+'Pending'
+);
+
+insert into propertyAmenity (propertyId, amenity) values (
+1,
+'High-Speed Wi-Fi'
+), (
+1,
+'Fitness Center'
+), (
+1,
+'Parking Space'
+), (
+2,
+'Parking Space'
+), (
+2,
+'Shared Kitchen'
+), (
+3,
+'High-Speed Wi-Fi'
+);
