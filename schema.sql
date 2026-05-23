@@ -57,10 +57,10 @@ foreign key (propertyId) references property(id) on delete cascade
 );
 
 create table propertyImage (
-id int auto_increment not null primary key,
 propertyId int not null,
 url varchar(255) not null,
 
+primary key (propertyId, url),
 foreign key (propertyId) references property(id) on delete cascade
 );
 
