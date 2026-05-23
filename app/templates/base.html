@@ -40,10 +40,9 @@
             </svg>
           </div>
           <a class="text-light navbar-brand ms-2 me-auto fw-bold fs-4" href="#">UniStay</a>
-
-          <button class="btn me-1 outlined_btn" type="button">Sign up</button>
-          <button class="btn primary_btn" type="button">Log in</button>
-
+          
+          <a href="{{ url_for('auth_register.register') }}" class="btn me-1 outlined_btn">Sign up</a>
+          <a href="{{ url_for('auth_login.login') }}" class="btn primary_btn">Log in</a>
           <!-- <button
             class="navbar-toggler"
             type="button"

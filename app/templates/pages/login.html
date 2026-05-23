@@ -1,82 +1,48 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RentHub Login</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body
-    class="d-flex justify-content-center align-items-center min-vh-100 px-3 py-5"
-    style="background-color: #e8edf5"
-  >
+{% extends "base.html" %}
 
-    <div
-      class="bg-white rounded-4 shadow-sm px-4 px-sm-5 py-5 w-100"
-      style="max-width: 520px"
-    >
+{% block title %}Login{% endblock %}
 
-      <!-- Logo -->
-      <div class="d-flex justify-content-center mb-3">
-        <div
-          class="d-flex justify-content-center align-items-center rounded-circle bg-dark"
-          style="width: 64px; height: 64px"
-        >
-          <i class="bi bi-house-door-fill text-white fs-4"></i>
-        </div>
+{% block main %}
+<div class="container py-5 d-flex justify-content-center">
+  <div class="bg-white rounded-4 shadow-sm p-4 w-100" style="max-width: 500px;">
+    <h2 class="text-center mb-2">RentHub Login</h2>
+    <p class="text-center text-secondary mb-4">Sign in to access your account</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} mb-3" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <div class="mb-3">
+        {{ form.email.label(class="form-label fw-semibold") }}
+        {{ form.email(class="form-control", placeholder="Enter your email") }}
+        {% for error in form.email.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
       </div>
 
-      <!-- Heading -->
-      <p class="fs-3 fw-bold text-center mb-1">RentHub Login</p>
-      <p class="text-center text-secondary mb-4">Sign in to access your account</p>
+      <div class="mb-4">
+        {{ form.password.label(class="form-label fw-semibold") }}
+        {{ form.password(class="form-control", placeholder="Enter your password") }}
+        {% for error in form.password.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
 
-      <!-- Email -->
-      <p class="fw-semibold mb-1">Email</p>
-      <input
-        class="form-control bg-light border-0 rounded-3 mb-3 py-3"
-        type="email"
-        placeholder="Enter your email"
-        required
-      />
+      <button type="submit" class="btn btn-dark w-100">Sign In</button>
+    </form>
 
-      <!-- Password -->
-      <p class="fw-semibold mb-1">Password</p>
-      <input
-        class="form-control bg-light border-0 rounded-3 mb-4 py-3"
-        type="password"
-        placeholder="••••••••"
-        required
-      />
-
-      <!-- Sign-in -->
-      <a
-        href="listings.html"
-        class="btn btn-dark w-100 py-3 fw-semibold rounded-3"
-      >
-        Sign In
-      </a>
-
-      <!-- Register -->
-      <p class="text-center text-secondary mt-3 mb-0">
-        <small>If you are a new user click <a href={{ url_for('auth_register.register') }} class="text-dark fw-semibold">here</a></small>
-      </p>
-
-    </div>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+    <p class="text-center mt-3 mb-0">
+      <small>If you are a new user click <a href="{{ url_for('auth_register.register') }}">here</a></small>
+    </p>
+  </div>
+</div>
+{% endblock %}
