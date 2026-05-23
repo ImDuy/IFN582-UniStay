@@ -56,6 +56,22 @@ primary key (propertyId, amenity),
 foreign key (propertyId) references property(id) on delete cascade
 );
 
+create table propertyImage (
+id int auto_increment not null primary key,
+propertyId int not null,
+url varchar(255) not null,
+
+foreign key (propertyId) references property(id) on delete cascade
+);
+
+create table propertyDocumentation (
+propertyId int not null,
+url varchar(255) not null,
+
+primary key (propertyId, url),
+foreign key (propertyId) references property(id) on delete cascade
+);
+
 create table bookmark (
 tenantId int not null,
 propertyId int not null,

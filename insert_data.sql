@@ -155,3 +155,29 @@ insert into propertyAmenity (propertyId, amenity) values (
 3,
 'High-Speed Wi-Fi'
 );
+
+insert into propertyImage (propertyId, url) values (
+1,
+"properties_1.jpeg"
+), (
+2,
+"properties_2.jpeg"
+), (
+3,
+"properties_3.jpeg"
+), (
+4,
+"properties_4.jpeg"
+), (
+1,
+'properties_1_gallery_1.jpeg'
+), (
+1,
+'properties_1_gallery_2.jpeg'
+), (
+2,
+'properties_2_gallery_1.jpeg'
+), (
+2,
+'properties_2_gallery_2.jpeg'
+);
