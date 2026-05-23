@@ -1,16 +1,20 @@
 from flask import session, redirect, flash, url_for
 from functools import wraps
 
-# not yet implemented use with caution
-def only_admins(func):
-    """Decorator to check if the user is an admin."""
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        if 'user' not in session or session['user']['user_id'] == 0:
-            flash('Please log in before moving on.', 'error')
-            return redirect(url_for('main.login'))
-        if not session['user']['is_admin']:
-            flash('You do not have permission to view this page.', 'error')
-            return redirect(url_for('main.index'))
-        return func(*args, **kwargs)
-    return wrapper
+# this decorator only checks if the users logged in and if their role is acceptable for the route
+# accepts a list of roles as parameter
+def role_required(allowed_roles):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if 'user' not in session:
+                flash('Please log in before moving on.', 'error')
+                return redirect(url_for('auth_login.login'))
+            if not session['user'].get('user_role') or not session['user'].get('user_id'):
+                raise Exception("Something wrong occur!\nUser already logged in but missing user id or user role")
+            if session['user']['user_role'] not in allowed_roles:
+                flash('You do not have permission to view this page.', 'error')
+                return redirect(url_for('home.index'))
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
