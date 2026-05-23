@@ -207,3 +207,12 @@ def delete_property(property_id):
         if mockProperties[idx].id == property_id:
             del mockProperties[idx]
             break
+
+def search_properties(query):
+    query = query.lower()
+    results = []
+    for property in mockProperties:
+        if (query in property.title.lower() or 
+            query in property.address.lower()):
+            results.append(property)
+    return results

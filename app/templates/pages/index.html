@@ -15,22 +15,62 @@
           Search thousands of rental properties near your university
         </p>
           <div id="hero_search_wrap">
+          <!-- form start -->
+            <form
+              action="{{ url_for('home.index') }}" 
+              method="GET" 
+              id="home_search_wrap"
+              class="w-100">
             <!-- search bar -->
-            <div class="d-flex align-items-center px-2 px-md-3 py-1 py-sm-2" id="home_search_bar">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000ad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-none d-md-inline">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
-                <path d="M21 21l-6 -6"/>
-              </svg>
-              <input class="flex-fill border-0 ms-2 me-2" type="search" placeholder="Search University | Suburb | City | State"/>
+              <div class="d-flex align-items-center px-2 px-md-3 py-1 py-sm-2" id='home_search_bar'>
 
-              <!-- big screen (buttons in bar) -->
-              <div class="d-none d-sm-flex gap-2">
-                <button 
-                type="button" 
-                class="btn outlined_btn rounded-pill more_pd_btn" 
-                data-bs-toggle="modal" 
-                data-bs-target="#filterModal"
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000ad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-none d-md-inline">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                  <path d="M21 21l-6 -6"/>
+                </svg>
+                <input 
+                  class="flex-fill border-0 ms-2 me-2" 
+                  type="search" 
+                  name="q" 
+                  autocomplete="off"
+                  placeholder="Search University | Suburb | City | State" 
+                  value="{{ request.args.get('q', '') }}"
+                >
+              
+                <!-- big screen (buttons in bar) -->
+                <div class="d-none d-sm-flex gap-2">
+                  <button 
+                  type="button" 
+                  class="btn outlined_btn rounded-pill more_pd_btn" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#filterModal"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#00000098" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                      <path d="M4 6l8 0"/><path d="M16 6l4 0"/>
+                      <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                      <path d="M4 12l2 0"/><path d="M10 12l10 0"/>
+                      <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                      <path d="M4 18l11 0"/><path d="M19 18l1 0"/>
+                    </svg>
+                    <p class="d-none d-md-inline mb-0">Filter</p>
+                  </button>
+                  <button type="submit" class="btn primary_btn rounded-pill more_pd_btn">
+                    <p class="mb-0">Search</p>
+                  </button>
+                </div>
+              </div>
+            
+          
+                <!-- small screen (buttons outside bar) -->
+                <div class="d-flex d-sm-none gap-2 justify-content-center w-100 mt-4">
+                  <!-- filter -->
+                <button type="button" class="btn outlined_btn rounded-pill more_pd_btn hero_filter_btn" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#filterModal"
+                  style="background-color:#f0f0f0;"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#00000098" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -41,46 +81,22 @@
                     <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
                     <path d="M4 18l11 0"/><path d="M19 18l1 0"/>
                   </svg>
-                  <p class="d-none d-md-inline mb-0">Filter</p>
                 </button>
-                <button type="button" class="btn primary_btn rounded-pill more_pd_btn">
-                  <p class="mb-0">Search</p>
-                </button>
-              </div>
-            </div>
-
-            <!-- small screen (buttons outside bar) -->
-            <div class="d-flex d-sm-none gap-2">
-              <!-- filter -->
-              <button type="button" class="btn outlined_btn rounded-pill more_pd_btn hero_filter_btn" 
-              data-bs-toggle="modal" 
-              data-bs-target="#filterModal"
-              style="background-color:#f0f0f0;"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#00000098" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
-                  <path d="M4 6l8 0"/><path d="M16 6l4 0"/>
-                  <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
-                  <path d="M4 12l2 0"/><path d="M10 12l10 0"/>
-                  <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
-                  <path d="M4 18l11 0"/><path d="M19 18l1 0"/>
-                </svg>
-              </button>
-              <!-- search -->
-              <button 
-              type="button" 
-              class="btn primary_btn rounded-pill more_pd_btn"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
-                  <path d="M21 21l-6 -6"/>
-                </svg>
-              </button>
-            </div>
+                  <!-- search -->
+                  <button 
+                    type="submit" 
+                    class="btn primary_btn rounded-pill more_pd_btn"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                    <path d="M21 21l-6 -6"/>
+                  </svg>
+                  </button>
+                </div>
+            </form>
           </div>
-      </section>      
+      </section>  
 
       <!-- Top rental properties near universities -->
       <section class="bg-light">
@@ -146,6 +162,7 @@
               </span>Griffith University</a
             >
           </nav>
+        
 
       <!-- property cards -->
       <div class="tab-content" id="pills-tabContent">
@@ -645,7 +662,9 @@
                 </div>
                 {% endfor %}
               </div>
-            </div>  
+            </div> 
+      </div>
+        </div> 
       </section>
     </main>
 

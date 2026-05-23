@@ -39,7 +39,7 @@
               <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
             </svg>
           </div>
-          <a class="text-light navbar-brand ms-2 me-auto fw-bold fs-4" href="#">UniStay</a>
+          <a class="text-light navbar-brand ms-2 me-auto fw-bold fs-4" href="{{ url_for('home.index') }}">UniStay</a>
           
           <a href="{{ url_for('auth_register.register') }}" class="btn me-1 outlined_btn">Sign up</a>
           <a href="{{ url_for('auth_login.login') }}" class="btn primary_btn">Log in</a>

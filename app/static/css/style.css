@@ -285,7 +285,7 @@ header .outlined_btn:hover {
 
 #hero_search_wrap {
   width: 90%;
-  max-width: 700px;
+  max-width: 750px;
   display: flex;
   flex-direction: column;
   align-items: center;
