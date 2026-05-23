@@ -37,7 +37,7 @@ def login():
                 session.clear()
                 session['user'] = {
                     'user_id': user_id,
-                    'user_role': role.lower(),
+                    'user_role': role,
                     'username': username
                 }
                 flash('Login successful.', 'success')
