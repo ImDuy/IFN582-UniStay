@@ -12,13 +12,15 @@ def create_app():
     # bootstrap = Bootstrap5(app)
     
     #importing modules here to avoid circular references, register blueprints of routes
-    from .auth import auth_bp
+    from .auth import auth_login_bp
+    from .auth import auth_register_bp
     from .home import home_bp
     from .listings import listings_bp
     from .bookmarks import bookmarks_bp
     from .details import details_bp
 
-    app.register_blueprint(auth_bp, url_prefix = '/auth')
+    app.register_blueprint(auth_login_bp, url_prefix = '/login')
+    app.register_blueprint(auth_register_bp, url_prefix = '/auth/register')
     app.register_blueprint(listings_bp, url_prefix = '/listings')
     app.register_blueprint(bookmarks_bp, url_prefix = '/bookmarks')
     app.register_blueprint(details_bp, url_prefix = '/properties')

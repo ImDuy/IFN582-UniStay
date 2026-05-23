@@ -6,4 +6,4 @@ auth_login_bp = Blueprint('auth_login', __name__)
 # remember to register the new blueprints in the app/__init__.py file if you do change the blueprint
 auth_register_bp = Blueprint('auth_register', __name__)
 
-from . import views 
+from .. import views 
