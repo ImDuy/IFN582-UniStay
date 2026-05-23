@@ -6,7 +6,7 @@ username, password, firstName, lastName, email, phone, avatarUrl, role
 -- Agent values sample
 (
 'jack_realtor',
-'password',
+SHA2('password', 256),
 'Jack',
 'Smith',
 'jack@agency.com',
@@ -15,7 +15,7 @@ Null,
 'Agent'
 ),(
 "sarah_pro",
-'password',
+SHA2('password', 256),
 "Sarah",
 "Wilson",
 "sarah@agency.com",
@@ -26,7 +26,7 @@ Null,
 -- Tenant values sample
 (
 "minh_nguyen",
-"password",
+SHA2('password', 256),
 "Minh",
 "Nguyen",
 "minh@student.edu.au",
