@@ -59,6 +59,7 @@ foreign key (propertyId) references property(id) on delete cascade
 create table propertyImage (
 propertyId int not null,
 url varchar(255) not null,
+isPrimary boolean not null default False,
 
 primary key (propertyId, url),
 foreign key (propertyId) references property(id) on delete cascade

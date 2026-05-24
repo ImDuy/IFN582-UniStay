@@ -156,28 +156,36 @@ insert into propertyAmenity (propertyId, amenity) values (
 'High-Speed Wifi'
 );
 
-insert into propertyImage (propertyId, url) values (
+insert into propertyImage (propertyId, url, isPrimary) values (
 1,
-"properties_1.jpeg"
+"properties_1.jpeg",
+True
 ), (
 2,
-"properties_2.jpeg"
+"properties_2.jpeg", 
+True
 ), (
 3,
-"properties_3.jpeg"
+"properties_3.jpeg",
+True
 ), (
 4,
-"properties_4.jpeg"
+"properties_4.jpeg",
+True
 ), (
 1,
-'properties_1_gallery_1.jpeg'
+'properties_1_gallery_1.jpeg',
+False
 ), (
 1,
-'properties_1_gallery_2.jpeg'
+'properties_1_gallery_2.jpeg',
+False
 ), (
 2,
-'properties_2_gallery_1.jpeg'
+'properties_2_gallery_1.jpeg',
+False
 ), (
 2,
-'properties_2_gallery_2.jpeg'
+'properties_2_gallery_2.jpeg',
+False
 );
