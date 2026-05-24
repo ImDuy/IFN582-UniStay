@@ -39,7 +39,6 @@ class Property:
     title: str
     address: str
     description: str
-    amenities: List[PropertyAmenity]
     property_type: PropertyType
     rent_per_week: int
     bedroom_count: int
@@ -47,6 +46,7 @@ class Property:
     living_area: float
     available_date: date
     agent: Agent  # the agent who manages this property
+    amenities: List[PropertyAmenity] = field(default_factory=list)
     image_urls: List[str] = field(default_factory=lambda: ['properties_1.jpeg'])
     documentations: List[str] = field(default_factory=lambda: ['documentation_1.pdf'])
 
