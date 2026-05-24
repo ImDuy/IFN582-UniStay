@@ -196,7 +196,7 @@ def get_properties_by_agent(agent_id):
             title=row["title"],
             address=row["address"],
             description=row["description"],
-            property_type=row["propertyType"],
+            property_type=PropertyType(row["propertyType"]),
             rent_per_week=row["rentPerWeek"],
             bedroom_count=row["numBedrooms"],
             bathroom_count=row["numBathrooms"],
