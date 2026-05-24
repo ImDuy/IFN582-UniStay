@@ -2,6 +2,7 @@ from datetime import date
 import uuid
 from app.models import *
 from app.constants import PropertyType, PropertyAmenity
+from app import mysql
 
 
 agent1 = Agent(
@@ -216,3 +217,45 @@ def search_properties(query):
             query in property.address.lower()):
             results.append(property)
     return results
+
+def get_properties_by_bookmark(user_id):
+    
+    cursor = mysql.connection.cursor()
+
+    cursor.execute('select * from unistay.bookmark a join unistay.property b on a.propertyId = b.id where tenantId =  %s',(user_id,))
+
+    results = cursor.fetchall()
+    cursor.close()
+    return  [
+        Bookmark(
+            id=str(row['id']),
+            tenant=Tenant(
+                id=str(row['tenantId']),                  
+                username="",
+                first_name="",
+                last_name="",
+                email="",
+                phone=""),
+            property=Property(
+                id=str(row['propertyId']),
+                title=row['title'],
+                address=row['address'],
+                description=row['description'],
+                amenities=[],
+                property_type=None,
+                rent_per_week=row['rentPerWeek'],
+                bedroom_count=row['numBedrooms'],
+                bathroom_count=row['numBathrooms'],
+                living_area=float(row['livingArea']),
+                available_date=None,
+                agent=None,
+                image_urls=[]
+            ),
+            note=row.get('note', ''),
+            created_at=row.get('createdAt')
+        )
+        for row in results
+    ]
+    
+def delete_bookmarks(property_id):
+    pass

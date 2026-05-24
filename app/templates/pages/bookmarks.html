@@ -1,84 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saved Properties</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-
-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-xl navbar-light sticky-top shadow-sm">
-        <div class="container">
-          <div class="d-flex align-items-center">
-            <div class="logo_container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-home"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-              </svg>
-            </div>
-            <div class="ms-2 d-flex flex-column gap-0">
-              <p class="fw-bold fs-5 lh-1 mb-0">Saved Properties</p>
-              <small class="text-secondary">Welcome back, Bill Gate</small>
-            </div>
-          </div>
-
-          <button
-            class="btn d-flex align-items-center gap-1 outlined_btn"
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path
-                d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-              />
-              <path d="M9 12h12l-3 -3" />
-              <path d="M18 15l3 -3" />
-            </svg>
-            Logout
-          </button>
-        </div>
-      </nav>
-    </header>
-
+{% extends "base.html" %}
+{% block main %}
     <main class="py-4">
       <!-- summary section -->
-      <div
+      <!-- <div
         class="container d-flex flex-column flex-sm-row align-items-center gap-3 gap-sm-5 p-3 rounded-4 bg-white shadow-sm"
       >
         <div>
@@ -103,9 +27,11 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
             3
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <!-- summary section -->
+      <!-- summary section  end -->
+
+      <!-- searchong bar and filter -->
       <div
         class="container d-flex flex-column flex-sm-row align-items-center gap-2 gap-sm-3 p-3 rounded-4 bg-white shadow-sm mt-4"
       >
@@ -152,13 +78,18 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
         </div>
       </div>
 
+      <!-- searchong bar and filter end -->
+      
+      
       <!-- table section -->
+      {% if Bookmarks %}
+      {% for Bookmark in Bookmarks %}
       <div
         class="container rounded-4 overflow-hidden shadow-sm bg-white mt-4 p-0"
       >
         <div class="hover_item d-flex align-items-start gap-3 px-4 py-3">
           <img
-            src="img/properties_1.jpeg"
+            src="{{ Bookmark.property.image_urls[0] }}"
             id="property_rental_img"
             style="width: 80px"
             class="rounded-3 object-fit-cover"
@@ -168,9 +99,10 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
               class="d-flex align-items-center justify-content-between gap-4 mb-1"
             >
               <h6 class="fw-bold mb-0 lh-1 text-truncate">
-                Modern Downtown Apartment
+                {{ Bookmark.property.title}}
               </h6>
-              <div
+              <!-- we don't need rating system -->
+              <!--<div
                 class="d-flex align-items-center gap-1 bg-danger-subtle text-danger rounded-2 px-2"
               >
                 <svg
@@ -191,14 +123,14 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
                   />
                 </svg>
                 <small class="mb-0 fw_600" style><small>High</small></small>
-              </div>
+              </div>-->
             </div>
 
             <p class="small text-muted lh-1 mb-2 text-truncate">
-              123 Main Street, Seattle
+              {{ Bookmark.property.address}}
             </p>
             <div class="d-flex align-items-center gap-3 mb-2">
-              <h6 class="fw-bold mb-0 lh-1 text-truncate">$250/wk</h6>
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">${{ Bookmark.property.rent_per_week}} /wk</h6>
               <span class="small d-flex align-items-center gap-1"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +150,7 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
                   <path d="M2 8v9" />
                   <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
                 </svg>
-                2</span
+                {{ Bookmark.property.bedroom_count}}</span
               >
               <span class="small d-flex align-items-center"
                 ><svg
@@ -241,19 +173,20 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
                   <path d="M4 21l1 -1.5" />
                   <path d="M20 21l-1 -1.5" />
                 </svg>
-                2</span
+                {{ Bookmark.property.bathroom_count}}</span
               >
-              <small class="text-muted">120 sqm</small>
+              <small class="text-muted">{{ Bookmark.property.living_area}} sqm</small>
             </div>
+            {% if Bookmark.note %}
             <div
               class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
             >
-              Perfect location for work commute. Close to subway station. Ask
-              about parking availability.
+              {{ Bookmark.note}}
             </div>
-
+            {% endif %}
+            <!-- @@@@@@ Saved on Mar 15, 2025 should we show the date in this formate?-->
             <small class="text-muted"
-              ><small>Saved on Mar 15, 2025</small></small
+              ><small>Saved on {{ Bookmark.created_at}}</small></small
             >
           </div>
 
@@ -334,6 +267,8 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
           </div>
         </div>
 
+        <!-- mock data -->
+        <!--
         <div
           class="hover_item d-flex align-items-start gap-3 px-4 py-3 border-top"
         >
@@ -1202,11 +1137,17 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
               <small class="d-none d-md-inline fw_600">Remove</small>
             </button>
           </div>
-        </div>
+        </div> -->
+        <!-- mock data end -->
+
+
       </div>
+      {% endfor %}
+      {% endif %}
+
 
       <!-- pagination -->
-      <div class="d-flex flex-column align-items-center mt-4">
+      <!-- <div class="d-flex flex-column align-items-center mt-4">
         <small class="text-muted mb-2">Page 1 of 2</small>
 
         <nav>
@@ -1246,8 +1187,114 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
             </li>
           </ul>
         </nav>
-      </div>
+      </div> -->
+      <!-- pagination -->
+
     </main>
+{% endblock %}
+
+
+<!--
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Properties</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-
+      LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-xl navbar-light sticky-top shadow-sm">
+        <div class="container">
+          <div class="d-flex align-items-center">
+            <div class="logo_container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-home"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+              </svg>
+            </div>
+            <div class="ms-2 d-flex flex-column gap-0">
+              <p class="fw-bold fs-5 lh-1 mb-0">Saved Properties</p>
+              <small class="text-secondary">Welcome back, Bill Gate</small>
+            </div>
+          </div>
+
+          <button
+            class="btn d-flex align-items-center gap-1 outlined_btn"
+            type="button"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+              />
+              <path d="M9 12h12l-3 -3" />
+              <path d="M18 15l3 -3" />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -1255,4 +1302,4 @@ LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     ></script>
   </body>
-</html>
+</html> -->
