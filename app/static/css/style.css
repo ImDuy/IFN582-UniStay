@@ -334,29 +334,27 @@ header .outlined_btn:hover {
   border-color: #101828;
 }
 
-/* .flex_row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 5px;
-  margin: 5px;
-  flex-direction: row;
+.property-column {
+  width: 55%;
 }
 
-.flex_item {
-  background-color: rgb(8, 95, 2, 0.5);
-  text-align: center;
-  text-wrap: wrap;
-  padding: 5px;
-  margin: 5px;
-  width: 300px;
+/* Medium devices */
+@media (min-width: 768px) {
+  .property-column {
+    width: 40%;
+  }
 }
 
-.flex_column {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 5px;
-  margin: 5px;
-  flex-direction: column;
-} */
+/* Large devices */
+@media (min-width: 992px) {
+  .property-column {
+    width: 35%;
+  }
+}
+
+/* XL devices */
+@media (min-width: 1200px) {
+  .property-column {
+    width: 30%;
+  }
+}

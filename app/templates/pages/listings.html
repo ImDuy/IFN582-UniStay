@@ -49,14 +49,14 @@
     >
       <thead class="table-light">
         <tr>
-          <th scope="col" class="text-muted ps-3" style="width: 35%">
+          <th scope="col" class="property-column text-muted ps-3">
             Property
           </th>
           <th scope="col" class="d-none d-md-table-cell text-muted">Rent</th>
           <th scope="col" class="d-none d-lg-table-cell text-muted">Details</th>
-          <th scope="col" class="d-none d-md-table-cell text-muted">Status</th>
-          <th scope="col" class="d-none d-xl-table-cell text-muted">Alerts</th>
-          <th scope="col" class="text-muted" style="width: 11%">Actions</th>
+          <th scope="col" class="d-none d-xl-table-cell text-muted">Available Date</th>
+          <th scope="col" class="text-muted">Alerts</th>
+          <th scope="col" class="text-muted" >Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -130,10 +130,10 @@
               {{ property.bathroom_count }}</span
             >
           </td>
-          <td class="d-none d-md-table-cell">
-            <span class="badge bg-success-subtle text-success">Published</span>
-          </td>
           <td class="d-none d-xl-table-cell">
+          <span class="text-dark">📅  {{ property.available_date.strftime("%d %b, %Y") }}</span>
+          </td>
+          <td>
             <span class="badge bg-warning-subtle text-warning me-1"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
