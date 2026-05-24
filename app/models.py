@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime, date
 from typing import List
-from app.constants import EnquiryStatus, PropertyAmenity, PropertyType
+from app.constants import Defaults, EnquiryStatus, PropertyAmenity, PropertyType
 
 @dataclass
 class User:
@@ -47,8 +47,8 @@ class Property:
     available_date: date
     agent: Agent  # the agent who manages this property
     amenities: List[PropertyAmenity] = field(default_factory=list)
-    image_urls: List[str] = field(default_factory=lambda: ['properties_1.jpeg'])
-    documentations: List[str] = field(default_factory=lambda: ['documentation_1.pdf'])
+    image_urls: List[str] = field(default_factory=lambda: [Defaults.IMAGE.value])
+    documentations: List[str] = field(default_factory=lambda: [Defaults.DOCUMENT.value])
 
     # these attributes are for showing on listings page only, other pages no need to use them
     new_enquiry_count: int = 0

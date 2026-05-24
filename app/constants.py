@@ -1,5 +1,9 @@
 from enum import Enum
 
+class Defaults(Enum):
+    IMAGE = 'properties_1.jpeg'
+    DOCUMENT = 'documentation_1.pdf'
+
 class EnquiryStatus(Enum):
     NEW = 'New'
     RESPONDED = 'Responded'
@@ -16,7 +20,7 @@ class PropertyAmenity(Enum):
     PARKING = 'Parking Space'
     SHARED_KITCHEN = 'Shared Kitchen'
 
-class PropertyType(Enum): #defining property types
+class PropertyType(Enum):
     APARTMENT = 'Apartment'
     HOUSE = 'House'
     CONDO = 'Condo'
