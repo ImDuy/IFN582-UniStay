@@ -138,7 +138,7 @@ insert into offer (senderId, targetPropertyId, submittedDate, status) values (
 
 insert into propertyAmenity (propertyId, amenity) values (
 1,
-'High-Speed Wi-Fi'
+'High-Speed Wifi'
 ), (
 1,
 'Fitness Center'
@@ -153,7 +153,7 @@ insert into propertyAmenity (propertyId, amenity) values (
 'Shared Kitchen'
 ), (
 3,
-'High-Speed Wi-Fi'
+'High-Speed Wifi'
 );
 
 insert into propertyImage (propertyId, url) values (
