@@ -2,7 +2,7 @@ from datetime import date
 import uuid
 from app.models import *
 from app.constants import PropertyType, PropertyAmenity
-from app import mysql
+from . import mysql
 
 
 agent1 = Agent(
@@ -155,12 +155,127 @@ mockEnquiries = [enquiry1]
 mockUniversities = [uni1, uni2]
 mockNearby = [nearby1, nearby2, nearby3]
 
-def get_properties_by_agent(agentId):
-    agentId = str(agentId)
-    return [prop for prop in mockProperties if prop.agent.id == agentId]
+def get_properties_by_agent(agent_id):
+    cur = mysql.connection.cursor()
+    # fetch properties and their corresponding agents
+    cur.execute("""SELECT p.id as p_id, p.title, p.address,
+        p.description, p.propertyType, p.rentPerWeek, p.numBedrooms, 
+        p.numBathrooms, p.livingArea, p.availableDate,
+        u.id AS u_id, u.username, u.firstName, u.lastName,
+        u.email, u.phone, u.avatarUrl, u.role  
+        FROM property p JOIN user u ON p.agentId = u.id
+        WHERE p.agentId = %s""", (agent_id,))
+    results = cur.fetchall()
+
+    properties = []
+    for row in results:
+        # for each property, fetch its associated amenities, images and documents
+        property_id = row['p_id']
+        # amenities
+        cur.execute(
+            "SELECT amenity FROM propertyAmenity WHERE propertyId = %s",
+            (property_id,)
+        )
+        amenities = [PropertyAmenity(r["amenity"]) for r in cur.fetchall()]
+        # images
+        cur.execute(
+            "SELECT url, isPrimary FROM propertyImage WHERE propertyId = %s",
+            (property_id,)
+        )
+        primary_image_url = next((r["url"] for r in cur.fetchall() if r["isPrimary"]), Defaults.IMAGE.value)
+        gallery_image_urls = [r["url"] for r in cur.fetchall() if not r["isPrimary"]]
+        # documents
+        cur.execute(
+            "SELECT url FROM propertyDocumentation WHERE propertyId = %s",
+            (property_id,)
+        )
+        documents = [r["url"] for r in cur.fetchall()]
+
+        prop = Property(
+            id=str(property_id),
+            title=row["title"],
+            address=row["address"],
+            description=row["description"],
+            property_type=row["propertyType"],
+            rent_per_week=row["rentPerWeek"],
+            bedroom_count=row["numBedrooms"],
+            bathroom_count=row["numBathrooms"],
+            living_area=row["livingArea"],
+            available_date=row["availableDate"],
+            amenities=amenities,
+            primary_image_url=primary_image_url,
+            image_urls= gallery_image_urls,
+            documentations=documents if documents else [Defaults.DOCUMENT.value],
+            agent=Agent(id=str(row['u_id']),username=row['username'], first_name=row['firstName'], 
+                        last_name=row['lastName'], email=row['email'], phone=row['phone'], 
+                        avatar_url=row['avatarUrl'] if 'avatarUrl' in row else '',)
+        )
+        properties.append(prop)
+
+    cur.close()
+    return properties
 
 def get_all_properties():
     return mockProperties
+
+def add_property(form, agent_id):
+    cur = mysql.connection.cursor()
+    # insert property record
+    cur.execute(""" INSERT INTO property (
+                title, address, description, propertyType, rentPerWeek,
+                numBedrooms, numBathrooms, livingArea, availableDate, agentId
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, ( form.title.data, form.address.data, form.description.data,
+            form.property_type.data.value, form.rent_per_week.data, form.bedroom_count.data,
+            form.bathroom_count.data, form.living_area.data, form.available_date.data,
+            agent_id
+        ))
+    
+    # insert amenity records
+    amenities = form.amenities.data
+    print(amenities)
+    property_id = cur.lastrowid # get the id of the inserted property
+    for amenity in amenities:
+        cur.execute("""INSERT INTO propertyAmenity(propertyId, amenity)
+                    VALUES (%s, %s)""", (property_id, amenity.value))
+    
+    mysql.connection.commit()
+    cur.close()
+
+def update_property(property_id, form):
+    cur = mysql.connection.cursor()
+    # update property info
+    cur.execute(""" UPDATE property SET 
+                title = %s, address = %s, description = %s, propertyType = %s, rentPerWeek = %s,
+                numBedrooms = %s, numBathrooms = %s, livingArea = %s, availableDate = %s
+                WHERE id = %s""", 
+        ( form.title.data, form.address.data, form.description.data,
+            form.property_type.data.value, form.rent_per_week.data, form.bedroom_count.data,
+            form.bathroom_count.data, form.living_area.data, form.available_date.data, property_id))
+    
+    # update amenity info by deleting all and inserting new ones
+    cur.execute(
+        "DELETE FROM propertyAmenity WHERE propertyId = %s",
+        (property_id,)
+    )
+    amenities = form.amenities.data
+    for amenity in amenities:
+        cur.execute("""INSERT INTO propertyAmenity(propertyId, amenity)
+                    VALUES (%s, %s)""", (property_id, amenity.value))
+    
+    mysql.connection.commit()
+    cur.close()
+    
+def delete_property(property_id):
+
+    cur = mysql.connection.cursor()
+    # delete property
+    cur.execute("DELETE FROM property WHERE id = %s", (property_id))
+    # amenities, images, documents are also deleted in database with ON DELETE CASCADE 
+
+    mysql.connection.commit()
+    cur.close()
 
 def get_nearby():
     return mockNearby
@@ -180,34 +295,6 @@ def get_properties_by_university(uni_name):
     elif uni_name == "griffith":
         return griffith_properties
     return mockProperties
-
-def add_property(form):
-    mockProperties.append(Property(id=str(uuid.uuid4()),title = form.title.data,address=form.address.data,
-                                   description = form.description.data,amenities = form.amenities.data, 
-                                   property_type = form.property_type.data,rent_per_week = form.rent_per_week.data,
-                                   bedroom_count = form.bedroom_count.data,bathroom_count = form.bathroom_count.data,
-                                   living_area = form.living_area.data,available_date = form.available_date.data,
-                                   agent=Agent(id=uuid.uuid4(),username='',first_name='',last_name='',email='', phone='') # mock agent as currently the auth system hasnt been implemented
-                                   ))
-def update_property(property_id, form):
-    for prop in mockProperties:
-        if prop.id == property_id:
-            prop.title = form.title.data
-            prop.address = form.address.data
-            prop.description = form.description.data
-            prop.amenities = form.amenities.data
-            prop.property_type = form.property_type.data
-            prop.rent_per_week = form.rent_per_week.data
-            prop.bedroom_count = form.bedroom_count.data
-            prop.bathroom_count = form.bathroom_count.data
-            prop.living_area = form.living_area.data
-            prop.available_date = form.available_date.data
-            break
-def delete_property(property_id):
-    for idx in range(len(mockProperties)):
-        if mockProperties[idx].id == property_id:
-            del mockProperties[idx]
-            break
 
 def search_properties(query):
     query = query.lower()

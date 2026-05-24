@@ -65,7 +65,7 @@
           <td class="ps-3">
             <div class="d-flex align-items-center gap-2 py-2">
               <img
-                src="{{url_for('static', filename='img/' + property.image_urls[0])}} "
+                src="{{url_for('static', filename='img/' + property.primary_image_url)}} "
                 id="property_rental_img"
                 class="rounded-3 object-fit-cover"
               />
@@ -189,7 +189,7 @@
                 </svg>
               </button>
               <a class="icon_btn btn-link text-dark p-0" href="{{url_for('listings.delete_property_listing', property_id=property.id)}}">
-                <i class="bi bi-three-dots-vertical"></i>
+                <i class="bi bi-trash3"></i>
               </a>
             </div>
           </td>

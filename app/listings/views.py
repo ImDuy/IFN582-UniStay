@@ -10,20 +10,20 @@ from . import listings_bp
 
 
 @listings_bp.route('/')
-# @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
+@role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def index():
     # at this stage, it should be guaranteed that the user logged in as agent or admin (the home page should only show the option to navigate to listings page if the user is agent or admin)
 
-    user_id = session.get('user_id') # need this id for query database
+    # user_id = session.get('user_id') # need this id for query database
     properties: List[Property] = []
     form = PropertyForm() # form to render on modal
     # check if user logged in or not
-    if not user_id:
-        # if user hasn't logged in -> redirect to login page
-        # return redirect(url_for('auth.login'))
+    # if not user_id:
+    #     # if user hasn't logged in -> redirect to login page
+    #     # return redirect(url_for('auth.login'))
 
-        # for now just render the listings page for testing (will be replace with the above return)
-        return render_template('/pages/listings.html', listings = get_all_properties(), form=form, PropertyForm = PropertyForm)
+    #     # for now just render the listings page for testing (will be replace with the above return)
+    #     return render_template('/pages/listings.html', listings = get_all_properties(), form=form, PropertyForm = PropertyForm)
 
     # check the user's role to render the corresponding properties.
     user_role = session['user']['user_role']
@@ -37,7 +37,7 @@ def index():
     return render_template('/pages/listings.html', listings = properties, form=form, PropertyForm = PropertyForm)
 
 @listings_bp.post('/')
-# @role_required([UserRole.AGENT.value])
+@role_required([UserRole.AGENT.value])
 def create_property_listing():
     # admin is not able to create property listing, so in the UI, the button of adding property should not display when the user logged in as admin
 
@@ -56,16 +56,17 @@ def create_property_listing():
     #         # handle form stuff and query database to create new record
     #         flash('New property listing has beed added!')
 
-    form = PropertyForm()    
+    form = PropertyForm()
+    
+    
     if form.validate_on_submit():
-        # handle form stuff and query database to create new record
-        add_property(form)
+        add_property(form, session['user']['user_id'])
         flash('New property listing has beed added!')
 
     return redirect(url_for('listings.index'))
 
 @listings_bp.post('/<string:property_id>/edit')
-# @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
+@role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def edit_property_listing(property_id):
     # only admin and agent are allowed to perform edit action
     # user_role = session.get('user_role')
@@ -84,7 +85,7 @@ def edit_property_listing(property_id):
     return redirect(url_for('listings.index'))
 
 @listings_bp.route('/<string:property_id>/delete')
-# @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
+@role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def delete_property_listing(property_id):
     # only admin and agent are allowed to perform delete action
     # user_role = session.get('user_role')
