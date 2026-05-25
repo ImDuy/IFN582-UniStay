@@ -131,7 +131,7 @@
             >
           </td>
           <td class="d-none d-xl-table-cell">
-          <span class="text-dark">📅  {{ property.available_date.strftime("%d %b, %Y") }}</span>
+          <span class="text-dark">📅 {{ property.available_date.strftime("%d %b, %Y") }}</span>
           </td>
           <td>
             <span class="badge bg-warning-subtle text-warning me-1"
@@ -214,83 +214,83 @@
                 </div>
 
                 <div class="modal-body d-flex flex-column gap-3">
-                    {{ form.hidden_tag() }}  {# prevent CSRF #}
-                    {# title #}
-                    <div>
-                      {{ form.title.label(class="form-label fw-semibold") }}
-                      {{ form.title(class="form-control") }} 
+                  {{ form.hidden_tag() }}  {# prevent CSRF #}
+                  {# title #}
+                  <div>
+                    {{ form.title.label(class="form-label fw-semibold") }}
+                    {{ form.title(class="form-control") }} 
+                  </div>
+                  {# weekly rent - available date #}
+                  <div class="row row-cols-2 g-3 ">
+                    <div class="col">
+                      {{ form.rent_per_week.label(class="form-label fw-semibold") }}
+                      {{ form.rent_per_week(class="form-control") }} 
                     </div>
-                    {# weekly rent - available date #}
-                    <div class="row row-cols-1 row-cols-sm-2 g-3 ">
+                    <div class="col">
+                      {{ form.available_date.label(class="form-label fw-semibold") }} 
+                      {{ form.available_date(class="form-control") }}
+                    </div>
+                  </div>
+                  {# address #}
+                  <div>
+                    {{ form.address.label(class="form-label fw-semibold") }} 
+                    {{ form.address(class="form-control") }} 
+                  </div>
+                  {# bathrooms - bedrooms - living area #}
+                  <div class="row row-cols-3 g-3 ">
+                    <div class="col">
+                      {{ form.bedroom_count.label(class="form-label fw-semibold") }}
+                      {{ form.bedroom_count(class="form-control") }}
+                    </div>
+                    <div class="col">
+                      {{ form.bathroom_count.label(class="form-label fw-semibold") }}
+                      {{ form.bathroom_count(class="form-control") }}
+                    </div>
+                    <div class="col">
+                      {{ form.living_area.label(class="form-label fw-semibold") }}
+                      {{ form.living_area(class="form-control") }}
+                    </div>
+                  </div>
+                  {# property type #}
+                  <div>
+                    {{ form.property_type.label(class="form-label fw-semibold") }} 
+                    {{ form.property_type(class="form-select") }}
+                  </div>
+                  {# amenities #}
+                  <div>
+                    {{ form.amenities.label(class="form-label fw-semibold") }}
+                    <div class="row row-cols-2 px-1 gy-2">
+                      {% for subfield in form.amenities %}
                       <div class="col">
-                        {{ form.rent_per_week.label(class="form-label fw-semibold") }}
-                        {{ form.rent_per_week(class="form-control") }} 
+                          <div class="form-check d-flex align-items-center gap-2 px-2">
+                              {{ subfield(class="form-check-input m-0", type='checkbox') }}
+                              {{ subfield.label(class="form-check-label text-dark") }}
+                          </div>
                       </div>
-                      <div class="col">
-                        {{ form.available_date.label(class="form-label fw-semibold") }} 
-                        {{ form.available_date(class="form-control") }}
-                      </div>
+                      {% endfor %}
                     </div>
-                    {# address #}
-                    <div>
-                      {{ form.address.label(class="form-label fw-semibold") }} 
-                      {{ form.address(class="form-control") }} 
-                    </div>
-                    {# bathrooms - bedrooms - living area #}
-                    <div class="row row-cols-1 row-cols-sm-3 g-3 ">
-                      <div class="col">
-                        {{ form.bedroom_count.label(class="form-label fw-semibold") }}
-                        {{ form.bedroom_count(class="form-control") }}
-                      </div>
-                      <div class="col">
-                        {{ form.bathroom_count.label(class="form-label fw-semibold") }}
-                        {{ form.bathroom_count(class="form-control") }}
-                      </div>
-                      <div class="col">
-                        {{ form.living_area.label(class="form-label fw-semibold") }}
-                        {{ form.living_area(class="form-control") }}
-                      </div>
-                    </div>
-                    {# property type #}
-                    <div>
-                      {{ form.property_type.label(class="form-label fw-semibold") }} 
-                      {{ form.property_type(class="form-select") }}
-                    </div>
-                    {# amenities #}
-                    <div>
-                      {{ form.amenities.label(class="form-label fw-semibold") }}
-                      <div class="row row-cols-1 row-cols-sm-2 px-1 gy-2">
-                        {% for subfield in form.amenities %}
-                        <div class="col">
-                            <div class="form-check d-flex align-items-center gap-2 px-2">
-                                {{ subfield(class="form-check-input m-0", type='checkbox') }}
-                                {{ subfield.label(class="form-check-label text-dark") }}
-                            </div>
-                        </div>
-                        {% endfor %}
-                      </div>
-                    </div>
-                    {# description #}
-                    <div>
-                      {{ form.description.label(class="form-label fw-semibold") }}
-                      {{ form.description(class="form-control", rows="3") }}
-                    </div>
-                    {# image url #}
-                    <div>
-                      {{ form.image_url.label(class="form-label fw-semibold") }}
-                      {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
-                      <p class="form-text text-muted mb-0">
-                        Image functionality is not implemented yet.
-                      </p>
-                    </div>
-                    {# documentation url #}
-                    <div>
-                      {{ form.documentation.label(class="form-label fw-semibold") }}
-                      {{ form.documentation(class="form-control", placeholder="https://example.com/documentation.pdf", disabled=True) }}
-                      <p class="form-text text-muted">
-                        Documentation functionality is not implemented yet.
-                      </p>
-                    </div>
+                  </div>
+                  {# description #}
+                  <div>
+                    {{ form.description.label(class="form-label fw-semibold") }}
+                    {{ form.description(class="form-control", rows="3") }}
+                  </div>
+                  {# image url #}
+                  <div>
+                    {{ form.image_url.label(class="form-label fw-semibold") }}
+                    {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
+                    <p class="form-text text-muted mb-0">
+                      Image functionality is not implemented yet.
+                    </p>
+                  </div>
+                  {# documentation url #}
+                  <div>
+                    {{ form.documentation.label(class="form-label fw-semibold") }}
+                    {{ form.documentation(class="form-control", placeholder="https://example.com/documentation.pdf", disabled=True) }}
+                    <p class="form-text text-muted">
+                      Documentation functionality is not implemented yet.
+                    </p>
+                  </div>
                 </div>
 
                 <div class="modal-footer border-top">
@@ -307,15 +307,16 @@
     </table>
   </div>
 </div>
-{% endblock %} {% block modals%}
-<!-- Add Modal -->
-<div class="modal fade" id="addModal">
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-  >
-    <div class="modal-content rounded-4 px-1">
-      <form method="POST" action="{{ url_for('listings.create_property_listing') }}">
+{% endblock %} 
 
+{% block modals%}
+<!-- Add Modal -->
+<form method="POST" action="{{ url_for('listings.create_property_listing') }}">
+  <div class="modal fade" id="addModal">
+    <div
+      class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+    >
+      <div class="modal-content rounded-4 px-1">
         <div class="modal-header border-bottom position-relative">
           <h5 class="modal-title w-100 text-center">Add Property</h5>
           <button
@@ -326,91 +327,90 @@
         </div>
 
         <div class="modal-body d-flex flex-column gap-3">
-            {{ form.hidden_tag() }}  {# prevent CSRF #}
-            {# title #}
-            <div>
-              {{ form.title.label(class="form-label fw-semibold") }}
-              {{ form.title(class="form-control") }} 
+          {{ form.hidden_tag() }}  {# prevent CSRF #}
+          {# title #}
+          <div>
+            {{ form.title.label(class="form-label fw-semibold") }}
+            {{ form.title(class="form-control") }} 
+          </div>
+          {# weekly rent - available date #}
+          <div class="row row-cols-1 row-cols-sm-2 g-3 ">
+            <div class="col">
+              {{ form.rent_per_week.label(class="form-label fw-semibold") }}
+              {{ form.rent_per_week(class="form-control") }} 
             </div>
-            {# weekly rent - available date #}
-            <div class="row row-cols-1 row-cols-sm-2 g-3 ">
+            <div class="col">
+              {{ form.available_date.label(class="form-label fw-semibold") }} 
+              {{ form.available_date(class="form-control") }}
+            </div>
+          </div>
+          {# address #}
+          <div>
+            {{ form.address.label(class="form-label fw-semibold") }} 
+            {{ form.address(class="form-control") }} 
+          </div>
+          {# bathrooms - bedrooms - living area #}
+          <div class="row row-cols-1 row-cols-sm-3 g-3 ">
+            <div class="col">
+              {{ form.bedroom_count.label(class="form-label fw-semibold") }}
+              {{ form.bedroom_count(class="form-control") }}
+            </div>
+            <div class="col">
+              {{ form.bathroom_count.label(class="form-label fw-semibold") }}
+              {{ form.bathroom_count(class="form-control") }}
+            </div>
+            <div class="col">
+              {{ form.living_area.label(class="form-label fw-semibold") }}
+              {{ form.living_area(class="form-control") }}
+            </div>
+          </div>
+          {# property type #}
+          <div>
+            {{ form.property_type.label(class="form-label fw-semibold") }} 
+            {{ form.property_type(class="form-select") }}
+          </div>
+          {# amenities #}
+          <div>
+            {{ form.amenities.label(class="form-label fw-semibold") }}
+            <div class="row row-cols-1 row-cols-sm-2 px-1 gy-2">
+              {% for subfield in form.amenities %}
               <div class="col">
-                {{ form.rent_per_week.label(class="form-label fw-semibold") }}
-                {{ form.rent_per_week(class="form-control") }} 
+                  <div class="form-check d-flex align-items-center gap-2 px-2">
+                      {{ subfield(class="form-check-input m-0", type='checkbox') }}
+                      {{ subfield.label(class="form-check-label text-dark") }}
+                  </div>
               </div>
-              <div class="col">
-                {{ form.available_date.label(class="form-label fw-semibold") }} 
-                {{ form.available_date(class="form-control") }}
-              </div>
+              {% endfor %}
             </div>
-            {# address #}
-            <div>
-              {{ form.address.label(class="form-label fw-semibold") }} 
-              {{ form.address(class="form-control") }} 
-            </div>
-            {# bathrooms - bedrooms - living area #}
-            <div class="row row-cols-1 row-cols-sm-3 g-3 ">
-              <div class="col">
-                {{ form.bedroom_count.label(class="form-label fw-semibold") }}
-                {{ form.bedroom_count(class="form-control") }}
-              </div>
-              <div class="col">
-                {{ form.bathroom_count.label(class="form-label fw-semibold") }}
-                {{ form.bathroom_count(class="form-control") }}
-              </div>
-              <div class="col">
-                {{ form.living_area.label(class="form-label fw-semibold") }}
-                {{ form.living_area(class="form-control") }}
-              </div>
-            </div>
-            {# property type #}
-            <div>
-              {{ form.property_type.label(class="form-label fw-semibold") }} 
-              {{ form.property_type(class="form-select") }}
-            </div>
-            {# amenities #}
-            <div>
-              {{ form.amenities.label(class="form-label fw-semibold") }}
-              <div class="row row-cols-1 row-cols-sm-2 px-1 gy-2">
-                {% for subfield in form.amenities %}
-                <div class="col">
-                    <div class="form-check d-flex align-items-center gap-2 px-2">
-                        {{ subfield(class="form-check-input m-0", type='checkbox') }}
-                        {{ subfield.label(class="form-check-label text-dark") }}
-                    </div>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-            {# description #}
-            <div>
-              {{ form.description.label(class="form-label fw-semibold") }}
-              {{ form.description(class="form-control", rows="3") }}
-            </div>
-            {# image url #}
-            <div>
-              {{ form.image_url.label(class="form-label fw-semibold") }}
-              {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
-              <p class="form-text text-muted mb-0">
-                Image functionality is not implemented yet.
-              </p>
-            </div>
-            {# documentation url #}
-            <div>
-              {{ form.documentation.label(class="form-label fw-semibold") }}
-              {{ form.documentation(class="form-control", placeholder="https://example.com/documentation.pdf", disabled=True) }}
-              <p class="form-text text-muted">
-                Documentation functionality is not implemented yet.
-              </p>
-            </div>
+          </div>
+          {# description #}
+          <div>
+            {{ form.description.label(class="form-label fw-semibold") }}
+            {{ form.description(class="form-control", rows="3") }}
+          </div>
+          {# image url #}
+          <div>
+            {{ form.image_url.label(class="form-label fw-semibold") }}
+            {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
+            <p class="form-text text-muted mb-0">
+              Image functionality is not implemented yet.
+            </p>
+          </div>
+          {# documentation url #}
+          <div>
+            {{ form.documentation.label(class="form-label fw-semibold") }}
+            {{ form.documentation(class="form-control", placeholder="https://example.com/documentation.pdf", disabled=True) }}
+            <p class="form-text text-muted">
+              Documentation functionality is not implemented yet.
+            </p>
+          </div>
         </div>
-
         <div class="modal-footer border-top">
           {{ form.submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
         </div>
-      </form>
-
+      </div>
     </div>
   </div>
-</div>
+</form>
+
 {% endblock %}
