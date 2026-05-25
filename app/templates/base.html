@@ -18,7 +18,8 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-xl navbar-light sticky-top shadow-sm">
+      <!--<nav class="navbar navbar-expand-xl navbar-light sticky-top shadow-sm"> -->
+      <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm">
         <div class="container">
           <div class="logo_container border_contrast_color">
             <svg
@@ -39,21 +40,45 @@
               <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
             </svg>
           </div>
-          <a class="text-light navbar-brand ms-2 me-auto fw-bold fs-4" href="{{ url_for('home.index') }}">UniStay</a>
-          
-          <a href="{{ url_for('auth_register.register') }}" class="btn me-1 outlined_btn">Sign up</a>
-          <a href="{{ url_for('auth_login.login') }}" class="btn primary_btn">Log in</a>
-          <!-- <button
+          <a class="text-light navbar-brand ms-2 fw-bold fs-4" href="{{ url_for('home.index') }}">UniStay</a>
+          <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarBasic"
-            aria-controls="navbarBasic"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+            data-bs-target="#navbarContent"
           >
             <span class="navbar-toggler-icon"></span>
-          </button> -->
+          </button> 
+          {% if session.get('user_role') %}
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mx-4 mb-2 mb-lg-0">
+              {% if session.get('user_role') == 'Agent' %}
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('listings.index') }}"> Listing page </a>
+                </li>
+              {% elif session.get('user_role') == 'Tenant' %}
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> bookmark page </a>
+                </li>
+              {% elif session.get('user_role') == 'Admin' %}
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold text-white nav-hover" href="#"> manage user </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('listings.index') }}"> Listing page </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="ms-auto d-flex gap-2">
+            <a href="{{ url_for('home.index') }}" class="btn primary_btn">Log out</a>
+          </div>
+          {% else %}
+          <div class="ms-auto d-flex gap-2">
+            <a href="{{ url_for('auth_register.register') }}" class="btn me-1 outlined_btn">Sign up</a>
+            <a href="{{ url_for('auth_login.login') }}" class="btn primary_btn">Log in</a>
+          </div>
+          {% endif %}
         </div>
       </nav>
     </header>
@@ -95,6 +120,20 @@
       <p class="mb-0 text-center" style="color: rgba(255, 255, 255, 0.832)">
         Your trusted platform for finding student rentals
       </p>
+      
+      <!-- social media -->
+      <div class="d-flex gap-3">
+        <a href="#" class="text-white social-icon">
+          <i class="bi bi-instagram fs-5"></i>
+        </a>
+        <a href="#" class="text-white social-icon">
+          <i class="bi bi-facebook fs-5"></i>
+        </a>
+        <a href="#" class="text-white social-icon">
+          <i class="bi bi-twitter-x fs-5"></i>
+        </a>
+      </div>
+
       <p class="mb-0 text-center" style="color: rgba(255, 255, 255, 0.832)">
         © 2026 UniStay. All rights reserved.
         </p>

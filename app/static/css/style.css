@@ -338,6 +338,17 @@ header .outlined_btn:hover {
   width: 55%;
 }
 
+.nav-hover {
+  padding: 6px 14px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+  color: white !important;
+}
+
+.navbar .nav-hover:hover {
+  background-color: rgba(255, 255, 255, 0.15)!important; 
+}
+
 /* Medium devices */
 @media (min-width: 768px) {
   .property-column {
