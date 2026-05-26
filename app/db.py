@@ -395,7 +395,7 @@ def get_properties_by_bookmark(user_id):
 def delete_bookmarks(property_id):
     pass
 
-#index.html
+# fetch props and filter by q
 def get_all_properties_db(q=None):
     cur = mysql.connection.cursor()
     if q:
@@ -407,6 +407,7 @@ def get_all_properties_db(q=None):
     cur.close()
     return result
 
+# fetch all uni
 def get_universities_db():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM university")
@@ -414,6 +415,7 @@ def get_universities_db():
     cur.close()
     return result
 
+# fetch images for each prop, return {propertyId: url}
 def get_image_map_db():
     cur = mysql.connection.cursor()
     cur.execute("SELECT propertyId, url FROM propertyImage WHERE isPrimary = 1")
@@ -424,6 +426,7 @@ def get_image_map_db():
         image_map[img['propertyId']] = img['url']
     return image_map
 
+# nearby unis for each prop 
 def get_nearby_db():
     cur = mysql.connection.cursor()
     cur.execute("""
