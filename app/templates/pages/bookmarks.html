@@ -82,14 +82,14 @@
       
       
       <!-- table section -->
-      {% if Bookmarks %}
-      {% for Bookmark in Bookmarks %}
+      {% if bookmarks %}
+      {% for bookmark in bookmarks %}
       <div
         class="container rounded-4 overflow-hidden shadow-sm bg-white mt-4 p-0"
       >
         <div class="hover_item d-flex align-items-start gap-3 px-4 py-3">
           <img
-            src="{{ Bookmark.property.image_urls[0] }}"
+            src="{{ bookmark.property.image_urls[0] }}"
             id="property_rental_img"
             style="width: 80px"
             class="rounded-3 object-fit-cover"
@@ -99,7 +99,7 @@
               class="d-flex align-items-center justify-content-between gap-4 mb-1"
             >
               <h6 class="fw-bold mb-0 lh-1 text-truncate">
-                {{ Bookmark.property.title}}
+                {{ bookmark.property.title}}
               </h6>
               <!-- we don't need rating system -->
               <!--<div
@@ -127,10 +127,10 @@
             </div>
 
             <p class="small text-muted lh-1 mb-2 text-truncate">
-              {{ Bookmark.property.address}}
+              {{ bookmark.property.address}}
             </p>
             <div class="d-flex align-items-center gap-3 mb-2">
-              <h6 class="fw-bold mb-0 lh-1 text-truncate">${{ Bookmark.property.rent_per_week}} /wk</h6>
+              <h6 class="fw-bold mb-0 lh-1 text-truncate">${{ bookmark.property.rent_per_week}} /wk</h6>
               <span class="small d-flex align-items-center gap-1"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@
                   <path d="M2 8v9" />
                   <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
                 </svg>
-                {{ Bookmark.property.bedroom_count}}</span
+                {{ bookmark.property.bedroom_count}}</span
               >
               <span class="small d-flex align-items-center"
                 ><svg
@@ -173,26 +173,27 @@
                   <path d="M4 21l1 -1.5" />
                   <path d="M20 21l-1 -1.5" />
                 </svg>
-                {{ Bookmark.property.bathroom_count}}</span
+                {{ bookmark.property.bathroom_count}}</span
               >
-              <small class="text-muted">{{ Bookmark.property.living_area}} sqm</small>
+              <small class="text-muted">{{ bookmark.property.living_area}} sqm</small>
             </div>
-            {% if Bookmark.note %}
+            {% if bookmark.note %}
             <div
               class="p-2 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 small text-muted mb-1"
             >
-              {{ Bookmark.note}}
+              {{ bookmark.note}}
             </div>
             {% endif %}
             <!-- @@@@@@ Saved on Mar 15, 2025 should we show the date in this formate?-->
             <small class="text-muted"
-              ><small>Saved on {{ Bookmark.created_at}}</small></small
+              ><small>Saved on {{ bookmark.created_at}}</small></small
             >
           </div>
 
           <div class="d-flex flex-column gap-2">
-            <button
-              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
+            <a
+            href="{{ url_for('details.property_details', property_id=bookmark.property.id) }}"
+              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle text-decoration-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +214,7 @@
                 />
               </svg>
               <small class="d-none d-md-inline fw_600">View</small>
-            </button>
+            </a>
 
             <button
               class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 gap-1 text-dark border border-secondary-subtle"
@@ -1143,6 +1144,19 @@
 
       </div>
       {% endfor %}
+      {% else %}      
+      <div class=" p-5 text-center">
+
+        <i class="bi bi-bookmark-x text-secondary mb-3" style="font-size: 40px;"></i>
+
+        <h5 class="fw-semibold text-secondary">No bookmarks now</h5>
+
+        <p class="text-muted small mb-0">
+          Start saving properties to see them here
+        </p>
+
+      </div>
+
       {% endif %}
 
 

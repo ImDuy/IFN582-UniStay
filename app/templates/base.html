@@ -41,7 +41,7 @@
             </svg>
           </div>
           <a class="text-light navbar-brand ms-2 fw-bold fs-4" href="{{ url_for('home.index') }}">UniStay</a>
-          {% if  session.get('user', {}).get('user_role')  %}
+          {% if session.get('user', {}).get('user_role')  %}
           <button
             class="navbar-toggler"
             type="button"
@@ -52,15 +52,15 @@
           </button> 
           <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mx-4 mb-2 mb-lg-0">
-              {% if  session.get('user', {}).get('user_role')  == 'agent' %}
+              {% if session.get('user', {}).get('user_role')  == 'Agent' %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('listings.index') }}"> Listing page </a>
                 </li>
-              {% elif  session.get('user', {}).get('user_role')  == 'tenant' %}
+              {% elif session.get('user', {}).get('user_role')  == 'Tenant' %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> bookmark page </a>
                 </li>
-              {% elif  session.get('user', {}).get('user_role')  == 'admin' %}
+              {% elif session.get('user', {}).get('user_role')  == 'Admin' %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="#"> manage user </a>
                 </li>

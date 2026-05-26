@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, session, flash
 from flask import redirect, url_for
 from app.constants import UserRole
 from . import bookmarks_bp
-from app.db import get_all_properties, get_properties_by_bookmark, delete_bookmarks
+from app.db import get_bookmark_by_tenant, delete_bookmarks
 
 
 
@@ -16,13 +16,12 @@ def index():
     
     user_role = session['user']['user_role']
     print('user_role >', user_role)
-    # if user_role == UserRole.TENANT.value:
-    if user_role == 'tenant': #@@@@@@@@@@@@TEST
+    if user_role == UserRole.TENANT.value:
         # get tenant's bookmark list and get the properties in the list
-        Bookmarks = get_properties_by_bookmark(user_id)
+        bookmarks = get_bookmark_by_tenant(user_id)
     else:
         return redirect(url_for('home.index'))
-    return render_template('/pages/bookmarks.html', Bookmarks=Bookmarks)
+    return render_template('/pages/bookmarks.html', bookmarks=bookmarks)
 
 # view button direct to detailpage
 @bookmarks_bp.post('/')

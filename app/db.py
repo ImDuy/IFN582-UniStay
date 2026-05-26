@@ -353,7 +353,7 @@ def search_properties(query):
             results.append(property)
     return results
 
-def get_properties_by_bookmark(user_id):
+def get_bookmark_by_tenant(user_id):
     
     cursor = mysql.connection.cursor()
 
