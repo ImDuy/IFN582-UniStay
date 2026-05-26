@@ -77,7 +77,7 @@ def register():
                 email,
                 form.phone.data.strip(),
                 None,
-                form.role.data.lower()
+                form.role.data
             )
         )
         mysql.connection.commit()
