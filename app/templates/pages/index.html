@@ -134,40 +134,8 @@
                 </span>
               {% endif %}
               {{ uni.name }}
-              <span class="tab-logo-wrap">
-              <img src="{{ url_for('static', filename='img/logo_uq.jpg') }}" class="tab-logo" alt="UQ">
-              </span>
-              University of Queensland</a
-            >
-            <a
-              class="nav-link d-flex align-items-center"
-              id="pills-qut-tab"
-              data-bs-toggle="pill"
-              href="#pills-qut"
-              role="tab"
-              aria-controls="pills-qut"
-              aria-selected="false"
-              >
-              <span class="tab-logo-wrap">
-              <img src="{{ url_for('static', filename='img/logo_qut.jpg') }}" class="tab-logo" alt="UQ">
-              </span>
-              Queensland University of Technology</a
-            >
-            <a
-              class="nav-link d-flex align-items-center"
-              id="pills-gu-tab"
-              data-bs-toggle="pill"
-              href="#pills-gu"
-              role="tab"
-              aria-controls="pills-gu"
-              aria-selected="false"
-              >
-              <span class="tab-logo-wrap">
-              <img src="{{ url_for('static', filename='img/logo_gu.png') }}" class="tab-logo" alt="UQ">
-              </span>Griffith University</a
-            >
-          </nav>
-        
+              </a>
+            {% endfor %}
 
       <!-- property cards -->
       <div class="tab-content" id="pills-tabContent">
@@ -182,6 +150,7 @@
                 class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
               >
                 {% for property in all_properties %}
+                {% set nearby_list = nearby_map.get(property.id, []) %}
                 <div class="col">
                   <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
                     <div class="card rounded-4 property_card">
@@ -222,10 +191,11 @@
                           </div>
 
                           <div class="border rounded-3 border-gray p-1">
-                              {% set nearby_list = nearby_map.get(property.id, []) %}
                               {% if nearby_list %}
-                                <small class="text_max_2_lines"><small>
-                                <span class="fw-bold">{{ nearby_list[0]['distance'] }} km</span>
+                                <small><small>
+                                  <span class="fw-bold">{{ nearby_list[0]['distance'] }} km</span>
+                                  from {{ nearby_list[0]['universityName'] }}
+                                </small></small>
                               {% else %}
                                 </small></small>No nearby University info</small></small>
                               {% endif %}
@@ -249,84 +219,52 @@
                 {% endfor %}
               </div>
             </div> 
-            <!-- UQ -->
-            <div class="tab-pane fade" 
-              id="pills-uq"
-              role="tabpanel">
-              <div 
-              class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
-              >
-                {# UQ tab - universityId = 1 #}
+            <!-- Other Tabs -->
+            {% for uni in universities %}
+            <div class="tab-pane fade" id="pills-{{ uni.id }}" role="tabpanel">
+              <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5">
                 {% for property in all_properties %}
-                  {% if nearby_map.get(property.id, {}).get(1) %}
-                <div class="col">
-                  <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
-                    <div class="card rounded-4 property_card">
-                      <div class="rounded-top-4 overflow-hidden">
-                        <img
-                          src="{{ url_for('static', filename='img/' + (image_map.get(property.id) or 'properties_1.jpeg')) }}"
-                          class="card-img-top"
-                          alt="{{ property.title }}"
-                        />
-                      </div>
-                      <div class="card-body px-0">
-                        <div class="property_card_body_pd_x">
-                          <h5 class="card-title mb-0 property_card_title">
-                            {{ property.title }}
-                          </h5>
-                          <div class="d-flex align-items-center my-1">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                            >
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                              <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                              <path
-                                d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                              />
-                            </svg>
-                            <small class="card-text flex-1 text-truncate ms-1">
-                              {{ property.address }}
+                {% set nearby_list = nearby_map.get(property.id, []) %}
+                {% for n in nearby_list %}
+                {% if n['universityId'] == uni.id %}
+                  <div class="col">
+                    <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
+                      <div class="card rounded-4 property_card">
+                        <div class="rounded-top-4 overflow-hidden">
+                          <img src="{{ url_for('static', filename='img/' + (image_map.get(property.id) or 'properties_1.jpeg')) }}"
+                            class="card-img-top" alt="{{ property.title }}"/>
+                        </div>
+                        <div class="card-body px-0">
+                          <div class="property_card_body_pd_x">
+                            <h5 class="card-title mb-0 property_card_title">{{ property.title }}</h5>
+                            <div class="d-flex align-items-center my-1">
+                              <small class="card-text flex-1 text-truncate ms-1">{{ property.address }}</small>
+                            </div>
+                            <div class="border rounded-3 border-gray p-1">
+                              <small><small>
+                                <span class="fw-bold">{{ n['distance'] }} km</span>
+                                from {{ n['universityName'] }}
+                              </small></small>
+                            </div>
+                          </div>
+                          <div class="border-top mt-3 mb-2"></div>
+                          <div class="d-flex justify-content-center property_card_body_pd_x">
+                            <small class="card-text">
+                              From <span class="property_card_title">${{ property.rentPerWeek }}</span>/week
                             </small>
                           </div>
-
-                          <div class="border rounded-3 border-gray p-1">
-                              {% set nearby_list = nearby_map.get(property.id, []) %}
-                              {% if nearby_list %}
-                                <small class="text_max_2_lines"><small>
-                                <span class="fw-bold">{{ nearby_list[0]['distance'] }} km</span>
-                              {% else %}
-                                </small></small>No nearby University info</small></small>
-                              {% endif %}
-                          </div>
-                        </div>
-
-                        <div class="border-top mt-3 mb-2"></div>
-
-                        <div
-                          class="d-flex justify-content-center property_card_body_pd_x"
-                        >
-                          <small class="card-text text-">
-                            From
-                            <span class="property_card_title">${{ property.rentPerWeek }}</span>/week
-                          </small>
                         </div>
                       </div>
-                    </div>
-                  </a>
+                    </a>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
                 </div>
-                    {% endif %} 
-                {% endfor %}
               </div>
-            </div> 
+              {% endfor %}
+
+            </div>
             <!-- QUT -->
             <div 
                 class="tab-pane fade" 

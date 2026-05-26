@@ -20,7 +20,7 @@ create table university (
 id int auto_increment not null primary key,
 name varchar (100) not null,
 address varchar (250) not null,
-logoUrl varchar (250)
+logoUrl varchar (250) not null
 );
 
 create table property (

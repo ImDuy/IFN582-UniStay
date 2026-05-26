@@ -102,7 +102,7 @@ insert into university (name, address, logoUrl) values (
 "St Lucia QLD 4072",
 "logo_uq.jpg"
 ),(
-"QUT",
+"Queensland University of Technology",
 "Gardent Point Rd",
 "logo_qut.jpg"
 ), (
