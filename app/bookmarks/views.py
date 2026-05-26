@@ -9,21 +9,17 @@ from app.db import get_all_properties, get_properties_by_bookmark, delete_bookma
 @bookmarks_bp.route('/')
 def index():
     # query user's bookmarks list default using the userId and check the role if it's not tenant than redirect to homepage
-    user_id = session.get('user_id')
-    user_id = 3 # TEST@@@@@@@@@@@@@@@@@@@@@@@@
+    user_id = session['user']['user_id']
     if not user_id:
         #if user didn't log in redirect to login page
         return redirect(url_for('home.index'))
     
-    user_role = session.get('role')
-    user_role = UserRole.TENANT.value # TEST@@@@@@@@@@@@@@@@@@@@@@@@
-    if user_role == UserRole.TENANT.value:
+    user_role = session['user']['user_role']
+    print('user_role >', user_role)
+    # if user_role == UserRole.TENANT.value:
+    if user_role == 'tenant': #@@@@@@@@@@@@TEST
         # get tenant's bookmark list and get the properties in the list
-        # properties = get_all_properties() # TEST@@@@@@@@@@@@@@@@@@@@@@@@
         Bookmarks = get_properties_by_bookmark(user_id)
-        
-        print('Bookmarks >', Bookmarks) # TEST@@@@@@@@@@@@@@@@@@@@@@@@
-        
     else:
         return redirect(url_for('home.index'))
     return render_template('/pages/bookmarks.html', Bookmarks=Bookmarks)
