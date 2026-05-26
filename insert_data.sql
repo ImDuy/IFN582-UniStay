@@ -148,10 +148,17 @@ insert into enquiry (senderId, targetPropertyId, submittedDate, status) values (
 
 insert into offer (senderId, targetPropertyId, submittedDate, status) values (
 3,
-1,
+2,
 '2026-05-22',
 'Pending'
+),(
+4,
+2,
+'2026-05-22',
+'Accepted'
 );
+
+;
 
 insert into propertyAmenity (propertyId, amenity) values (
 1,
