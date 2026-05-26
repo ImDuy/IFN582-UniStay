@@ -394,3 +394,50 @@ def get_properties_by_bookmark(user_id):
     
 def delete_bookmarks(property_id):
     pass
+
+#index.html
+def get_all_properties_db(q=None):
+    cur = mysql.connection.cursor()
+    if q:
+        cur.execute("SELECT * FROM property WHERE title LIKE %s OR address LIKE %s",
+                    (f'%{q}%', f'%{q}%'))
+    else:
+        cur.execute("SELECT * FROM property")
+    result = cur.fetchall()
+    cur.close()
+    return result
+
+def get_universities_db():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM university")
+    result = cur.fetchall()
+    cur.close()
+    return result
+
+def get_image_map_db():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT propertyId, url FROM propertyImage WHERE isPrimary = 1")
+    images = cur.fetchall()
+    cur.close()
+    image_map = {}
+    for img in images:
+        image_map[img['propertyId']] = img['url']
+    return image_map
+
+def get_nearby_db():
+    cur = mysql.connection.cursor()
+    cur.execute("""
+        SELECT n.propertyId, n.universityId, n.distance, u.name as universityName
+        FROM nearby n
+        JOIN university u ON n.universityId = u.id
+    """)
+    result = cur.fetchall()
+    cur.close()
+    # {propertyId: [list of nearby]}
+    nearby_map = {}
+    for n in result:
+        pid = n['propertyId']
+        if pid not in nearby_map:
+            nearby_map[pid] = []
+        nearby_map[pid].append(n)
+    return nearby_map

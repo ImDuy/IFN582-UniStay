@@ -97,15 +97,18 @@ availableDate, agentId
 2
 );
 
-insert into university (name, address) values (
+insert into university (name, address, logoUrl) values (
 "University of Queensland",
-"St Lucia QLD 4072"
+"St Lucia QLD 4072",
+"logo_uq.jpg"
 ),(
 "QUT",
-"Gardent Point Rd"
+"Gardent Point Rd",
+"logo_qut.jpg"
 ), (
 "Griffith University",
-"Nathan QLD 4111"
+"Nathan QLD 4111",
+"logo_gu.png"
 );
 
 insert into nearby (propertyId, universityId, distance) values (
