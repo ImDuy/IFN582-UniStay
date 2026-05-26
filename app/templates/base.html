@@ -43,7 +43,7 @@
           <a class="text-light navbar-brand ms-2 fw-bold fs-4" href="{{ url_for('home.index') }}">UniStay</a>
           {% if session.get('user', {}).get('user_role')  %}
           <button
-            class="navbar-toggler"
+            class="navbar-toggler navbar-dark"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarContent"

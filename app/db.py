@@ -104,7 +104,7 @@ tenant1 = Tenant(
 
 bookmark1 = Bookmark(
     id="B001",
-    tenant=tenant1,
+    tenantId='T001',
     property=prop1,
     note="Very close to my campus",
 )
@@ -357,20 +357,20 @@ def get_bookmark_by_tenant(user_id):
     
     cursor = mysql.connection.cursor()
 
-    cursor.execute('select * from unistay.bookmark a join unistay.property b on a.propertyId = b.id where tenantId =  %s',(user_id,))
-
+    cursor.execute("""
+        SELECT *
+        FROM unistay.bookmark a
+        JOIN unistay.property b ON a.propertyId = b.id
+        LEFT JOIN unistay.propertyimage i 
+            ON b.id = i.propertyId AND i.isPrimary = 1
+        WHERE a.tenantId = %s
+    """,(user_id,))
     results = cursor.fetchall()
     cursor.close()
     return  [
         Bookmark(
             id=str(row['id']),
-            tenant=Tenant(
-                id=str(row['tenantId']),                  
-                username="",
-                first_name="",
-                last_name="",
-                email="",
-                phone=""),
+            tenantId=str(row['tenantId']),
             property=Property(
                 id=str(row['propertyId']),
                 title=row['title'],
@@ -384,7 +384,7 @@ def get_bookmark_by_tenant(user_id):
                 living_area=float(row['livingArea']),
                 available_date=None,
                 agent=None,
-                image_urls=[]
+                image_urls=row['url']
             ),
             note=row.get('note', ''),
             created_at=row.get('createdAt')
@@ -392,8 +392,12 @@ def get_bookmark_by_tenant(user_id):
         for row in results
     ]
     
-def delete_bookmarks(property_id):
-    pass
+def delete_bookmark_by_id(bookmark_id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM bookmark WHERE id = %s", (bookmark_id))
+
+    mysql.connection.commit()
+    cur.close()
 
 # fetch props and filter by q
 def get_all_properties_db(q=None):

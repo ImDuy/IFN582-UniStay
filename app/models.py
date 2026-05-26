@@ -109,7 +109,7 @@ class Property:
 @dataclass
 class Bookmark:
     id: str
-    tenant: Tenant
+    tenantId: str
     property: Property
     note: str
     created_at: datetime = datetime.now()

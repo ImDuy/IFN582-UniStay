@@ -75,12 +75,12 @@ foreign key (propertyId) references property(id) on delete cascade
 );
 
 create table bookmark (
+id int auto_increment not null primary key,
 tenantId int not null,
 propertyId int not null,
 note varchar (250),
 createdAt Date not null,
 
-primary key (tenantId, propertyId),
 foreign key (tenantId) references user(id) on delete cascade,
 foreign key (propertyId) references property(id) on delete cascade
 );

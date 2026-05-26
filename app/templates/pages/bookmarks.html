@@ -89,7 +89,7 @@
       >
         <div class="hover_item d-flex align-items-start gap-3 px-4 py-3">
           <img
-            src="{{ bookmark.property.image_urls[0] }}"
+            src="{{ url_for('static', filename='img/' + (bookmark.property.image_urls) or 'properties_1.jpeg') }}"
             id="property_rental_img"
             style="width: 80px"
             class="rounded-3 object-fit-cover"
@@ -240,31 +240,33 @@
               </svg>
               <small class="d-none d-md-inline fw_600">Notes</small>
             </button>
+            <form method="POST" action="{{url_for('bookmarks.delete_bookmark', bookmark_id=bookmark.id)}}">
 
-            <button
-              class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 26 26"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+              <button
+                class="outlined_btn d-flex align-items-center justify-content-center rounded-3 px-2 py-2 py-md-1 text-danger border border-secondary-subtle"
               >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M4 7l16 0" />
-                <path d="M10 11l0 6" />
-                <path d="M14 11l0 6" />
-                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-              </svg>
-              <small class="d-none d-md-inline fw_600">Remove</small>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M4 7l16 0" />
+                  <path d="M10 11l0 6" />
+                  <path d="M14 11l0 6" />
+                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                </svg>
+                <small class="d-none d-md-inline fw_600">Remove</small>
+              </button>
+            </form>
           </div>
         </div>
 
