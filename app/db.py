@@ -2,6 +2,7 @@ from datetime import date
 import uuid
 from app.models import *
 from app.constants import PropertyType, PropertyAmenity
+import uuid
 from . import mysql
 
 
@@ -108,12 +109,12 @@ bookmark1 = Bookmark(
     note="Very close to my campus",
 )
 
-enquiry1 = Enquiry(
-    id="E001",
-    sender=tenant1,
-    target_property=prop1,
-    status= EnquiryStatus.NEW
-)
+# enquiry1 = Enquiry(
+#     id="E001",
+#     sender=tenant1,
+#     target_property=prop1,
+#     status= EnquiryStatus.NEW
+# )
 
 uni1 = University(
     id="U001",
@@ -151,7 +152,7 @@ mockAgents = [agent1, agent2]
 mockProperties = [prop1, prop2, prop3, prop4]
 mockTenants = [tenant1]
 mockBookmarks = [bookmark1]
-mockEnquiries = [enquiry1]
+# mockEnquiries = [enquiry1]
 mockUniversities = [uni1, uni2]
 mockNearby = [nearby1, nearby2, nearby3]
 
@@ -210,12 +211,28 @@ def get_properties_by_agent(agent_id):
                         last_name=row['lastName'], email=row['email'], phone=row['phone'], 
                         avatar_url=row['avatarUrl'] if 'avatarUrl' in row else '',)
         )
+        
+        # enquiries
+        cur.execute("""SELECT e.senderId as tenant_id, e.submittedDate, e.status,
+                    u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
+                    FROM enquiry e
+                    JOIN user u ON e.senderId = u.id
+                    WHERE e.targetPropertyId = %s
+                    ORDER BY 
+                        FIELD(e.status, 'New', 'Responded', 'Closed'),
+                        e.submittedDate DESC""", (property_id,))
+        prop.enquiries = [Enquiry(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
+                    sender= Tenant(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
+                    status= EnquiryStatus(row['status']),
+                    created_at=row['submittedDate']) for row in cur.fetchall()]
+
         properties.append(prop)
 
     cur.close()
     return properties
 
 def get_all_properties():
+    # this is for admin -> no need to fetch associated enquiry data for each property
     return mockProperties
 
 def add_property(form, agent_id):
@@ -270,10 +287,38 @@ def update_property(property_id, form):
 def delete_property(property_id):
 
     cur = mysql.connection.cursor()
-    # delete property
     cur.execute("DELETE FROM property WHERE id = %s", (property_id))
     # amenities, images, documents are also deleted in database with ON DELETE CASCADE 
 
+    mysql.connection.commit()
+    cur.close()
+
+# def get_enquiries_by_property(property):
+#     cur = mysql.connection.cursor()
+#     cur.execute("""SELECT e.senderId as tenant_id, e.submittedDate, e.status,
+#         u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
+#     FROM enquiry e
+#     JOIN user u ON e.senderId = u.id
+#     WHERE e.targetPropertyId = %s
+#     ORDER BY 
+#         FIELD(e.status, 'New', 'Responded', 'Closed'),
+#         e.submittedDate DESC""", (property.id,))
+
+#     results = cur.fetchall()
+
+#     cur.close()
+#     return [Enquiry(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
+#                     sender= Tenant(str(row['tenant_id']), row['username'], row['fistName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
+#                     target_property=property,
+#                     status= EnquiryStatus(row['status']),
+#                     created_at=str(row['submittedDate'])) for row in results]
+
+def update_enquiries_by_property(property_id, form):
+    cur = mysql.connection.cursor()
+    for enquiry_form in form.enquiries:
+        cur.execute("""UPDATE enquiry SET status = %s
+            WHERE senderId = %s AND targetPropertyId = %s""", 
+            ( enquiry_form.status.data, enquiry_form.tenant_id.data, property_id))
     mysql.connection.commit()
     cur.close()
 

@@ -34,6 +34,28 @@ class Agent(User):
         pass
 
 @dataclass
+class Tenant(User):
+    # Tenant inherits from User (so it has all the attributes and methods from User)
+    def get_bookmarked_properties(self):
+        pass
+    def bookmark_property(self): # add new bookmark item
+        pass
+    def edit_bookmark(self): # just edit bookmark note
+        pass
+    def remove_bookmark(self):
+        pass
+    def submit_enquiry(self): # add new enquiry item
+        pass
+
+@dataclass
+class Enquiry:
+    id: str
+    sender: Tenant
+    # target_property: Property
+    status: EnquiryStatus
+    created_at: datetime = datetime.now()
+
+@dataclass
 class Property:
     id: str
     title: str
@@ -53,36 +75,20 @@ class Property:
     documentations: List[str] = field(default_factory=lambda: [Defaults.DOCUMENT.value])
 
     # these attributes are for showing on listings page only, other pages no need to use them
-    new_enquiry_count: int = 0
+    enquiries: List[Enquiry] = field(default_factory=lambda: list)
+    @property
+    def new_enquiry_count(self):
+        count = 0
+        for enquiry in self.enquiries:
+            if enquiry.status == EnquiryStatus.NEW:
+                count +=1
+        return count
 
     def get_nearby_universities(self):
         # this one is to show nearby universities in the property details page
         # as we dont really implement any distance calculation feature, we gonna create a nearby table in the database and get the nearby data from that
         pass
 
-
-
-@dataclass
-class Tenant(User):
-    # Tenant inherits from User (so it has all the attributes and methods from User)
-    def get_bookmarked_properties(self):
-        pass
-    def bookmark_property(self): # add new bookmark item
-        pass
-    def edit_bookmark(self): # just edit bookmark note
-        pass
-    def remove_bookmark(self):
-        pass
-    def submit_enquiry(self): # add new enquiry item
-        pass
-
-@dataclass
-class Enquiry:
-    id: str
-    sender: Tenant
-    target_property: Property
-    status: EnquiryStatus
-    created_at: datetime = datetime.now()
 
 @dataclass
 class Bookmark:

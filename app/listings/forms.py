@@ -1,8 +1,8 @@
-from flask_wtf import FlaskForm
-from wtforms.fields import DateField, SelectField, IntegerField, SelectMultipleField, SubmitField, StringField, TextAreaField, URLField
-from wtforms.validators import  InputRequired, DataRequired,NumberRange
+from flask_wtf import FlaskForm, Form
+from wtforms.fields import DateField, FieldList, FormField, HiddenField, SelectField, IntegerField, SelectMultipleField, SubmitField, StringField, TextAreaField, URLField
+from wtforms.validators import  InputRequired ,NumberRange
 from wtforms.widgets import CheckboxInput
-from app.constants import PropertyAmenity, PropertyType
+from app.constants import EnquiryStatus, PropertyAmenity, PropertyType
 
 class PropertyForm(FlaskForm):
     title = StringField('Property Title*', validators=[InputRequired()])
@@ -16,7 +16,7 @@ class PropertyForm(FlaskForm):
     address = StringField('Address*', validators=[InputRequired()])
     bedroom_count = IntegerField('Bedrooms*', default=1, validators=[InputRequired(), NumberRange(min=0)])
     bathroom_count = IntegerField('Bathrooms*', default=1, validators=[InputRequired(), NumberRange(min=0)])
-    living_area = IntegerField('Living Area*', default=0, validators=[InputRequired(), NumberRange(min=0)])
+    living_area = IntegerField('Living Area*', default=1, validators=[InputRequired(), NumberRange(min=1)])
 
     amenities = SelectMultipleField('Amenities',
         choices=[propAmenity.value for propAmenity in PropertyAmenity],
@@ -28,3 +28,17 @@ class PropertyForm(FlaskForm):
     documentation = URLField('Documentation URL')
 
     submit = SubmitField('Confirm')
+
+class EnquiryStatusForm(Form):
+    tenant_id = HiddenField()
+    status = SelectField(
+        'Status',
+        choices=[status.value for status in EnquiryStatus],
+        validators=[InputRequired()]
+    )
+
+class PropertyEnquiryForm(FlaskForm):
+    enquiries = FieldList(
+        FormField(EnquiryStatusForm)
+    )
+    submit = SubmitField('Update')

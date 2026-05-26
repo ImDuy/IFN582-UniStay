@@ -334,8 +334,65 @@ header .outlined_btn:hover {
   border-color: #101828;
 }
 
+.offer-color {
+  color: #d97706;
+}
+
+.offer-badge:hover {
+  border-color: #d97706;
+  color: #d97706;
+}
+
+.offer-badge:active {
+  border-color: #d97706 !important;
+  color: #d97706 !important;
+  opacity: 50%;
+}
+
+.enquiry-color {
+  color: #2563eb;
+}
+
+.enquiry-badge:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.enquiry-badge:active {
+  border-color: #2563eb !important;
+  color: #2563eb !important;
+  opacity: 50%;
+}
+
 .property-column {
   width: 55%;
+}
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: #000;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+
+  transition: opacity 0.2s;
+}
+
+.tooltip-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 .nav-hover {
