@@ -33,19 +33,7 @@ SHA2('password', 256),
 "0411223344",
 Null,
 'Tenant'
-),
-(
-"bill_tran",
-SHA2('password', 256),
-"Bill",
-"Tran",
-"bill@student.edu.au",
-"0423113344",
-Null,
-'Tenant'
 );
-
-;
 
 insert into property (
 title, address, description, propertyType,
@@ -137,33 +125,19 @@ insert into bookmark (tenantId, propertyId, note, createdAt) values (
 '2026-05-22'
 );
 
-insert into enquiry (senderId, targetPropertyId, message, submittedDate, status) values (
+insert into enquiry (senderId, targetPropertyId, submittedDate, status) values (
 3,
 1,
-'Is parking available at this property? Also, are pets allowed?',
 '2026-05-22',
 'New'
-), (
-4,
-1,
-'Is parking available at this property? Also, are pets allowed?',
-'2026-05-20',
-'Responded'
 );
 
 insert into offer (senderId, targetPropertyId, submittedDate, status) values (
 3,
-2,
+1,
 '2026-05-22',
 'Pending'
-),(
-4,
-2,
-'2026-05-22',
-'Accepted'
 );
-
-;
 
 insert into propertyAmenity (propertyId, amenity) values (
 1,
@@ -218,3 +192,4 @@ False
 'properties_2_gallery_2.jpeg',
 False
 );
+
