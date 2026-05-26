@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm, Form
 from wtforms.fields import DateField, FieldList, FormField, HiddenField, SelectField, IntegerField, SelectMultipleField, SubmitField, StringField, TextAreaField, URLField
-from wtforms.validators import  InputRequired ,NumberRange
+from wtforms.validators import  InputRequired, NumberRange
 from wtforms.widgets import CheckboxInput
-from app.constants import EnquiryStatus, PropertyAmenity, PropertyType
+from app.constants import EnquiryStatus, OfferStatus, PropertyAmenity, PropertyType
 
 class PropertyForm(FlaskForm):
     title = StringField('Property Title*', validators=[InputRequired()])
@@ -29,6 +29,7 @@ class PropertyForm(FlaskForm):
 
     submit = SubmitField('Confirm')
 
+# Enquiry form
 class EnquiryStatusForm(Form):
     tenant_id = HiddenField()
     status = SelectField(
@@ -41,4 +42,19 @@ class PropertyEnquiryForm(FlaskForm):
     enquiries = FieldList(
         FormField(EnquiryStatusForm)
     )
-    submit = SubmitField('Update')
+    submit = SubmitField('Confirm')
+
+# Offer form
+class OfferStatusForm(Form):
+    tenant_id = HiddenField()
+    status = SelectField(
+        'Status',
+        choices=[status.value for status in OfferStatus],
+        validators=[InputRequired()]
+)
+
+class PropertyOfferForm(FlaskForm):
+    offers = FieldList(
+        FormField(OfferStatusForm),
+    )
+    submit = SubmitField('Confirm')

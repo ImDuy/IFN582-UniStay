@@ -226,6 +226,19 @@ def get_properties_by_agent(agent_id):
                     message= row['message'],
                     status= EnquiryStatus(row['status']),
                     created_at=row['submittedDate']) for row in cur.fetchall()]
+        # offers 
+        cur.execute("""SELECT o.senderId as tenant_id, o.submittedDate, o.status,
+            u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
+            FROM offer o
+            JOIN user u ON o.senderId = u.id
+            WHERE o.targetPropertyId = %s
+            ORDER BY 
+                FIELD(o.status, 'Pending', 'Accepted', 'Rejected'),
+                o.submittedDate DESC""", (property_id,))
+        prop.offers = [Offer(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
+            sender= Tenant(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
+            status= OfferStatus(row['status']),
+            created_at=row['submittedDate']) for row in cur.fetchall()]
 
         properties.append(prop)
 
@@ -294,32 +307,21 @@ def delete_property(property_id):
     mysql.connection.commit()
     cur.close()
 
-# def get_enquiries_by_property(property):
-#     cur = mysql.connection.cursor()
-#     cur.execute("""SELECT e.senderId as tenant_id, e.submittedDate, e.status,
-#         u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
-#     FROM enquiry e
-#     JOIN user u ON e.senderId = u.id
-#     WHERE e.targetPropertyId = %s
-#     ORDER BY 
-#         FIELD(e.status, 'New', 'Responded', 'Closed'),
-#         e.submittedDate DESC""", (property.id,))
-
-#     results = cur.fetchall()
-
-#     cur.close()
-#     return [Enquiry(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
-#                     sender= Tenant(str(row['tenant_id']), row['username'], row['fistName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
-#                     target_property=property,
-#                     status= EnquiryStatus(row['status']),
-#                     created_at=str(row['submittedDate'])) for row in results]
-
 def update_enquiries_by_property(property_id, form):
     cur = mysql.connection.cursor()
     for enquiry_form in form.enquiries:
         cur.execute("""UPDATE enquiry SET status = %s
             WHERE senderId = %s AND targetPropertyId = %s""", 
             ( enquiry_form.status.data, enquiry_form.tenant_id.data, property_id))
+    mysql.connection.commit()
+    cur.close()
+
+def update_offers_by_property(property_id, form):
+    cur = mysql.connection.cursor()
+    for offer_form in form.offers:
+        cur.execute("""UPDATE offer SET status = %s
+            WHERE senderId = %s AND targetPropertyId = %s""", 
+            ( offer_form.status.data, offer_form.tenant_id.data, property_id))
     mysql.connection.commit()
     cur.close()
 

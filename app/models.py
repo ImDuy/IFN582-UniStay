@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime, date
 from typing import List
-from app.constants import Defaults, EnquiryStatus, PropertyAmenity, PropertyType
+from app.constants import Defaults, EnquiryStatus, OfferStatus, PropertyAmenity, PropertyType
 
 @dataclass
 class User:
@@ -57,6 +57,13 @@ class Enquiry:
     created_at: datetime = datetime.now()
 
 @dataclass
+class Offer:
+    id: str
+    sender: Tenant
+    status: OfferStatus
+    created_at: datetime = datetime.now()
+
+@dataclass
 class Property:
     id: str
     title: str
@@ -77,11 +84,19 @@ class Property:
 
     # these attributes are for showing on listings page only, other pages no need to use them
     enquiries: List[Enquiry] = field(default_factory=lambda: list)
+    offers: List[Offer] = field(default_factory=lambda: list)
     @property
     def new_enquiry_count(self):
         count = 0
         for enquiry in self.enquiries:
             if enquiry.status == EnquiryStatus.NEW:
+                count +=1
+        return count
+    @property
+    def pending_offer_count(self):
+        count = 0
+        for offer in self.offers:
+            if offer.status == OfferStatus.PENDING:
                 count +=1
         return count
 

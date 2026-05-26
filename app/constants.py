@@ -9,6 +9,11 @@ class EnquiryStatus(Enum):
     RESPONDED = 'Responded'
     CLOSED = 'Closed'
 
+class OfferStatus(Enum):
+    PENDING = 'Pending'
+    ACCEPTED = 'Accepted'
+    REJECTED = 'Rejected'
+
 class UserRole(Enum):
     AGENT = 'Agent'
     TENANT = 'Tenant'

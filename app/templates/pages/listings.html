@@ -139,7 +139,11 @@
                 <span class="tooltip-text small bg-warning-subtle text-dark">
                   Pending Offers
                 </span>
-                <span class="btn px-2 py-1 badge bg-warning-subtle offer-color offer-badge" >
+                <span 
+                class="btn px-2 py-1 badge bg-warning-subtle offer-color offer-badge" 
+                data-bs-toggle="modal"
+                data-bs-target="#offer-modal-{{ property.id }}"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"
@@ -158,7 +162,7 @@
                     />
                     <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
                   </svg>
-                  3
+                  {{ property.pending_offer_count}}
                 </span>
               </div>  
               
@@ -170,7 +174,6 @@
                 </span>
                 <span 
                   class="btn px-2 py-1 badge bg-primary-subtle enquiry-color enquiry-badge"
-                  title=""
                   data-bs-toggle="modal"
                   data-bs-target="#enquiry-modal-{{ property.id }}"
                 >
@@ -359,8 +362,9 @@
                       {% if property.enquiries | length == 0%}
                       <p class="text-muted fst-italic align-self-center my-1">There is no enquiry for this property</p>
                       {% endif%}
+                      {{ enquiry_forms[property.id].hidden_tag() }}
                       {% for enquiry in property.enquiries %}
-                        {% set enquiry_form = enquiry_forms[property.id].enquiries[loop.index0] %}
+                        {% set enquiry_status_form = enquiry_forms[property.id].enquiries[loop.index0] %}
                         <div class="p-4 bg-white border border-light-subtle rounded-3 shadow-sm">
                           <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex flex-fill align-items-center gap-3" style="min-width: 0">
@@ -375,9 +379,9 @@
                                 </div>
                               </div>
                             </div>
-                            {{ enquiry_form.tenant_id }}
+                            {{ enquiry_status_form.tenant_id }}
                             <div style="width: 140px;">
-                              {{ enquiry_form.status(class="form-select rounded-3 border-dark-subtle tex-dark px-3 py-2") }}
+                              {{ enquiry_status_form.status(class="form-select rounded-3 border-dark-subtle tex-dark px-3 py-2") }}
                             </div>
                           </div>
                           <p class="text-secondary small mb-0 mt-3 ps-1">{{ enquiry.message }}</p>
@@ -385,8 +389,78 @@
                       {% endfor %}
                     </div>   
                   </div>
+                  
                   <div class="modal-footer border-top">
-                    {{ enquiry_forms[property.id].submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+                    {% if property.enquiries | length > 0 %}
+                      {{ enquiry_forms[property.id].submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+                    {% else %}
+                      <button type="button" class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white" data-bs-dismiss="modal">Close</button>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Offer Modal -->
+        <form method="POST" action="{{ url_for('listings.update_property_offers',property_id=property.id) }}">
+          <div class="modal fade" id="offer-modal-{{ property.id }}">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content rounded-4 px-1">   
+                  <div class="modal-header border-bottom position-relative mt-1 px-0 pb-0">
+                    <div class="w-100">
+                      <div class="ps-3 pe-5 border-bottom pb-1 w-100">
+                          <h5 class="modal-title fw-bold text-dark text_max_2_lines" id="propertyModalLabel">{{ property.title }}</h5>
+                          <p class="text-muted small mb-1 text-truncate">{{ property.address }}</p>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-center px-3 py-3 offer-color border-bottom border-2 border-warning" >
+                        Offers
+                        {% if property.pending_offer_count > 0 %} 
+                        <span class="badge rounded-pill bg-warning-subtle offer-color ms-2 small fw-normal">{{ property.pending_offer_count }} pending</span>
+                        {% endif%}
+                      </div>
+                    </div>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <div class="modal-body p-4 bg-light-subtle">
+                    <div class="d-flex flex-column gap-3">
+                      {% if property.offers | length == 0%}
+                      <p class="text-muted fst-italic align-self-center my-1">There is no offer for this property</p>
+                      {% endif%}
+                      {{ offer_forms[property.id].hidden_tag() }}
+                      {% for offer in property.offers %}
+                        {% set offer_status_form = offer_forms[property.id].offers[loop.index0] %}
+                        <div class="p-4 bg-white border border-light-subtle rounded-3 shadow-sm">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-fill align-items-center gap-3" style="min-width: 0">
+                              <div class="bg-warning-subtle offer-color fw-bold rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 54px; height: 54px;">
+                                {{ offer.sender.first_name[0] | upper }}{{ offer.sender.last_name[0] | upper }}
+                              </div>
+                              <div class="flex-fill" style="min-width: 0">
+                                <h6 class="fw-bold mb-0 text-dark text-truncate">{{ offer.sender.username }}</h6>
+                                <p class="text-muted small text-truncate mb-0">{{ offer.sender.email }}</p>
+                                <div class="text-muted small mt-1">
+                                    <i class="bi bi-calendar3 me-1"></i> {{ offer.created_at.strftime("%d %b, %Y") }}
+                                </div>
+                              </div>
+                            </div>
+                            {{ offer_status_form.tenant_id }}
+                            <div style="width: 140px;">
+                              {{ offer_status_form.status(class="form-select rounded-3 border-dark-subtle tex-dark px-3 py-2") }}
+                            </div>
+                          </div>
+                          <p class="text-secondary small mb-0 mt-3 ps-1">{{ offer.message }}</p>
+                        </div>
+                      {% endfor %}
+                    </div>   
+                  </div>
+                  <div class="modal-footer border-top">
+                    {% if property.offers | length > 0 %}
+                      {{ offer_forms[property.id].submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+                    {% else %}
+                      <button type="button" class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white" data-bs-dismiss="modal">Close</button>
+                    {% endif %}
                   </div>
                 </div>
             </div>

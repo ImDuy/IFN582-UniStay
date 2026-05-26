@@ -1,10 +1,10 @@
 from flask import render_template, request, session, flash
 from flask import redirect, url_for
 from typing import List
-from app.listings.forms import PropertyEnquiryForm, PropertyForm
+from app.listings.forms import PropertyEnquiryForm, PropertyForm, PropertyOfferForm
 from app.models import Property
 from app.constants import UserRole
-from app.db import add_property, delete_property, get_properties_by_agent, get_all_properties, update_enquiries_by_property, update_property
+from app.db import add_property, delete_property, get_properties_by_agent, get_all_properties, update_enquiries_by_property, update_offers_by_property, update_property
 from app.wrappers import role_required
 from . import listings_bp
 
@@ -26,12 +26,13 @@ def index():
 
     edit_forms = {}
     enquiry_forms = {}
+    offer_forms = {}
     for property in properties:
-        # populate property data to edit form
+        # populate property data to edit forms
         edit_form = PropertyForm(obj=property) 
         edit_forms[property.id] = edit_form
         
-        # populate enquiry data to enquiry form
+        # populate enquiry data to enquiry forms
         enquiry_form = PropertyEnquiryForm()
         for enquiry in property.enquiries:
             # populate data to nested form
@@ -40,7 +41,16 @@ def index():
             entry.form.status.data = enquiry.status.value
         enquiry_forms[property.id] = enquiry_form
 
-    return render_template('/pages/listings.html', listings = properties, edit_forms=edit_forms, add_form=PropertyForm(), enquiry_forms=enquiry_forms)
+        # populate offer data to offer forms
+        offer_form = PropertyOfferForm()
+        for offer in property.offers:
+            # populate data to nested form
+            entry = offer_form.offers.append_entry()
+            entry.form.tenant_id.data = offer.sender.id
+            entry.form.status.data = offer.status.value
+        offer_forms[property.id] = offer_form
+
+    return render_template('/pages/listings.html', listings = properties, edit_forms=edit_forms, add_form=PropertyForm(), enquiry_forms=enquiry_forms, offer_forms=offer_forms)
 
 @listings_bp.post('/')
 @role_required([UserRole.AGENT.value])
@@ -50,7 +60,6 @@ def create_property_listing():
     if form.validate_on_submit():
         add_property(form, session['user']['user_id'])
         flash('New property listing has beed added!')
-
     return redirect(url_for('listings.index'))
 
 @listings_bp.post('/<string:property_id>/edit')
@@ -58,27 +67,33 @@ def create_property_listing():
 def edit_property_listing(property_id):
     form = PropertyForm()
     if form.validate_on_submit():
-        # handle form stuff and query database based on property_id to edit record
         update_property(property_id=property_id, form=form)
         flash('Edited successful!')
-
     return redirect(url_for('listings.index'))
 
 @listings_bp.post('/<string:property_id>/delete')
 @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def delete_property_listing(property_id):
-    # query database based on property_id to delete record
     delete_property(property_id)
     flash('Deleted successful!')
-
     return redirect(url_for('listings.index'))
 
-# need more routes for agent to view enquiries and update their status
+# routes for updating enquiries and offers status
 @listings_bp.post('/<string:property_id>/update-enquiries')
 @role_required([UserRole.AGENT.value])
 def update_property_enquiries(property_id):
     form = PropertyEnquiryForm()
-    update_enquiries_by_property(property_id=property_id, form=form)
-    flash('Updated successful!')
-
+    if form.validate_on_submit():
+        print('update')
+        update_enquiries_by_property(property_id=property_id, form=form)
+        flash('Updated successful!')
+    return redirect(url_for('listings.index'))
+@listings_bp.post('/<string:property_id>/update-offers')
+@role_required([UserRole.AGENT.value])
+def update_property_offers(property_id):
+    form = PropertyOfferForm()
+    if form.validate_on_submit():
+        print('update')
+        update_offers_by_property(property_id=property_id, form=form)
+        flash('Updated successful!')
     return redirect(url_for('listings.index'))
