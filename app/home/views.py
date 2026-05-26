@@ -41,8 +41,22 @@ def index():
     """)
     griffith_properties = cur.fetchall()
 
+    # Images 
+    cur.execute("SELECT propertyID, url FROM propertyImage WHERE isPrimary = 1")
+    images = cur.fetchall()
+    # Build a dict mapping propertyId to image url for quick lookup in template
+    image_map = {}
+    for img in images:
+        image_map[img['propertyID']] = img['url']
+
+    # Nearby
     cur.execute("SELECT * FROM nearby")
-    nearby = cur.fetchall()
+    nearby_list = cur.fetchall()
+    # Build a dict mapping propertyId to nearby data for quick lookup in template
+    nearby_map = {}
+    for n in nearby_list:
+        if n['propertyId'] not in nearby_map:
+            nearby_map[n['propertyId']] = n
 
     cur.close()
 
@@ -51,7 +65,8 @@ def index():
         uq_properties=uq_properties,
         qut_properties=qut_properties,
         griffith_properties=griffith_properties,
-        nearby = nearby
+        nearby_map = nearby_map,
+        image_map = image_map
     )
 
 
