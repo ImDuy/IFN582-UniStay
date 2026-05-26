@@ -134,14 +134,16 @@ insert into bookmark (tenantId, propertyId, note, createdAt) values (
 '2026-05-22'
 );
 
-insert into enquiry (senderId, targetPropertyId, submittedDate, status) values (
+insert into enquiry (senderId, targetPropertyId, message, submittedDate, status) values (
 3,
 1,
+'Is parking available at this property? Also, are pets allowed?',
 '2026-05-22',
 'New'
 ), (
 4,
 1,
+'Is parking available at this property? Also, are pets allowed?',
 '2026-05-20',
 'Responded'
 );

@@ -53,6 +53,7 @@ class Enquiry:
     sender: Tenant
     # target_property: Property
     status: EnquiryStatus
+    message: str
     created_at: datetime = datetime.now()
 
 @dataclass
