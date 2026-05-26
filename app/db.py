@@ -391,7 +391,18 @@ def get_bookmark_by_tenant(user_id):
         )
         for row in results
     ]
+
+def add_bookmark_by_id(tenant_id, property_id):
+    cursor = mysql.connection.cursor()
+    execute = """
+    INSERT INTO bookmark (tenantId, propertyId, createdAt) values
+    (%s, %s, NOW())
+    """
+    cursor.execute(execute, (tenant_id, property_id))
+    mysql.connection.commit()
+    cursor.close()
     
+
 def delete_bookmark_by_id(bookmark_id):
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM bookmark WHERE id = %s", (bookmark_id))
