@@ -33,7 +33,19 @@ SHA2('password', 256),
 "0411223344",
 Null,
 'Tenant'
+),
+(
+"bill_tran",
+SHA2('password', 256),
+"Bill",
+"Tran",
+"bill@student.edu.au",
+"0423113344",
+Null,
+'Tenant'
 );
+
+;
 
 insert into property (
 title, address, description, propertyType,
@@ -127,6 +139,11 @@ insert into enquiry (senderId, targetPropertyId, submittedDate, status) values (
 1,
 '2026-05-22',
 'New'
+), (
+4,
+1,
+'2026-05-20',
+'Responded'
 );
 
 insert into offer (senderId, targetPropertyId, submittedDate, status) values (
