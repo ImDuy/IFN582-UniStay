@@ -1,6 +1,6 @@
 import hashlib
 from flask import render_template, redirect, url_for, flash, session, request
-from . import auth_login_bp, auth_register_bp
+from . import auth_login_bp, auth_register_bp, auth_logout_bp
 from .forms import LoginForm, RegisterForm
 from app import mysql
 
@@ -87,3 +87,10 @@ def register():
         return redirect(url_for('auth_login.login'))
 
     return render_template('pages/register.html', form=form, selected_role=selected_role)
+
+
+@auth_logout_bp.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('home.index'))
