@@ -1,6 +1,10 @@
 from flask import Blueprint, redirect, render_template, flash, url_for, session
 from . import details_bp
 from app import mysql
+from app.wrappers import role_required
+from app.constants import UserRole
+from app.db import add_bookmark_by_id
+
 
 @details_bp.route("/details/<int:property_id>")
 def property_details(property_id):
@@ -32,6 +36,16 @@ def property_details(property_id):
     cursor.close()
 
     return render_template('pages/details.html', property=property_data, image=primary_image, amenities=amenities, nearby=nearby_universities)
+
+@details_bp.route("details/<int:property_id>/add_bookmark", methods=['POST'])
+@role_required([UserRole.TENANT.value])
+def add_bookmark(property_id):
+    tenant_id = session['user']['user_id']
+    add_bookmark_by_id(tenant_id = tenant_id, property_id = property_id)
+    flash('Added successful!')
+    return redirect(url_for('details.property_details', property_id = property_id))
+
+
 
 #Enquiry and offer
 @details_bp.route("/details/<int:property_id>/enquiry", methods=['GET', 'POST'])
