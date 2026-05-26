@@ -93,13 +93,13 @@
       </div>
 
       <div class="container p-0">
-        <div class="row">
+        <div class="row {% if session.get('user', {}).get('user_role') == 'Agent' %}justify-content-center{% endif %}">
           <div class="col-lg-8">
             <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
               <div
                 class="d-flex align-items-center justify-content-between gap-3"
               >
-                <div class="d-flex flex-column align-items-start">
+                <div class="d-flex flex-column {% if session.get('user', {}).get('role') == 'agent' %}align-items-center text-center{% else %}align-items-start{% endif %}">
                   <h2 class="fw-bold">{{ property.title }}</h2>
                   <span class="text-muted">
                     <svg
