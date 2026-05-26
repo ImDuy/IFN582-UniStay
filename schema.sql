@@ -88,6 +88,7 @@ foreign key (propertyId) references property(id) on delete cascade
 create table enquiry (
 senderId int not null,
 targetPropertyId int not null,
+message varchar (1000) not null,
 submittedDate date not null,
 status varchar(50) not null,
 
