@@ -15,5 +15,5 @@ class RegisterForm(FlaskForm):
     phone = StringField('Phone', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('I am a...', choices=[('tenant', 'Tenant'), ('agent', 'Agent')])
+    role = SelectField('I am a...', choices=[('Tenant', 'Tenant'), ('Agent', 'Agent')])
     submit = SubmitField('Register')
