@@ -212,33 +212,33 @@ def get_properties_by_agent(agent_id):
                         avatar_url=row['avatarUrl'] if 'avatarUrl' in row else '',)
         )
         
-        # enquiries
-        cur.execute("""SELECT e.senderId as tenant_id, e.submittedDate, e.status, e.message,
-                    u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
-                    FROM enquiry e
-                    JOIN user u ON e.senderId = u.id
-                    WHERE e.targetPropertyId = %s
-                    ORDER BY 
-                        FIELD(e.status, 'New', 'Responded', 'Closed'),
-                        e.submittedDate DESC""", (property_id,))
-        prop.enquiries = [Enquiry(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
-                    sender= Tenant(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
-                    message= row['message'],
-                    status= EnquiryStatus(row['status']),
-                    created_at=row['submittedDate']) for row in cur.fetchall()]
-        # offers 
-        cur.execute("""SELECT o.senderId as tenant_id, o.submittedDate, o.status,
-            u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
-            FROM offer o
-            JOIN user u ON o.senderId = u.id
-            WHERE o.targetPropertyId = %s
-            ORDER BY 
-                FIELD(o.status, 'Pending', 'Accepted', 'Rejected'),
-                o.submittedDate DESC""", (property_id,))
-        prop.offers = [Offer(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
-            sender= Tenant(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
-            status= OfferStatus(row['status']),
-            created_at=row['submittedDate']) for row in cur.fetchall()]
+        # # enquiries
+        # cur.execute("""SELECT e.senderId as tenant_id, e.submittedDate, e.status, e.message,
+        #             u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
+        #             FROM enquiry e
+        #             JOIN user u ON e.senderId = u.id
+        #             WHERE e.targetPropertyId = %s
+        #             ORDER BY 
+        #                 FIELD(e.status, 'New', 'Responded', 'Closed'),
+        #                 e.submittedDate DESC""", (property_id,))
+        # prop.enquiries = [Enquiry(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
+        #             sender= Tenant(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
+        #             message= row['message'],
+        #             status= EnquiryStatus(row['status']),
+        #             created_at=row['submittedDate']) for row in cur.fetchall()]
+        # # offers 
+        # cur.execute("""SELECT o.senderId as tenant_id, o.submittedDate, o.status,
+        #     u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl
+        #     FROM offer o
+        #     JOIN user u ON o.senderId = u.id
+        #     WHERE o.targetPropertyId = %s
+        #     ORDER BY 
+        #         FIELD(o.status, 'Pending', 'Accepted', 'Rejected'),
+        #         o.submittedDate DESC""", (property_id,))
+        # prop.offers = [Offer(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
+        #     sender= Tenant(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], row['avatarUrl']),
+        #     status= OfferStatus(row['status']),
+        #     created_at=row['submittedDate']) for row in cur.fetchall()]
 
         properties.append(prop)
 
