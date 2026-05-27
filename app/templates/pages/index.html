@@ -193,8 +193,8 @@
                           <div class="border rounded-3 border-gray p-1">
                               {% if nearby_list %}
                                 <small><small>
-                                  <span class="fw-bold">{{ nearby_list[0]['distance'] }} km</span>
-                                  from {{ nearby_list[0]['universityName'] }}
+                                  <span class="fw-bold">{{ nearby_list[0].distance }} km</span>
+                                  from {{ nearby_list[0].universityName }}
                                 </small></small>
                               {% else %}
                                 <small><small>No nearby University info</small></small>
@@ -219,14 +219,14 @@
                 {% endfor %}
               </div>
             </div> 
-            <!-- Other Tabs -->
+            <!-- Uni Tabs -->
             {% for uni in universities %}
             <div class="tab-pane fade" id="pills-{{ uni.id }}" role="tabpanel">
               <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5">
                 {% for property in all_properties %}
                 {% set nearby_list = nearby_map.get(property.id, []) %}
                 {% for n in nearby_list %}
-                {% if n['universityId'] == uni.id %}
+                {% if n.universityId == uni.id %}  
                   <div class="col">
                     <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
                       <div class="card rounded-4 property_card">
@@ -242,8 +242,8 @@
                             </div>
                             <div class="border rounded-3 border-gray p-1">
                               <small><small>
-                                <span class="fw-bold">{{ n['distance'] }} km</span>
-                                from {{ n['universityName'] }}
+                                <span class="fw-bold">{{ n.distance }} km</span>
+                                from {{ n.universityName }}
                               </small></small>
                             </div>
                           </div>

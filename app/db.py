@@ -430,12 +430,13 @@ def get_universities_db():
     cur.close()
     return result
 
-# fetch images for each prop, return {propertyId: url}
+# fetch primary images for each prop
 def get_image_map_db():
     cur = mysql.connection.cursor()
     cur.execute("SELECT propertyId, url FROM propertyImage WHERE isPrimary = 1")
     images = cur.fetchall()
     cur.close()
+    # make an empty dict, propertyId as key, url as value
     image_map = {}
     for img in images:
         image_map[img['propertyId']] = img['url']
@@ -451,7 +452,7 @@ def get_nearby_db():
     """)
     result = cur.fetchall()
     cur.close()
-    # {propertyId: [list of nearby]}
+    # make an empty dict, propertyId as key, list as value to store more than one nearby uni
     nearby_map = {}
     for n in result:
         pid = n['propertyId']
