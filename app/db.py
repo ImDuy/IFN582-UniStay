@@ -415,7 +415,7 @@ def get_all_properties_db(q=None):
     cur = mysql.connection.cursor()
     if q:
         cur.execute("SELECT * FROM property WHERE title LIKE %s OR address LIKE %s",
-                    (f'%{q}%', f'%{q}%'))
+                    ('%'+q+'%', '%'+q+'%'))
     else:
         cur.execute("SELECT * FROM property")
     result = cur.fetchall()
