@@ -78,7 +78,7 @@ create table bookmark (
 id int auto_increment not null primary key,
 tenantId int not null,
 propertyId int not null,
-note varchar (250),
+note varchar (1000),
 createdAt Date not null,
 
 foreign key (tenantId) references user(id) on delete cascade,
