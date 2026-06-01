@@ -336,7 +336,7 @@
           </div>
         </form>
 
-        {# <!-- Enquiry Modal -->
+        <!-- Enquiry Modal -->
         <form method="POST" action="{{ url_for('listings.update_property_enquiries',property_id=property.id) }}">
           <div class="modal fade" id="enquiry-modal-{{ property.id }}">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -468,7 +468,7 @@
                 </div>
             </div>
           </div>
-        </form> #}
+        </form>
 
         {% endfor %}
       </tbody>
