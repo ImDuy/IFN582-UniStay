@@ -165,7 +165,7 @@ def get_properties_by_agent(agent_id):
         u.id AS u_id, u.username, u.firstName, u.lastName,
         u.email, u.phone, u.avatarUrl, u.role  
         FROM property p JOIN user u ON p.agentId = u.id
-        WHERE p.agentId = %s""", (agent_id,))
+        WHERE p.agentId = %s ORDER BY p.id DESC""", (agent_id,))
     results = cur.fetchall()
 
     properties = []
