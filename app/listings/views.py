@@ -5,11 +5,12 @@ from app.listings.forms import PropertyEnquiryForm, PropertyForm, PropertyOfferF
 from app.models import Property
 from app.constants import UserRole
 from app.db import add_property, delete_property, get_properties_by_agent, get_all_properties, update_enquiries_by_property, update_offers_by_property, update_property
-from app.wrappers import role_required
+from app.wrappers import login_required, role_required
 from . import listings_bp
 
 
 @listings_bp.route('/')
+@login_required
 @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def index():
     # at this stage, it should be guaranteed that the user logged in as agent or admin (the home page should only show the option to navigate to listings page if the user is agent or admin)
@@ -55,6 +56,7 @@ def index():
                            edit_forms=edit_forms, add_form=PropertyForm(), enquiry_forms=enquiry_forms, offer_forms=offer_forms)
 
 @listings_bp.post('/')
+@login_required
 @role_required([UserRole.AGENT.value])
 def create_property_listing():
     # admin is not able to create property listing, so in the UI, the button of adding property should not display when the user logged in as admin
@@ -65,6 +67,7 @@ def create_property_listing():
     return redirect(url_for('listings.index'))
 
 @listings_bp.post('/<string:property_id>/edit')
+@login_required
 @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def edit_property_listing(property_id):
     form = PropertyForm()
@@ -74,6 +77,7 @@ def edit_property_listing(property_id):
     return redirect(url_for('listings.index'))
 
 @listings_bp.post('/<string:property_id>/delete')
+@login_required
 @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def delete_property_listing(property_id):
     delete_property(property_id)
@@ -82,6 +86,7 @@ def delete_property_listing(property_id):
 
 # routes for updating enquiries and offers status
 @listings_bp.post('/<string:property_id>/update-enquiries')
+@login_required
 @role_required([UserRole.AGENT.value])
 def update_property_enquiries(property_id):
     form = PropertyEnquiryForm()
@@ -91,6 +96,7 @@ def update_property_enquiries(property_id):
         flash('Updated successful!')
     return redirect(url_for('listings.index'))
 @listings_bp.post('/<string:property_id>/update-offers')
+@login_required
 @role_required([UserRole.AGENT.value])
 def update_property_offers(property_id):
     form = PropertyOfferForm()
