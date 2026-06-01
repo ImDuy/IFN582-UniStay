@@ -25,7 +25,7 @@ logoUrl varchar (250) not null
 
 create table property (
 id int auto_increment not null primary key,
-title varchar (50) not null,
+title varchar (100) not null,
 address varchar (50) not null,
 description varchar (1000) not null,
 propertyType varchar (50) not null,
