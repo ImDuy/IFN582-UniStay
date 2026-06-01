@@ -300,7 +300,7 @@ def update_property(property_id, form):
 def delete_property(property_id):
 
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM property WHERE id = %s", (property_id))
+    cur.execute("DELETE FROM property WHERE id = %s", (property_id,))
     # amenities, images, documents are also deleted in database with ON DELETE CASCADE 
 
     mysql.connection.commit()
@@ -404,7 +404,7 @@ def add_bookmark_by_id(tenant_id, property_id):
 
 def delete_bookmark_by_id(bookmark_id):
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM bookmark WHERE id = %s", (bookmark_id))
+    cur.execute("DELETE FROM bookmark WHERE id = %s", (bookmark_id,))
 
     mysql.connection.commit()
     cur.close()
