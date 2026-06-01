@@ -99,6 +99,18 @@ class Property:
             if offer.status == OfferStatus.PENDING:
                 count +=1
         return count
+    @staticmethod
+    def get_total_new_enquiries(properties):
+        count = 0
+        for property in properties:
+            count += property.new_enquiry_count
+        return count
+    @staticmethod
+    def get_total_pending_offers(properties):
+        count = 0
+        for property in properties:
+            count += property.pending_offer_count
+        return count
 
     def get_nearby_universities(self):
         # this one is to show nearby universities in the property details page

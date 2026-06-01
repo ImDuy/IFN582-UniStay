@@ -1,4 +1,4 @@
-from flask import render_template, request, session, flash
+from flask import render_template, session, flash
 from flask import redirect, url_for
 from typing import List
 from app.listings.forms import PropertyEnquiryForm, PropertyForm, PropertyOfferForm
@@ -50,7 +50,9 @@ def index():
             entry.form.status.data = offer.status.value
         offer_forms[property.id] = offer_form
 
-    return render_template('/pages/listings.html', listings = properties, edit_forms=edit_forms, add_form=PropertyForm(), enquiry_forms=enquiry_forms, offer_forms=offer_forms)
+    return render_template('/pages/listings.html', 
+                           listings = properties, total_new_enquiries = Property.get_total_new_enquiries(properties), total_pending_offers = Property.get_total_pending_offers(properties),
+                           edit_forms=edit_forms, add_form=PropertyForm(), enquiry_forms=enquiry_forms, offer_forms=offer_forms)
 
 @listings_bp.post('/')
 @role_required([UserRole.AGENT.value])
