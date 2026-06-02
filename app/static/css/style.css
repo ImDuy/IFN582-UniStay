@@ -2,7 +2,7 @@ html {
   --main-color: #101828;
   --contrast-color: white;
   /* --alt-color: rgb(13, 185, 36); */
-  --hover-color: rgba(0, 0, 0, 0.642);
+  --hover-color: rgba(0, 0, 0, 0.74);
 }
 
 body {
@@ -412,7 +412,7 @@ header .outlined_btn:hover {
 }
 
 .navbar .nav-hover:hover {
-  background-color: rgba(255, 255, 255, 0.15)!important; 
+  background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Medium devices */
