@@ -419,7 +419,22 @@ def get_all_properties_db(q=None):
         cur.execute("SELECT * FROM property")
     result = cur.fetchall()
     cur.close()
-    return result
+    return [
+        Property(
+            id=str(row['id']),
+            title=row['title'],
+            address=row['address'],
+            description=row['description'],
+            property_type=PropertyType(row['propertyType']),
+            rent_per_week=row['rentPerWeek'],
+            bedroom_count=row['numBedrooms'],
+            bathroom_count=row['numBathrooms'],
+            living_area=float(row['livingArea']),
+            available_date=row['availableDate'],
+            agent=None
+        )
+        for row in result
+    ]
 
 # fetch all uni
 def get_universities_db():
@@ -427,7 +442,15 @@ def get_universities_db():
     cur.execute("SELECT * FROM university")
     result = cur.fetchall()
     cur.close()
-    return result
+    return [
+        University(
+            id=str(row['id']),
+            name=row['name'],
+            address=row['address'],
+            logoUrl=row['logoUrl'] if row['logoUrl'] else None
+        )
+        for row in result
+    ]
 
 # fetch primary images for each prop
 def get_image_map_db():
@@ -438,9 +461,9 @@ def get_image_map_db():
     # build dict, propertyId as key, url as value
     image_map = {}
     for img in images:
-        image_map[img['propertyId']] = img['url']
+        image_map[str(img['propertyId'])] = img['url']
     return image_map
-
+    
 # nearby unis for each prop 
 def get_nearby_db():
     cur = mysql.connection.cursor()
@@ -457,7 +480,16 @@ def get_nearby_db():
         pid = n['propertyId']
         if pid not in nearby_map:
             nearby_map[pid] = []
-        nearby_map[pid].append(n)
+        nearby_map[pid].append(Nearby(
+            id=None,
+            property=None,
+            university=University(
+                id=str(n['universityId']),
+                name=n['universityName'],
+                address=''
+            ),
+            distance=float(n['distance'])
+        ))
     return nearby_map
 
 #filter modal
@@ -473,7 +505,7 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
     params = []
 
     if q:
-        search = f'%{q}%'
+        search = '%'+q+'%'
         sql += " AND (p.title LIKE %s OR p.address LIKE %s)"
         params.extend([search, search])
 
@@ -488,7 +520,7 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
     if dist and dist != 'any':
         sql += " AND n.distance <= %s"
         params.append(dist)
-        
+
     if price_min and price_max:
         if int(price_min) > int(price_max):
             price_min, price_max = price_max, price_min
@@ -509,4 +541,19 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
     cur.execute(sql, params)
     result = cur.fetchall()
     cur.close()
-    return result
+    return [
+        Property(
+            id=str(row['id']),
+            title=row['title'],
+            address=row['address'],
+            description=row['description'],
+            property_type=PropertyType(row['propertyType']),
+            rent_per_week=row['rentPerWeek'],
+            bedroom_count=row['numBedrooms'],
+            bathroom_count=row['numBathrooms'],
+            living_area=float(row['livingArea']),
+            available_date=row['availableDate'],
+            agent=None
+        )
+        for row in result
+    ]

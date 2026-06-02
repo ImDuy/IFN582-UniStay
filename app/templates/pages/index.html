@@ -210,7 +210,7 @@
                           >
                             <small class="card-text text-">
                               From
-                              <span class="property_card_title">${{ property.rentPerWeek }}</span>/week
+                              <span class="property_card_title">${{ property.rent_per_week }}</span>/week
                             </small>
                           </div>
                         </div>
@@ -231,7 +231,7 @@
                 {% for property in all_properties %}
                 {% set nearby_list = nearby_map.get(property.id, []) %}
                 {% for n in nearby_list %}
-                {% if n.universityId == uni.id %}  
+                {% if n.university.id == uni.id %}  
                   <div class="col">
                     <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
                       <div class="card rounded-4 property_card">
@@ -248,14 +248,14 @@
                             <div class="border rounded-3 border-gray p-1 px-2 nearby-info">
                               <small><small>
                                 <span class="fw-bold">{{ n.distance }} km</span>
-                                from {{ n.universityName }}
+                                from {{ n.university.name }}
                               </small></small>
                             </div>
                           </div>
                           <div class="border-top mt-3 mb-2"></div>
                           <div class="d-flex justify-content-center property_card_body_pd_x">
                             <small class="card-text">
-                              From <span class="property_card_title">${{ property.rentPerWeek }}</span>/week
+                              From <span class="property_card_title">${{ property.rent_per_week }}</span>/week
                             </small>
                           </div>
                         </div>

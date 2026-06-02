@@ -79,7 +79,7 @@ class Property:
 
     primary_image_url: str = Defaults.IMAGE.value # primary images
     image_urls: List[str] = field(default_factory=lambda: []) # this one is for gallery images
-    amenities: List[PropertyAmenity] = field(default_factory=[])
+    amenities: List[PropertyAmenity] = field(default_factory=list)
     documentations: List[str] = field(default_factory=lambda: [Defaults.DOCUMENT.value])
 
     # these attributes are for showing on listings page only, other pages no need to use them
@@ -131,6 +131,7 @@ class University:
     id: str
     name: str
     address: str
+    logoUrl: str | None = None
 
     def get_nearby_properties(self):
         # this one is to show nearby properties for each university in the home page
