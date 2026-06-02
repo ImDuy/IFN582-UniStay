@@ -78,13 +78,13 @@ class Property:
     agent: Agent  # the agent who manages this property
 
     primary_image_url: str = Defaults.IMAGE.value # primary images
-    image_urls: List[str] = field(default_factory=lambda: []) # this one is for gallery images
+    image_urls: List[str] = field(default_factory=lambda: list) # this one is for gallery images
     amenities: List[PropertyAmenity] = field(default_factory=list)
     documentations: List[str] = field(default_factory=lambda: [Defaults.DOCUMENT.value])
 
     # these attributes are for showing on listings page only, other pages no need to use them
-    enquiries: List[Enquiry] = field(default_factory=lambda: [])
-    offers: List[Offer] = field(default_factory=lambda: [])
+    enquiries: List[Enquiry] = field(default_factory=lambda: list)
+    offers: List[Offer] = field(default_factory=lambda: list)
     @property
     def new_enquiry_count(self):
         count = 0
