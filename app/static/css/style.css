@@ -115,6 +115,10 @@ header .outlined_btn:hover {
   cursor: pointer;
 }
 
+.nearby-info {
+  min-height: 60px;
+}
+
 /* universities tab  */
 .tab-logo-wrap {
   max-width: 0;

@@ -149,7 +149,7 @@
             >
               {% if all_properties %}
                 <div
-                  class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
+                  class="row row-cols-2 row-cols-md-3 row-cols-xl-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
                 >
                   {% for property in all_properties %}
                   {% set nearby_list = nearby_map.get(property.id, []) %}
@@ -192,15 +192,14 @@
                               </small>
                             </div>
 
-                            <div class="border rounded-3 border-gray p-1">
+                            <div class="border rounded-3 border-gray p-1 px-2 nearby-info">
                                 {% if nearby_list %}
                                   <small><small>
                                     <span class="fw-bold">{{ nearby_list[0].distance }} km</span>
                                     from {{ nearby_list[0].universityName }}
                                   </small></small>
                                 {% else %}
-                                  <small><small>No nearby University info</small></small>
-                                {% endif %}
+                                  <small><small class="text-muted"><i class="bi bi-x-circle me-1"></i>No nearby University info</small></small>                                {% endif %}
                             </div>
                           </div>
 
@@ -228,7 +227,7 @@
             {% if not is_filtered %}
             {% for uni in universities %}
             <div class="tab-pane fade" id="pills-{{ uni.id }}" role="tabpanel">
-              <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5">
+              <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5">
                 {% for property in all_properties %}
                 {% set nearby_list = nearby_map.get(property.id, []) %}
                 {% for n in nearby_list %}
@@ -246,7 +245,7 @@
                             <div class="d-flex align-items-center my-1">
                               <small class="card-text flex-1 text-truncate ms-1">{{ property.address }}</small>
                             </div>
-                            <div class="border rounded-3 border-gray p-1">
+                            <div class="border rounded-3 border-gray p-1 px-2 nearby-info">
                               <small><small>
                                 <span class="fw-bold">{{ n.distance }} km</span>
                                 from {{ n.universityName }}
