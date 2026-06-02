@@ -459,3 +459,54 @@ def get_nearby_db():
             nearby_map[pid] = []
         nearby_map[pid].append(n)
     return nearby_map
+
+#filter modal
+def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, price_min=None, price_max=None, amenities=None):
+    cur = mysql.connection.cursor()
+    
+    sql = """
+        SELECT DISTINCT p.* FROM property p
+        LEFT JOIN nearby n ON p.id = n.propertyId
+        LEFT JOIN propertyAmenity a ON p.id = a.propertyId
+        WHERE 1=1
+    """
+    params = []
+
+    if q:
+        search = f'%{q}%'
+        sql += " AND (p.title LIKE %s OR p.address LIKE %s)"
+        params.extend([search, search])
+
+    if uni and uni != 'all':
+        sql += " AND n.universityId = %s"
+        params.append(uni)
+
+    if property_type and property_type != 'all':
+        sql += " AND p.propertyType = %s"
+        params.append(property_type)
+
+    if dist and dist != 'any':
+        sql += " AND n.distance <= %s"
+        params.append(dist)
+        
+    if price_min and price_max:
+        if int(price_min) > int(price_max):
+            price_min, price_max = price_max, price_min
+
+    if price_min:
+        sql += " AND p.rentPerWeek >= %s"
+        params.append(price_min)
+
+    if price_max:
+        sql += " AND p.rentPerWeek <= %s"
+        params.append(price_max)
+        
+    if amenities:
+        for amenity in amenities:
+            sql += " AND p.id IN (SELECT propertyId FROM propertyAmenity WHERE amenity = %s)"
+            params.append(amenity)
+
+    cur.execute(sql, params)
+    result = cur.fetchall()
+    cur.close()
+    return result

@@ -119,7 +119,7 @@
             aria-selected="true">
             View All <i class="bi bi-chevron-right"></i>
           </a>
-
+            {% if not is_filtered %}
             {% for uni in universities %}
             <a
               class="nav-link d-flex align-items-center"
@@ -136,7 +136,8 @@
               {{ uni.name }}
               </a>
             {% endfor %}
-
+            {% endif %}
+          </nav>
       <!-- property cards -->
       <div class="tab-content" id="pills-tabContent">
 
@@ -146,80 +147,85 @@
               id="pills-all"
               role="tabpanel"
             >
-              <div
-                class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
-              >
-                {% for property in all_properties %}
-                {% set nearby_list = nearby_map.get(property.id, []) %}
-                <div class="col">
-                  <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
-                    <div class="card rounded-4 property_card">
-                      <div class="rounded-top-4 overflow-hidden">
-                        <img
-                          src="{{ url_for('static', filename='img/' + (image_map.get(property.id) or 'properties_1.jpeg')) }}"
-                          class="card-img-top"
-                          alt="{{ property.title }}"
-                        />
-                      </div>
-                      <div class="card-body px-0">
-                        <div class="property_card_body_pd_x">
-                          <h5 class="card-title mb-0 property_card_title">
-                            {{ property.title }}
-                          </h5>
-                          <div class="d-flex align-items-center my-1">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                            >
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                              <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                              <path
-                                d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                              />
-                            </svg>
-                            <small class="card-text flex-1 text-truncate ms-1">
-                              {{ property.address }}
+              {% if all_properties %}
+                <div
+                  class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5"
+                >
+                  {% for property in all_properties %}
+                  {% set nearby_list = nearby_map.get(property.id, []) %}
+                  <div class="col">
+                    <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
+                      <div class="card rounded-4 property_card">
+                        <div class="rounded-top-4 overflow-hidden">
+                          <img
+                            src="{{ url_for('static', filename='img/' + (image_map.get(property.id) or 'properties_1.jpeg')) }}"
+                            class="card-img-top"
+                            alt="{{ property.title }}"
+                          />
+                        </div>
+                        <div class="card-body px-0">
+                          <div class="property_card_body_pd_x">
+                            <h5 class="card-title mb-0 property_card_title">
+                              {{ property.title }}
+                            </h5>
+                            <div class="d-flex align-items-center my-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
+                              >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                <path
+                                  d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
+                                />
+                              </svg>
+                              <small class="card-text flex-1 text-truncate ms-1">
+                                {{ property.address }}
+                              </small>
+                            </div>
+
+                            <div class="border rounded-3 border-gray p-1">
+                                {% if nearby_list %}
+                                  <small><small>
+                                    <span class="fw-bold">{{ nearby_list[0].distance }} km</span>
+                                    from {{ nearby_list[0].universityName }}
+                                  </small></small>
+                                {% else %}
+                                  <small><small>No nearby University info</small></small>
+                                {% endif %}
+                            </div>
+                          </div>
+
+                          <div class="border-top mt-3 mb-2"></div>
+
+                          <div
+                            class="d-flex justify-content-center property_card_body_pd_x"
+                          >
+                            <small class="card-text text-">
+                              From
+                              <span class="property_card_title">${{ property.rentPerWeek }}</span>/week
                             </small>
                           </div>
-
-                          <div class="border rounded-3 border-gray p-1">
-                              {% if nearby_list %}
-                                <small><small>
-                                  <span class="fw-bold">{{ nearby_list[0].distance }} km</span>
-                                  from {{ nearby_list[0].universityName }}
-                                </small></small>
-                              {% else %}
-                                <small><small>No nearby University info</small></small>
-                              {% endif %}
-                          </div>
-                        </div>
-
-                        <div class="border-top mt-3 mb-2"></div>
-
-                        <div
-                          class="d-flex justify-content-center property_card_body_pd_x"
-                        >
-                          <small class="card-text text-">
-                            From
-                            <span class="property_card_title">${{ property.rentPerWeek }}</span>/week
-                          </small>
                         </div>
                       </div>
-                    </div>
-                  </a>
+                    </a>
+                  </div>
+                  {% endfor %}
                 </div>
-                {% endfor %}
-              </div>
+                {% else %}
+                    <h2 class="text-center text-muted mt-5 pt-5 no-results">No results found.</h2>
+                {% endif %}    
             </div> 
             <!-- Uni Tabs -->
+            {% if not is_filtered %}
             {% for uni in universities %}
             <div class="tab-pane fade" id="pills-{{ uni.id }}" role="tabpanel">
               <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2 gy-3 justify-content-center mt-4 mt-xl-5">
@@ -261,11 +267,9 @@
                   {% endfor %}
                   {% endfor %}
                 </div>
-              </div>
-              {% endfor %}
-
             </div>
-            </div>
+            {% endfor %}
+            {% endif %}
 
       </div> 
       </section>
@@ -276,7 +280,7 @@
 {% block modals%}
 <!-- Filter Modal -->
           <div class="modal fade" id="filterModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content rounded-4">
 
                 <div class="modal-header border-bottom position-relative">
@@ -288,23 +292,24 @@
                   >
                   </button>
                 </div>
-
+              
+              <form action="{{ url_for('home.index') }}" method="GET">
                 <div class="modal-body d-flex flex-column gap-4">
 
                   <!-- University -->
                   <div>
                     <p class="fw-semibold mb-2">University</p>
                     <div class="d-flex flex-wrap gap-2">
-                      <input type="radio" class="btn-check" name="uni" id="uni-all" checked>
+                      <input type="radio" class="btn-check" name="uni" id="uni-all" value="all" checked>
                       <label class="btn btn-outline-dark rounded-pill" for="uni-all">All</label>
 
-                      <input type="radio" class="btn-check" name="uni" id="uni-uq">
+                      <input type="radio" class="btn-check" name="uni" id="uni-uq" value="1">
                       <label class="btn btn-outline-dark rounded-pill" for="uni-uq">UQ</label>
 
-                      <input type="radio" class="btn-check" name="uni" id="uni-qut">
+                      <input type="radio" class="btn-check" name="uni" id="uni-qut" value="2">
                       <label class="btn btn-outline-dark rounded-pill" for="uni-qut">QUT</label>
 
-                      <input type="radio" class="btn-check" name="uni" id="uni-griffith">
+                      <input type="radio" class="btn-check" name="uni" id="uni-griffith" value="3">
                       <label class="btn btn-outline-dark rounded-pill" for="uni-griffith">Griffith</label>
                     </div>
                   </div>
@@ -316,14 +321,20 @@
                     <p class="fw-semibold mb-2">Price per week</p>
                     <div class="d-flex align-items-center gap-2">
                       <select class="form-select rounded-pill" name="price_min">
+                        <option value="100" selected>Min $100</option>
                         <option value="200">Min $200</option>
+                        <option value="300">Min $300</option>
                         <option value="400">Min $400</option>
+                        <option value="500">Min $500</option>
                         <option value="600">Min $600</option>
                         <option value="800">Min $800</option>
                       </select>
                       <span class="text-muted">–</span>
                       <select class="form-select rounded-pill" name="price_max">
-                        <option value="1000">Max $1,000</option>
+                        <option value="300">Max $300</option>
+                        <option value="500">Max $500</option>
+                        <option value="700">Max $700</option>
+                        <option value="900">Max $900</option>
                         <option value="1200" selected>Max $1,200</option>
                         <option value="1500">Max $1,500</option>
                         <option value="2000">Max $2,000</option>
@@ -337,19 +348,19 @@
                   <div>
                     <p class="fw-semibold mb-2">Room type</p>
                     <div class="d-flex flex-wrap gap-2">
-                      <input type="radio" class="btn-check" name="type" id="type-all" checked>
+                      <input type="radio" class="btn-check" name="type" id="type-all" value="all"checked>
                       <label class="btn btn-outline-dark rounded-pill" for="type-all">All</label>
 
-                      <input type="radio" class="btn-check" name="type" id="type-studio">
+                      <input type="radio" class="btn-check" name="type" id="type-studio" value="Studio">
                       <label class="btn btn-outline-dark rounded-pill" for="type-studio">Studio</label>
 
-                      <input type="radio" class="btn-check" name="type" id="type-1bed">
-                      <label class="btn btn-outline-dark rounded-pill" for="type-1bed">1 Bedroom</label>
+                      <input type="radio" class="btn-check" name="type" id="type-1bed" value="House">
+                      <label class="btn btn-outline-dark rounded-pill" for="type-1bed">House</label>
 
-                      <input type="radio" class="btn-check" name="type" id="type-2bed">
-                      <label class="btn btn-outline-dark rounded-pill" for="type-2bed">2 Bedroom</label>
+                      <input type="radio" class="btn-check" name="type" id="type-2bed" value="Apartment">
+                      <label class="btn btn-outline-dark rounded-pill" for="type-2bed">Apartment</label>
 
-                      <input type="radio" class="btn-check" name="type" id="type-shared">
+                      <input type="radio" class="btn-check" name="type" id="type-shared" value="Shared">
                       <label class="btn btn-outline-dark rounded-pill" for="type-shared">Shared</label>
                     </div>
                   </div>
@@ -360,16 +371,16 @@
                   <div>
                     <p class="fw-semibold mb-2">Distance to campus</p>
                     <div class="d-flex flex-wrap gap-2">
-                      <input type="radio" class="btn-check" name="dist" id="dist-any" checked>
+                      <input type="radio" class="btn-check" name="dist" id="dist-any" value="any" checked>
                       <label class="btn btn-outline-dark rounded-pill" for="dist-any">Any</label>
 
-                      <input type="radio" class="btn-check" name="dist" id="dist-500">
+                      <input type="radio" class="btn-check" name="dist" id="dist-500" value="0.5">
                       <label class="btn btn-outline-dark rounded-pill" for="dist-500">Under 500m</label>
 
-                      <input type="radio" class="btn-check" name="dist" id="dist-1k">
+                      <input type="radio" class="btn-check" name="dist" id="dist-1k" value="1">
                       <label class="btn btn-outline-dark rounded-pill" for="dist-1k">Under 1 km</label>
 
-                      <input type="radio" class="btn-check" name="dist" id="dist-2k">
+                      <input type="radio" class="btn-check" name="dist" id="dist-2k" value="2">
                       <label class="btn btn-outline-dark rounded-pill" for="dist-2k">Under 2 km</label>
                     </div>
                   </div>
@@ -380,22 +391,22 @@
                   <div>
                     <p class="fw-semibold mb-2">Amenities</p>
                     <div class="d-flex flex-wrap gap-2">
-                      <input type="checkbox" class="btn-check" id="am-wifi">
-                      <label class="btn btn-outline-dark rounded-pill" for="am-wifi">Wi-Fi</label>
+                      <input type="checkbox" class="btn-check" id="am-wifi" name="amenity" value="High-Speed Wifi">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-wifi">High-Speed Wifi</label>
 
-                      <input type="checkbox" class="btn-check" id="am-ac">
+                      <input type="checkbox" class="btn-check" id="am-ac" name="amenity" value="Air conditioning">
                       <label class="btn btn-outline-dark rounded-pill" for="am-ac">Air conditioning</label>
 
-                      <input type="checkbox" class="btn-check" id="am-washer">
-                      <label class="btn btn-outline-dark rounded-pill" for="am-washer">Washing machine</label>
+                      <input type="checkbox" class="btn-check" id="am-washer" name="amenity" value="Parking Space">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-washer">Parking Space</label>
 
-                      <input type="checkbox" class="btn-check" id="am-gym">
-                      <label class="btn btn-outline-dark rounded-pill" for="am-gym">Gym</label>
+                      <input type="checkbox" class="btn-check" id="am-gym" name="amenity" value="Fitness Center">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-gym">Fitness Center</label>
 
-                      <input type="checkbox" class="btn-check" id="am-bills">
-                      <label class="btn btn-outline-dark rounded-pill" for="am-bills">Bills included</label>
+                      <input type="checkbox" class="btn-check" id="am-bills" name="amenity" value="Shared Kitchen">
+                      <label class="btn btn-outline-dark rounded-pill" for="am-bills">Shared Kitchen</label>
 
-                      <input type="checkbox" class="btn-check" id="am-pets">
+                      <input type="checkbox" class="btn-check" id="am-pets" name="amenity" value="Pet friendly">
                       <label class="btn btn-outline-dark rounded-pill" for="am-pets">Pet friendly</label>
                     </div>
                   </div>
@@ -403,11 +414,12 @@
                 </div>
 
                 <div class="modal-footer border-top">
-                  <button type="button" class="btn w-100 py-3 rounded-3 fw-semibold"
-                    style="background:#101828; color:white;" data-bs-dismiss="modal">
+                  <button type="submit" class="btn w-100 py-3 rounded-3 fw-semibold"
+                    style="background:#101828; color:white;">
                     Show results
                   </button>
                 </div>
+              </form>
 
               </div>
             </div>

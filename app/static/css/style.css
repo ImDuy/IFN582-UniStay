@@ -307,6 +307,11 @@ header .outlined_btn:hover {
   min-width: 0;
 }
 
+#filterModal .modal-body {
+  overflow-y: auto;
+  max-height: 65vh;
+}
+
 #property_rental_img {
   width: 66px;
   aspect-ratio: 1;
