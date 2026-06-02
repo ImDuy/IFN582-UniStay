@@ -230,9 +230,9 @@
         </tr>
 
         <!-- Edit Modal -->
-        {% set form = edit_forms[property.id] %} 
+        {% set edit_form = edit_forms[property.id] %} 
         <form method="POST" action="{{ url_for('listings.edit_property_listing',property_id=property.id) }}">
-          <div class="modal fade" id="edit-modal-{{property.id}}">
+          <div class="modal fade" id="edit-modal-{{property.id}}" data-bs-backdrop="static">
             <div
               class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
             >
@@ -241,60 +241,60 @@
                   <div class="modal-header border-bottom position-relative">
                     <h5 class="modal-title w-100 text-center">Edit Property</h5>
                     <button
-                      type="button"
+                      type="reset"
                       class="btn-close position-absolute end-0 me-2 "
                       data-bs-dismiss="modal"
                     ></button>
                   </div>
 
                   <div class="modal-body d-flex flex-column gap-3">
-                    {{ form.hidden_tag() }}  {# prevent CSRF #}
+                    {{ edit_form.hidden_tag() }}  {# prevent CSRF #}
                     {# title #}
                     <div>
-                      {{ form.title.label(class="form-label fw-semibold") }}
-                      {{ form.title(class="form-control", placeholder='Enter property title') }} 
+                      {{ edit_form.title.label(class="form-label fw-semibold") }}
+                      {{ edit_form.title(class="form-control", placeholder='Enter property title') }} 
                     </div>
                     {# weekly rent - available date #}
                     <div class="row row-cols-2 g-3 ">
                       <div class="col">
-                        {{ form.rent_per_week.label(class="form-label fw-semibold") }}
-                        {{ form.rent_per_week(class="form-control", placeholder='Enter weekly rent') }} 
+                        {{ edit_form.rent_per_week.label(class="form-label fw-semibold") }}
+                        {{ edit_form.rent_per_week(class="form-control", placeholder='Enter weekly rent') }} 
                       </div>
                       <div class="col">
-                        {{ form.available_date.label(class="form-label fw-semibold") }} 
-                        {{ form.available_date(class="form-control") }}
+                        {{ edit_form.available_date.label(class="form-label fw-semibold") }} 
+                        {{ edit_form.available_date(class="form-control") }}
                       </div>
                     </div>
                     {# address #}
                     <div>
-                      {{ form.address.label(class="form-label fw-semibold") }} 
-                      {{ form.address(class="form-control", placeholder='Enter address') }} 
+                      {{ edit_form.address.label(class="form-label fw-semibold") }} 
+                      {{ edit_form.address(class="form-control", placeholder='Enter address') }} 
                     </div>
                     {# bathrooms - bedrooms - living area #}
                     <div class="row row-cols-3 g-3 ">
                       <div class="col">
-                        {{ form.bedroom_count.label(class="form-label fw-semibold") }}
-                        {{ form.bedroom_count(class="form-control") }}
+                        {{ edit_form.bedroom_count.label(class="form-label fw-semibold") }}
+                        {{ edit_form.bedroom_count(class="form-control") }}
                       </div>
                       <div class="col">
-                        {{ form.bathroom_count.label(class="form-label fw-semibold") }}
-                        {{ form.bathroom_count(class="form-control") }}
+                        {{ edit_form.bathroom_count.label(class="form-label fw-semibold") }}
+                        {{ edit_form.bathroom_count(class="form-control") }}
                       </div>
                       <div class="col">
-                        {{ form.living_area.label(class="form-label fw-semibold") }}
-                        {{ form.living_area(class="form-control") }}
+                        {{ edit_form.living_area.label(class="form-label fw-semibold") }}
+                        {{ edit_form.living_area(class="form-control") }}
                       </div>
                     </div>
                     {# property type #}
                     <div>
-                      {{ form.property_type.label(class="form-label fw-semibold") }} 
-                      {{ form.property_type(class="form-select") }}
+                      {{ edit_form.property_type.label(class="form-label fw-semibold") }} 
+                      {{ edit_form.property_type(class="form-select") }}
                     </div>
                     {# amenities #}
                     <div>
-                      {{ form.amenities.label(class="form-label fw-semibold") }}
+                      {{ edit_form.amenities.label(class="form-label fw-semibold") }}
                       <div class="row row-cols-2 px-1 gy-2">
-                        {% for subfield in form.amenities %}
+                        {% for subfield in edit_form.amenities %}
                         <div class="col">
                             <div class="form-check d-flex align-items-center gap-2 px-2">
                                 {{ subfield(class="form-check-input m-0", type='checkbox') }}
@@ -306,21 +306,21 @@
                     </div>
                     {# description #}
                     <div>
-                      {{ form.description.label(class="form-label fw-semibold") }}
-                      {{ form.description(class="form-control", rows="3", placeholder='Enter description') }}
+                      {{ edit_form.description.label(class="form-label fw-semibold") }}
+                      {{ edit_form.description(class="form-control", rows="3", placeholder='Enter description') }}
                     </div>
                     {# image url #}
                     <div>
-                      {{ form.image_url.label(class="form-label fw-semibold") }}
-                      {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
+                      {{ edit_form.image_url.label(class="form-label fw-semibold") }}
+                      {{ edit_form.image_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
                       <p class="form-text text-muted mb-0">
                         Image functionality is not implemented yet.
                       </p>
                     </div>
                     {# documentation url #}
                     <div>
-                      {{ form.documentation.label(class="form-label fw-semibold") }}
-                      {{ form.documentation(class="form-control", placeholder="https://example.com/documentation.pdf", disabled=True) }}
+                      {{ edit_form.documentation.label(class="form-label fw-semibold") }}
+                      {{ edit_form.documentation(class="form-control", placeholder="https://example.com/documentation.pdf", disabled=True) }}
                       <p class="form-text text-muted">
                         Documentation functionality is not implemented yet.
                       </p>
@@ -328,7 +328,10 @@
                   </div>
 
                   <div class="modal-footer border-top">
-                    {{ form.submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+                    <div class="d-flex w-100 gap-1">
+                      <button type="reset" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                      {{ edit_form.submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold") }}
+                    </div>
                   </div>
 
               </div>
@@ -338,7 +341,7 @@
 
         <!-- Enquiry Modal -->
         <form method="POST" action="{{ url_for('listings.update_property_enquiries',property_id=property.id) }}">
-          <div class="modal fade" id="enquiry-modal-{{ property.id }}">
+          <div class="modal fade" id="enquiry-modal-{{ property.id }}" data-bs-backdrop="static">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content rounded-4 px-1">   
                   <div class="modal-header border-bottom position-relative mt-1 px-0 pb-0">
@@ -354,7 +357,7 @@
                         {% endif%}
                       </div>
                     </div>
-                    <button type="button" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
+                    <button type="reset" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
                   </div>
 
                   <div class="modal-body p-4 bg-light-subtle">
@@ -392,9 +395,12 @@
                   
                   <div class="modal-footer border-top">
                     {% if property.enquiries | length > 0 %}
-                      {{ enquiry_forms[property.id].submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+                      <div class="d-flex w-100 gap-1">
+                        <button type="reset" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                        {{ enquiry_forms[property.id].submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold") }}
+                      </div>
                     {% else %}
-                      <button type="button" class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white" data-bs-dismiss="modal">Close</button>
+                      <button type="reset" class="btn primary_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Close</button>
                     {% endif %}
                   </div>
                 </div>
@@ -404,7 +410,7 @@
 
         <!-- Offer Modal -->
         <form method="POST" action="{{ url_for('listings.update_property_offers',property_id=property.id) }}">
-          <div class="modal fade" id="offer-modal-{{ property.id }}">
+          <div class="modal fade" id="offer-modal-{{ property.id }}" data-bs-backdrop="static">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content rounded-4 px-1">   
                   <div class="modal-header border-bottom position-relative mt-1 px-0 pb-0">
@@ -420,7 +426,7 @@
                         {% endif%}
                       </div>
                     </div>
-                    <button type="button" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
+                    <button type="reset" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
                   </div>
 
                   <div class="modal-body p-4 bg-light-subtle">
@@ -460,10 +466,14 @@
                   </div>
                   <div class="modal-footer border-top">
                     {% if property.offers | length > 0 %}
-                      {{ offer_forms[property.id].submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+                      <div class="d-flex w-100 gap-1">
+                        <button type="reset" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                        {{ offer_forms[property.id].submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold") }}
+                      </div>
                     {% else %}
-                      <button type="button" class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white" data-bs-dismiss="modal">Close</button>
+                      <button type="reset" class="btn primary_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Close</button>
                     {% endif %}
+
                   </div>
                 </div>
             </div>
@@ -498,7 +508,7 @@
 {% block modals %}
 <!-- Add Modal -->
 <form method="POST" action="{{ url_for('listings.create_property_listing') }}">
-  <div class="modal fade" id="add-modal">
+  <div class="modal fade" data-bs-backdrop="static" id="add-modal">
     <div
       class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
     >
@@ -506,7 +516,7 @@
         <div class="modal-header border-bottom position-relative">
           <h5 class="modal-title w-100 text-center">Add Property</h5>
           <button
-            type="button"
+            type="reset"
             class="btn-close position-absolute end-0 me-2 "
             data-bs-dismiss="modal"
           ></button>
@@ -591,8 +601,12 @@
             </p>
           </div>
         </div>
+
         <div class="modal-footer border-top">
-          {{ add_form.submit(class="btn w-100 py-3 rounded-3 fw-semibold", style="background-color: #101828; color: white") }}
+          <div class="d-flex w-100 gap-1">
+            <button type="reset" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+            {{ add_form.submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold") }}
+          </div>
         </div>
       </div>
     </div>
