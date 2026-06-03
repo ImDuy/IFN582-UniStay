@@ -38,6 +38,13 @@ def create_app():
     app.register_blueprint(details_bp, url_prefix = '/properties')
     app.register_blueprint(home_bp)
 
+    @app.template_filter('phone')
+    def format_phone(phone):
+      if not phone or len(phone) != 10:
+        return 'Wrong phone format'
+      phone = phone[1:]
+      return f"{phone[:3]} {phone[3:6]} {phone[6:]}"
+
     @app.errorhandler(404) 
     # inbuilt function which takes error as parameter 
     def not_found(e): 
