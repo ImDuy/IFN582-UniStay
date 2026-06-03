@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime, date
 from typing import List
-from app.constants import Defaults, EnquiryStatus, OfferStatus, PropertyAmenity, PropertyType
+from app.constants import Defaults, EnquiryStatus, OfferStatus, PropertyAmenity, PropertyType, UserRole
 
 @dataclass
 class User:
@@ -11,47 +11,13 @@ class User:
     last_name: str
     email: str
     phone: str
+    role: UserRole  # use 'role' attribute to indicate user role instead of generalization so we dont need to map to the correct role class when fetching from db
     avatar_url: str | None = None
-
-    def register(self):
-        pass
-    def login(self):
-        pass
-    def logout(self):
-        pass
-    def search_property(self):
-        pass
-@dataclass
-class Agent(User):
-    # Agent inherits from User (so it has all the attributes and methods from User)
-    def add_new_property(self):
-        pass
-    def edit_property(self):
-        pass
-    def delete_property(self):
-        pass
-    def get_managed_properties(self):
-        pass
-
-@dataclass
-class Tenant(User):
-    # Tenant inherits from User (so it has all the attributes and methods from User)
-    def get_bookmarked_properties(self):
-        pass
-    def bookmark_property(self): # add new bookmark item
-        pass
-    def edit_bookmark(self): # just edit bookmark note
-        pass
-    def remove_bookmark(self):
-        pass
-    def submit_enquiry(self): # add new enquiry item
-        pass
 
 @dataclass
 class Enquiry:
     id: str
-    sender: Tenant
-    # target_property: Property
+    sender: User
     status: EnquiryStatus
     message: str
     created_at: datetime = field(default_factory=lambda: datetime.now())
@@ -59,7 +25,7 @@ class Enquiry:
 @dataclass
 class Offer:
     id: str
-    sender: Tenant
+    sender: User
     status: OfferStatus
     created_at: datetime = field(default_factory=lambda: datetime.now())
 
@@ -75,7 +41,7 @@ class Property:
     bathroom_count: int
     living_area: float
     available_date: date
-    agent: Agent  # the agent who manages this property
+    agent: User  # the agent who manages this property
 
     primary_image_url: str = Defaults.IMAGE.value # primary images
     image_urls: List[str] = field(default_factory=list) # this one is for gallery images
