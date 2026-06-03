@@ -43,6 +43,16 @@ SHA2('password', 256),
 "0423113344",
 Null,
 'Tenant'
+),
+(
+"admin_1",
+SHA2('password', 256),
+"John",
+"Dee",
+"admin@admin.com",
+"0432123211",
+Null,
+'Admin'
 );
 
 insert into property (
