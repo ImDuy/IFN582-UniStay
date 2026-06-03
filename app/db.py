@@ -222,6 +222,83 @@ def delete_property(property_id):
     mysql.connection.commit()
     cur.close()
 
+def get_property(property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM property WHERE id = %s", (property_id,))
+    property_data = cursor.fetchone()
+    cursor.close()
+    return property_data
+
+def get_img_url(property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT url FROM propertyimage WHERE propertyId = %s and isPrimary = 1", (property_id,))
+    primary_image = cursor.fetchone()
+    cursor.close()
+    return primary_image
+
+def get_amenities(property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT amenity FROM propertyamenity WHERE propertyId = %s", (property_id,))
+    amenities = cursor.fetchall()
+    cursor.close()
+    return amenities
+
+def get_uni_nearby(property_id):
+    cursor = mysql.connection.cursor()
+    uni_nearby ="""
+    SELECT a.name, b.distance
+    FROM nearby as b
+    LEFT JOIN university as a ON b.universityId = a.id
+    WHERE b.propertyId = %s
+    """
+    cursor.execute(uni_nearby, (property_id,))
+    nearby_universities = cursor.fetchall()
+    cursor.close()
+    return nearby_universities
+
+def bookmark_overlap(tenant_id, property_id):
+    cursor = mysql.connect.cursor()
+    cursor.execute("SELECT propertyId FROM bookmark WHERE tenantId = %s AND propertyId = %s ", (tenant_id, property_id))
+    check = cursor.fetchone()
+    cursor.close()
+    return check
+
+def enquiry(tenant_id, property_id, enquiry):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT senderId FROM enquiry WHERE senderId = %s AND targetPropertyId = %s ", (tenant_id, property_id))
+    check = cursor.fetchone()
+    if check:
+        cursor.close()
+        return
+    cursor.execute(
+        """
+        INSERT INTO enquiry (senderId, targetPropertyId, message, submittedDate, status)
+        VALUES (%s, %s, %s, NOW(), 'New')
+        """,
+        (tenant_id, property_id, enquiry)
+    )
+    mysql.connection.commit()
+    cursor.close()
+    return True
+
+def offer(tenant_id, property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT senderId FROM offer WHERE senderId = %s AND targetPropertyId = %s ", (tenant_id, property_id))
+    check = cursor.fetchone()
+    if check:
+        cursor.close()
+        return
+    cursor.execute(
+        """
+        INSERT INTO offer (senderId, targetPropertyId, submittedDate, status)
+        VALUES (%s, %s, NOW(), 'Pending')
+        """,
+        (tenant_id, property_id)
+    )
+    mysql.connection.commit()
+    cursor.close()
+    return True
+
 def update_enquiries_by_property(property_id, form):
     cur = mysql.connection.cursor()
     for enquiry_form in form.enquiries:
