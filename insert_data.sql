@@ -1,38 +1,38 @@
 use unistay;
 
 insert into user (
-password, firstName, lastName, email, phone, avatarUrl, role
+password, firstName, lastName, email, phone, avatarUrl, role, createdAt
 ) values 
 -- Agent values sample
-(SHA2('password', 256), 'Jack', 'Smith', 'jack@agency.com', '0412345678', Null, 'Agent'),
-(SHA2('password', 256), "Sarah", "Wilson", "sarah@agency.com", "0488776655", Null, 'Agent'),
+(SHA2('password', 256), 'Jack', 'Smith', 'jack@agency.com', '0412345678', Null, 'Agent', '2026-04-10'),
+(SHA2('password', 256), "Sarah", "Wilson", "sarah@agency.com", "0488776655", Null, 'Agent', '2026-01-11'),
 -- Tenant values sample
-(SHA2('password', 256), "Minh", "Nguyen", "minh@student.edu.au", "0411223344", Null, 'Tenant'),
-(SHA2('password', 256), "Bill", "Tran", "bill@student.edu.au", "0423113344", Null, 'Tenant'),
+(SHA2('password', 256), "Minh", "Nguyen", "minh@student.edu.au", "0411223344", Null, 'Tenant', '2026-05-23'),
+(SHA2('password', 256), "Bill", "Tran", "bill@student.edu.au", "0423113344", Null, 'Tenant', '2026-05-10'),
 -- Admin values sample
-(SHA2('password', 256), "John", "Dee", "admin@admin.com", "0432123211", Null, 'Admin'),
-(SHA2('password', 256), "Sam", "Smith", "Samsmith@gmail.com", "0433333333", Null, 'Admin');
+(SHA2('password', 256), "John", "Dee", "admin@admin.com", "0432123211", Null, 'Admin', '2026-04-29'),
+(SHA2('password', 256), "Sam", "Smith", "Samsmith@gmail.com", "0433333333", Null, 'Admin', '2026-04-27');
 
 insert into property (
 title, address, description, propertyType,
 rentPerWeek, numBedrooms, numBathrooms, livingArea,
-availableDate, agentId
+availableDate, agentId, createdAt
 ) values 
-('Modern Studio near UQ', '123 Saint Lucia, Brisbane','Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.','Studio',450,1, 1, 45.5, '2026-09-20', 1),
-('Shared House for Students', '456 Toowong, Brisbane', 'Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.', 'House', 250, 4, 2, 120.0, '2026-07-20', 1),
-('Luxury Riverside Studio', '789 Marine Parade, South Bank', 'Stunning studio apartment overlooking the Brisbane River. This premium space boasts top-of-the-line appliances, a private balcony, and floor-to-ceiling windows. Residents get exclusive access to the rooftop infinity pool and gym. Perfect for a young professional or couple looking for a vibrant lifestyle.', 'Apartment', 550, 1, 1, 55.0, '2026-08-11', 2), 
-('Spacious Family Home with Backyard', "12 Chelmer Street, Chelmer", "Charming Queenslander home in a quiet, leafy suburb. Features a massive fully-fenced backyard perfect for kids and pets, a massive wrap-around veranda, and character features throughout. Located within a top-tier school catchment zone and just a short walk to the train station.", 'House', 820, 4, 2, 210.0, '2026-06-10', 2),
-('Sunny House in Chermside', '42 Gympie Road, Chermside, QLD', 'A bright and spacious house located in the heart of Chermside. Features modern finishes, natural lighting throughout, and easy access to public transport and Westfield shopping centre.', 'House', 450, 3, 2, 120.0, '2026-07-01', 1),
-('Modern Apartment in South Bank', '87 Grey Street, South Bank, QLD', 'Stylish apartment in the vibrant South Bank precinct. Enjoy stunning river views, high-end appliances, and walking distance to restaurants, galleries, and the Brisbane River.', 'Apartment', 380, 2, 1, 75.0, '2026-07-15', 2),
-('Cosy Townhouse in Camp Hill', '215 Old Cleveland Road, Camp Hill, QLD', 'Charming townhouse nestled in the leafy suburb of Camp Hill. Close to cafes, boutique shops, and public transport. Features an open-plan living area and a private courtyard for entertaining.', 'Townhouse', 520, 3, 2,  95.0, '2026-08-01', 1),
-('Elegant Condo in Fortitude Valley','33 Brunswick Street, Fortitude Valley, QLD','Sophisticated condo in lively Fortitude Valley. Boasts contemporary design, quality fixtures, and a balcony perfect for enjoying the vibrant neighbourhood atmosphere below.', 'Condo', 490, 2, 2,  85.0, '2026-07-20', 1),
-('Compact Studio in West End', '11 Boundary Street, West End, QLD', 'Efficient and modern studio in the heart of West End. Perfect for singles or students, offering a smart layout with quality fittings and proximity to Brisbane CBD and cultural hubs.', 'Studio', 310, 1, 1,  40.0, '2026-06-25', 2),
-('Spacious House in Carindale', '128 Creek Road, Carindale, QLD', 'Large family home in the peaceful suburb of Carindale. Features a generous backyard, updated kitchen, and multiple living zones. Well-connected to schools, parks, and Westfield Carindale.', 'House', 680, 4, 2, 200.0, '2026-08-10', 1),
-('Riverside Apartment in Newstead', '55 Breakfast Creek Road, Newstead, QLD', 'Contemporary apartment along the scenic riverside in Newstead. Includes premium finishes, resort-style facilities, and easy access to cycling paths, boutique shops, and dining precincts.', 'Apartment', 560, 2, 2,  80.0, '2026-07-05', 1),
-('Charming Townhouse in Paddington', '76 Given Terrace, Paddington, QLD', 'Delightful townhouse in the prestigious suburb of Paddington. Features timber floors, renovated interiors, and a leafy private garden. A short commute to Brisbane CBD via bus.', 'Townhouse', 470, 3, 1, 110.0, '2026-09-01', 2),
-('Modern Condo in Kangaroo Point', '19 River Terrace, Kangaroo Point, QLD', 'Stunning condo offering breathtaking Story Bridge and river views. Light-filled interiors, modern amenities, and an open-plan layout make this an exceptional urban retreat.', 'Condo', 740, 3, 2, 130.0, '2026-08-20', 2),
-('City-View Studio in Spring Hill', '301 Leichhardt Street, Spring Hill, QLD', 'Sleek studio apartment with sweeping city views in the sought-after Spring Hill precinct. Features floor-to-ceiling windows, integrated appliances, and access to building amenities.', 'Studio', 350, 1, 1,  45.0, '2026-07-10', 1),
-('Stylish Apartment in Ascot', '63 Racecourse Road, Ascot, QLD', 'Elegant apartment situated in the prestigious suburb of Ascot. Features high ceilings, modern finishes, and a private balcony overlooking tree-lined streets. Close to Doomben Racecourse, local cafes, and easy motorway access to Brisbane CBD.', 'Apartment', 570, 2, 2, 90.0, '2026-08-15', 2);
+('Modern Studio near UQ', '123 Saint Lucia, Brisbane','Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.','Studio',450,1, 1, 45.5, '2026-09-20', 1, '2026-04-19'),
+('Shared House for Students', '456 Toowong, Brisbane', 'Beautiful modern apartment in the heart of downtown with city views.\nThis exceptional property offers a perfect blend of comfort and convenience. Located in a prime area with excellent access to public transportation, shopping centers, and dining options. The property features modern finishes, ample natural light, and well-maintained common areas. Ideal for students and professionals seeking quality accommodation.', 'House', 250, 4, 2, 120.0, '2026-07-20', 1, '2026-05-29'),
+('Luxury Riverside Studio', '789 Marine Parade, South Bank', 'Stunning studio apartment overlooking the Brisbane River. This premium space boasts top-of-the-line appliances, a private balcony, and floor-to-ceiling windows. Residents get exclusive access to the rooftop infinity pool and gym. Perfect for a young professional or couple looking for a vibrant lifestyle.', 'Apartment', 550, 1, 1, 55.0, '2026-08-11', 2, '2026-02-12'), 
+('Spacious Family Home with Backyard', "12 Chelmer Street, Chelmer", "Charming Queenslander home in a quiet, leafy suburb. Features a massive fully-fenced backyard perfect for kids and pets, a massive wrap-around veranda, and character features throughout. Located within a top-tier school catchment zone and just a short walk to the train station.", 'House', 820, 4, 2, 210.0, '2026-06-10', 2, '2026-01-22'),
+('Sunny House in Chermside', '42 Gympie Road, Chermside, QLD', 'A bright and spacious house located in the heart of Chermside. Features modern finishes, natural lighting throughout, and easy access to public transport and Westfield shopping centre.', 'House', 450, 3, 2, 120.0, '2026-07-01', 1, '2026-03-22'),
+('Modern Apartment in South Bank', '87 Grey Street, South Bank, QLD', 'Stylish apartment in the vibrant South Bank precinct. Enjoy stunning river views, high-end appliances, and walking distance to restaurants, galleries, and the Brisbane River.', 'Apartment', 380, 2, 1, 75.0, '2026-07-15', 2, '2026-01-29'),
+('Cosy Townhouse in Camp Hill', '215 Old Cleveland Road, Camp Hill, QLD', 'Charming townhouse nestled in the leafy suburb of Camp Hill. Close to cafes, boutique shops, and public transport. Features an open-plan living area and a private courtyard for entertaining.', 'Townhouse', 520, 3, 2,  95.0, '2026-08-01', 1, '2026-01-02'),
+('Elegant Condo in Fortitude Valley','33 Brunswick Street, Fortitude Valley, QLD','Sophisticated condo in lively Fortitude Valley. Boasts contemporary design, quality fixtures, and a balcony perfect for enjoying the vibrant neighbourhood atmosphere below.', 'Condo', 490, 2, 2,  85.0, '2026-07-20', 1, '2026-02-21'),
+('Compact Studio in West End', '11 Boundary Street, West End, QLD', 'Efficient and modern studio in the heart of West End. Perfect for singles or students, offering a smart layout with quality fittings and proximity to Brisbane CBD and cultural hubs.', 'Studio', 310, 1, 1,  40.0, '2026-06-25', 2, '2026-02-15'),
+('Spacious House in Carindale', '128 Creek Road, Carindale, QLD', 'Large family home in the peaceful suburb of Carindale. Features a generous backyard, updated kitchen, and multiple living zones. Well-connected to schools, parks, and Westfield Carindale.', 'House', 680, 4, 2, 200.0, '2026-08-10', 1, '2026-03-27'),
+('Riverside Apartment in Newstead', '55 Breakfast Creek Road, Newstead, QLD', 'Contemporary apartment along the scenic riverside in Newstead. Includes premium finishes, resort-style facilities, and easy access to cycling paths, boutique shops, and dining precincts.', 'Apartment', 560, 2, 2,  80.0, '2026-07-05', 1, '2026-01-30'),
+('Charming Townhouse in Paddington', '76 Given Terrace, Paddington, QLD', 'Delightful townhouse in the prestigious suburb of Paddington. Features timber floors, renovated interiors, and a leafy private garden. A short commute to Brisbane CBD via bus.', 'Townhouse', 470, 3, 1, 110.0, '2026-09-01', 2, '2025-12-29'),
+('Modern Condo in Kangaroo Point', '19 River Terrace, Kangaroo Point, QLD', 'Stunning condo offering breathtaking Story Bridge and river views. Light-filled interiors, modern amenities, and an open-plan layout make this an exceptional urban retreat.', 'Condo', 740, 3, 2, 130.0, '2026-08-20', 2, '2026-05-29'),
+('City-View Studio in Spring Hill', '301 Leichhardt Street, Spring Hill, QLD', 'Sleek studio apartment with sweeping city views in the sought-after Spring Hill precinct. Features floor-to-ceiling windows, integrated appliances, and access to building amenities.', 'Studio', 350, 1, 1,  45.0, '2026-07-10', 1, '2026-04-09'),
+('Stylish Apartment in Ascot', '63 Racecourse Road, Ascot, QLD', 'Elegant apartment situated in the prestigious suburb of Ascot. Features high ceilings, modern finishes, and a private balcony overlooking tree-lined streets. Close to Doomben Racecourse, local cafes, and easy motorway access to Brisbane CBD.', 'Apartment', 570, 2, 2, 90.0, '2026-08-15', 2, '2026-02-06');
 
 insert into university (name, address, logoUrl) values 
 ("University of Queensland", "St Lucia QLD 4072", "logo_uq.jpg"),
@@ -158,4 +158,3 @@ insert into propertyImage (propertyId, url, isPrimary) values
 (14, 'properties_14-2.jpeg', False),
 (15, 'properties_15-1.jpg', False), 
 (15, 'properties_15-2.jpeg', False);
-
