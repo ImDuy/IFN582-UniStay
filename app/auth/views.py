@@ -4,6 +4,7 @@ from . import auth_login_bp, auth_register_bp, auth_logout_bp
 from .forms import LoginForm, RegisterForm
 from app.db import get_user_by_email, user_exists_by_email, add_user
 from app.wrappers import guest_required
+import datetime
 
 
 @auth_login_bp.route('/login', methods=['GET', 'POST'])
@@ -52,7 +53,8 @@ def register():
             email=email,
             phone=form.phone.data.strip(),
             avatar_url=None,
-            role=form.role.data)
+            role=form.role.data,
+            date=datetime.datetime.now())
 
         flash('Registration successful. Please log in.', 'success')
         return redirect(url_for('auth_login.login'))

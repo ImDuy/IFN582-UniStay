@@ -608,10 +608,10 @@ def user_exists_by_email(email):
     return user
 
 
-def add_user(password, first_name, last_name, email, phone, avatar_url, role):
+def add_user(password, first_name, last_name, email, phone, avatar_url, role, date):
     cursor = mysql.connection.cursor()
-    cursor.execute("""INSERT INTO user (password, firstName, lastName, email, phone, avatarUrl, role)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)""",
-        (password, first_name, last_name, email, phone, avatar_url, role))
+    cursor.execute("""INSERT INTO user (password, firstName, lastName, email, phone, avatarUrl, role, createdAt)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
+        (password, first_name, last_name, email, phone, avatar_url, role, date))
     mysql.connection.commit()
     cursor.close()

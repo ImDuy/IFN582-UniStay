@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
+from app.constants import UserRole
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -16,5 +17,5 @@ class RegisterForm(FlaskForm):
         Regexp(r'^04[0-9]{8}$', message='Enter a valid Australian mobile number.')])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('I am a...', choices=[('tenant', 'Tenant'), ('agent', 'Agent')], validators=[DataRequired()])
+    role = SelectField('Role', choices=[role.value for role in UserRole if role != UserRole.ADMIN])
     submit = SubmitField('Register')
