@@ -1,7 +1,7 @@
 from enum import Enum
 
 class Defaults(Enum):
-    IMAGE = 'properties_1.jpeg'
+    IMAGE = 'properties_default.jpeg'
     DOCUMENT = 'documentation_1.pdf'
 
 class EnquiryStatus(Enum):
