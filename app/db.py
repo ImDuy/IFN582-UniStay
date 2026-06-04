@@ -236,6 +236,13 @@ def get_img_url(property_id):
     cursor.close()
     return primary_image
 
+def get_gallery_image_urls(property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT url FROM propertyimage WHERE propertyId = %s and isPrimary = 0", (property_id,))
+    gallery_images = cursor.fetchall()
+    cursor.close()
+    return gallery_images
+
 def get_amenities(property_id):
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT amenity FROM propertyamenity WHERE propertyId = %s", (property_id,))
