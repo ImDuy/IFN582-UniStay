@@ -335,7 +335,7 @@ def get_bookmark_by_tenant(user_id):
         JOIN unistay.property b ON a.propertyId = b.id
         LEFT JOIN unistay.propertyimage i 
             ON b.id = i.propertyId AND i.isPrimary = 1
-        WHERE a.tenantId = %s
+        WHERE a.tenantId = %s ORDER BY createdAt DESC
     """,(user_id,))
     results = cursor.fetchall()
     cursor.close()

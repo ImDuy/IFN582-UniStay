@@ -60,6 +60,9 @@
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> Bookmark </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold text-white nav-hover" href="#pills-tabContent">Go to images</a>
+                </li>
               {% elif session.get('user', {}).get('user_role')  == 'Admin' %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="#"> Manage user </a>
