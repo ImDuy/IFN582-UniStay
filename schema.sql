@@ -12,7 +12,8 @@ check (email regexp '^.+@.+\..+$'), -- check it is actual email (e.g. sungwoo@qu
 phone varchar (10) not null 
 check ((char_length(phone) = 10 and phone regexp '^04[0-9]{8}$')), -- check it is actual phone number in Australia (e.g. 0431234567)
 avatarUrl varchar (250),
-role varchar (20) not null
+role varchar (20) not null,
+createdAt Date not null
 );
 
 create table university (
@@ -34,6 +35,7 @@ numBathrooms int not null,
 livingArea float not null,
 availableDate Date not null,
 agentId int not null,
+createdAt date not null,
 
 foreign key (agentId) references user(id)
 );
