@@ -23,27 +23,14 @@ def index():
     if user_role == UserRole.ADMIN.value:
         properties = get_all_properties()
         user_accounts = get_users_except_admin()
-        # create forms for editing property listing
-        edit_property_forms = {}
-        for property in properties:
-            # populate property data to edit forms
-            edit_property_form = PropertyForm(obj=property)
-            edit_property_forms[property.id] = edit_property_form
-        return render_template('/pages/management.html', listings = properties, user_accounts= user_accounts, 
-                            user_role = user_role, UserRole = UserRole, 
-                            edit_property_forms= edit_property_forms,  add_form = AccountForm())
+        return render_template('/pages/management.html', listings = properties, user_accounts= user_accounts, user_role = user_role, UserRole = UserRole)
     
     # if the user is agent --------
     properties = get_properties_by_agent(session['user']['user_id'])
-    # create forms for editing property listing and offer/enquiry status
-    edit_property_forms = {}
+    # create forms for updating offer/enquiry status
     enquiry_forms = {}
     offer_forms = {}
     for property in properties:
-        # populate property data to edit forms
-        edit_property_form = PropertyForm(obj=property) 
-        edit_property_forms[property.id] = edit_property_form
-        
         # populate enquiry data to enquiry forms
         enquiry_form = PropertyEnquiryForm()
         for enquiry in property.enquiries:
@@ -63,7 +50,7 @@ def index():
         offer_forms[property.id] = offer_form
     return render_template('/pages/management.html', listings = properties, user_role = user_role, UserRole = UserRole, 
                            total_new_enquiries = Property.get_total_new_enquiries(properties), total_pending_offers = Property.get_total_pending_offers(properties), 
-                            edit_property_forms= edit_property_forms,  add_form = PropertyForm(),  enquiry_forms = enquiry_forms, offer_forms = offer_forms)
+                           enquiry_forms = enquiry_forms, offer_forms = offer_forms)
     
 # routes for creating, editing, and deleting property listings
 @management_bp.route('/create-listing',  methods=['POST', 'GET'])
