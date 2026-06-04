@@ -236,7 +236,7 @@
                     <a href="{{ url_for('details.property_details', property_id=property.id) }}" class="text-decoration-none text-dark">
                       <div class="card rounded-4 property_card">
                         <div class="rounded-top-4 overflow-hidden">
-                          <img src="{{ url_for('static', filename='img/' + (image_map.get(property.id) or 'properties_1.jpeg')) }}"
+                          <img src="{{ url_for('static', filename='img/' + (image_map.get(property.id) or 'properties_default.jpeg')) }}"
                             class="card-img-top" alt="{{ property.title }}"/>
                         </div>
                         <div class="card-body px-0">
