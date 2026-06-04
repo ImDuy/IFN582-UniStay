@@ -3,7 +3,7 @@ from . import details_bp
 from app import mysql
 from app.wrappers import role_required
 from app.constants import UserRole
-from app.db import add_bookmark_by_id, bookmark_overlap, get_property, get_primary_image_url, get_gallery_image_urls, get_amenities, get_uni_nearby, enquiry, offer
+from app.db import add_bookmark_by_id, bookmark_overlap, get_property, get_primary_image_url, get_gallery_image_urls, get_amenities, get_uni_nearby, enquiry, offer, get_documents
 
 @details_bp.route("/details/<int:property_id>")
 def property_details(property_id):
@@ -19,7 +19,9 @@ def property_details(property_id):
     amenities = get_amenities(property_id)
     #Compile property ID and university ID, then get distances
     uni_nearby = get_uni_nearby(property_id)
-    return render_template('pages/details.html', property=property_data, image=primary_image, gallery_images=gallery_images, amenities=amenities, nearby=uni_nearby)
+    #Load documents
+    documents = get_documents(property_id)
+    return render_template('pages/details.html', property=property_data, image=primary_image, gallery_images=gallery_images, amenities=amenities, nearby=uni_nearby, documents=documents)
 
 @details_bp.route("details/<int:property_id>/add_bookmark", methods=['POST'])
 @role_required([UserRole.TENANT.value])
