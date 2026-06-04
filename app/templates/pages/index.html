@@ -207,12 +207,22 @@
 
                             <div class="border rounded-3 border-gray p-1 px-2 nearby-info">
                                 {% if nearby_list %}
+                                  {% set display_nearby = namespace(value=none) %}
+                                  {% for n in nearby_list %}
+                                    {% if dist and dist != 'any' and n.distance <= dist|float %}
+                                      {% if display_nearby.value is none %}
+                                        {% set display_nearby.value = n %}
+                                      {% endif %}
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% if display_nearby.value is none %}
+                                    {% set display_nearby.value = nearby_list[0] %}
+                                  {% endif %}
                                   <small><small>
-                                    <span class="fw-bold">{{ nearby_list[0].distance }} km</span>
-                                    from {{ nearby_list[0].university.name }}
+                                    <span class="fw-bold">{{ display_nearby.value.distance }} km</span>
+                                    from {{ display_nearby.value.university.name }}
                                   </small></small>
-                                {% else %}
-                                  <small><small class="text-muted"><i class="bi bi-x-circle me-1"></i>No nearby University info</small></small>                                {% endif %}
+                                {% endif %}
                             </div>
                           </div>
 

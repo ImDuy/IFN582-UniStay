@@ -19,7 +19,8 @@ def index():
         image_map = get_image_map_db(),
         nearby_map = get_nearby_db(),
         is_filtered = is_filtered,
-        default_image=Defaults.IMAGE.value
+        default_image = Defaults.IMAGE.value,
+        dist = dist
     )
 
 

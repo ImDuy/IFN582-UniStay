@@ -540,13 +540,21 @@ def get_nearby_db():
 def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, price_min=None, price_max=None, amenities=None):
     cur = mysql.connection.cursor()
     
-    sql = """
-        SELECT DISTINCT p.* FROM property p
-        LEFT JOIN nearby n ON p.id = n.propertyId
-        LEFT JOIN propertyAmenity a ON p.id = a.propertyId
-        WHERE 1=1
-    """
-    # WHERE 1=1 is to add 'AND' later
+    # if choose distance in filter use inner join, if not left join
+    if dist and dist != 'any':
+        sql = """
+            SELECT DISTINCT p.* FROM property p
+            INNER JOIN nearby n ON p.id = n.propertyId
+            LEFT JOIN propertyAmenity a ON p.id = a.propertyId
+            WHERE 1=1
+        """
+    else:
+        sql = """
+            SELECT DISTINCT p.* FROM property p
+            LEFT JOIN nearby n ON p.id = n.propertyId
+            LEFT JOIN propertyAmenity a ON p.id = a.propertyId
+            WHERE 1=1
+        """
     
     params = []
 
