@@ -229,7 +229,7 @@ def get_property(property_id):
     cursor.close()
     return property_data
 
-def get_img_url(property_id):
+def get_primary_image_url(property_id):
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT url FROM propertyimage WHERE propertyId = %s and isPrimary = 1", (property_id,))
     primary_image = cursor.fetchone()
