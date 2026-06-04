@@ -553,7 +553,7 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
 
     if dist and dist != 'any':
         sql += " AND n.distance <= %s"
-        params.append(dist)
+        params.append(float(dist))
 
     if price_min and price_max:
         if int(price_min) > int(price_max):
