@@ -298,6 +298,13 @@ def get_uni_nearby(property_id):
     cursor.close()
     return nearby_universities
 
+def get_documents(property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT url FROM propertydocumentation WHERE propertyId = %s", (property_id,))
+    documents = cursor.fetchall()
+    cursor.close()
+    return documents
+
 def bookmark_overlap(tenant_id, property_id):
     cursor = mysql.connect.cursor()
     cursor.execute("SELECT propertyId FROM bookmark WHERE tenantId = %s AND propertyId = %s ", (tenant_id, property_id))
