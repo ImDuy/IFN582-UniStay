@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -8,11 +8,14 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
 
 class RegisterForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired()])
-    last_name = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    phone = StringField('Phone', validators=[DataRequired()])
+    first_name = StringField('First Name', validators=[DataRequired(), Length(max=50)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=50)])
+    email = StringField('Email', validators=[DataRequired(), Email(), Length(max=50)])
+    phone = StringField('Phone', validators=[DataRequired(),
+        Length(min=10, max=10),
+        Regexp(r'^04[0-9]{8}$', message='Enter a valid Australian mobile number.')
+    ])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('I am a...', choices=[('Tenant', 'Tenant'), ('Agent', 'Agent')])
+    role = SelectField('I am a...', choices=[('tenant', 'Tenant'), ('agent', 'Agent')], validators=[DataRequired()])
     submit = SubmitField('Register')
