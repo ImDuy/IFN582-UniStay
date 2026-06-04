@@ -317,6 +317,7 @@ def update_offers_by_property(property_id, form):
     mysql.connection.commit()
     cur.close()
 
+
 def get_bookmark_by_tenant(user_id):
     
     cursor = mysql.connection.cursor()
@@ -467,6 +468,8 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
         LEFT JOIN propertyAmenity a ON p.id = a.propertyId
         WHERE 1=1
     """
+    # WHERE 1=1 is to add 'AND' later
+    
     params = []
 
     if q:
