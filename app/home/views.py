@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, session, flash
 from flask import redirect, url_for
 from . import home_bp
 from app.db import get_all_properties_db, get_filtered_properties_db, get_universities_db, get_image_map_db, get_nearby_db
-
+from app.constants import Defaults
 @home_bp.route('/')
 def index():
     q = request.args.get('q', '').strip()
@@ -18,7 +18,8 @@ def index():
         universities = get_universities_db(),
         image_map = get_image_map_db(),
         nearby_map = get_nearby_db(),
-        is_filtered = is_filtered
+        is_filtered = is_filtered,
+        default_image=Defaults.IMAGE.value
     )
 
 
