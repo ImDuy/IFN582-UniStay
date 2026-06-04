@@ -19,6 +19,14 @@ class UserRole(Enum):
     TENANT = 'Tenant'
     ADMIN = 'Admin'
 
+    @property
+    def color(self):
+        return {
+            UserRole.AGENT: "primary",
+            UserRole.TENANT: "success",
+            UserRole.ADMIN: "dark"
+        }[self]
+
 class PropertyAmenity(Enum):
     WIFI = 'High-Speed Wifi'
     FITNESS = 'Fitness Center'
@@ -31,3 +39,12 @@ class PropertyType(Enum):
     CONDO = 'Condo'
     TOWNHOUSE = 'Townhouse'
     STUDIO = 'Studio'
+    @property
+    def color(self):
+        return {
+            PropertyType.APARTMENT: "primary",
+            PropertyType.HOUSE: "success",
+            PropertyType.CONDO: "info",
+            PropertyType.TOWNHOUSE: "warning",
+            PropertyType.STUDIO: "dark",
+        }[self]
