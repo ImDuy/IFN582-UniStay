@@ -13,7 +13,7 @@ def create_app():
 
     # MySQL configurations
     app.config['MYSQL_USER'] = 'root'
-    app.config['MYSQL_PASSWORD'] = 'N12656631' # change your password here
+    app.config['MYSQL_PASSWORD'] = '' # change your password here
     app.config['MYSQL_DB'] = 'UniStay'
     app.config['MYSQL_HOST'] = 'localhost'
     app.config['MYSQL_CURSORCLASS'] = 'DictCursor'

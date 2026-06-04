@@ -209,7 +209,7 @@
                                 {% if nearby_list %}
                                   <small><small>
                                     <span class="fw-bold">{{ nearby_list[0].distance }} km</span>
-                                    from {{ nearby_list[0].universityName }}
+                                    from {{ nearby_list[0].university.name }}
                                   </small></small>
                                 {% else %}
                                   <small><small class="text-muted"><i class="bi bi-x-circle me-1"></i>No nearby University info</small></small>                                {% endif %}
