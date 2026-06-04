@@ -1,21 +1,16 @@
 use unistay;
 
-insert into user (
-username, password, firstName, lastName, email, phone, avatarUrl, role
+insert into user (password, firstName, lastName, email, phone, avatarUrl, role
 ) values 
 -- Agent values sample
-(
-'jack_realtor',
-SHA2('password', 256),
+(SHA2('password', 256),
 'Jack',
 'Smith',
 'jack@agency.com',
 '0412345678',
 Null,
 'Agent'
-),(
-"sarah_pro",
-SHA2('password', 256),
+),(SHA2('password', 256),
 "Sarah",
 "Wilson",
 "sarah@agency.com",
@@ -24,9 +19,7 @@ Null,
 'Agent'
 ),
 -- Tenant values sample
-(
-"minh_nguyen",
-SHA2('password', 256),
+(SHA2('password', 256),
 "Minh",
 "Nguyen",
 "minh@student.edu.au",
@@ -34,9 +27,7 @@ SHA2('password', 256),
 Null,
 'Tenant'
 ),
-(
-"bill_tran",
-SHA2('password', 256),
+(SHA2('password', 256),
 "Bill",
 "Tran",
 "bill@student.edu.au",
@@ -44,9 +35,7 @@ SHA2('password', 256),
 Null,
 'Tenant'
 ),
-(
-"admin_1",
-SHA2('password', 256),
+(SHA2('password', 256),
 "John",
 "Dee",
 "admin@admin.com",

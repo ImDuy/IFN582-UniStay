@@ -20,15 +20,13 @@ def login():
 
         if user:
             user_id = user['id']
-            username = user['username']
             stored_password = user['password']
             role = user['role']
 
             if stored_password == hash_password(form.password.data):
                 session.clear()
                 session['user'] = {'user_id': user_id,
-                    'user_role': role,
-                    'username': username}
+                    'user_role': role}
                 flash('Login successful.', 'success')
                 return redirect(url_for('home.index'))
 
@@ -50,8 +48,7 @@ def register():
             flash('Email already exists.', 'danger')
             return render_template('pages/register.html', form=form, selected_role=selected_role)
 
-        add_user(username=form.username.data.strip(),
-            password=hash_password(form.password.data),
+        add_user(password=hash_password(form.password.data),
             first_name=form.first_name.data.strip(),
             last_name=form.last_name.data.strip(),
             email=email,

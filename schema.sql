@@ -4,7 +4,6 @@ use UniStay;
 
 create table user (
 id int auto_increment not null primary key,
-username varchar (250) not null,
 password varchar (250) not null,
 firstName varchar (50) not null,
 lastName varchar (50) not null,

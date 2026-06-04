@@ -528,7 +528,7 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
 
 def get_user_by_email(email):
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT id, username, password, role FROM user WHERE email = %s",(email,))
+    cursor.execute("SELECT id, password, role FROM user WHERE email = %s",(email,))
     user = cursor.fetchone()
     cursor.close()
     return user
@@ -542,10 +542,10 @@ def user_exists_by_email(email):
     return user
 
 
-def add_user(username, password, first_name, last_name, email, phone, avatar_url, role):
+def add_user(password, first_name, last_name, email, phone, avatar_url, role):
     cursor = mysql.connection.cursor()
-    cursor.execute("""INSERT INTO user (username, password, firstName, lastName, email, phone, avatarUrl, role)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
-        (username, password, first_name, last_name, email, phone, avatar_url, role))
+    cursor.execute("""INSERT INTO user (password, firstName, lastName, email, phone, avatarUrl, role)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+        (password, first_name, last_name, email, phone, avatar_url, role))
     mysql.connection.commit()
     cursor.close()
