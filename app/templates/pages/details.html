@@ -1,610 +1,402 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block main %}
-
-      <div
-        class="container rounded-4 overflow-hidden shadow-sn p-0 my-4"
-        style="height: 500px"
-      >
-        <img class="w-100 h-100 object-fit-contain" src="{{ url_for('static', filename='img/' + image.url)}}" alt="Property Image" />
-      </div>
-
-      <div class="container p-0">
-        <div class="row {% if session.get('user', {}).get('user_role') == 'Agent' or not session.get('user', {}) %}justify-content-center{% endif %}">
-          <div class="col-lg-8">
-            <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
-              <div
-                class="d-flex align-items-center justify-content-between gap-3"
-              >
-                <div class="d-flex flex-column {% if session.get('user', {}).get('role') == 'agent' %}align-items-center text-center{% else %}align-items-start{% endif %}">
-                  <h2 class="fw-bold">{{ property.title }}</h2>
-                  <span class="text-muted">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="26"
-                      height="26"
-                      viewBox="0 0 28 28"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                      <path
-                        d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"
-                      />
-                    </svg>
-                    {{ property.address }}
-                  </span>
-                  <div
-                    class="py-1 px-3 rounded-pill bg-primary-subtle small fw_600 mt-3"
-                  >
-                    {{ property.propertyType }}
-                  </div>
-                </div>
-
-                <div
-                  class="d-flex flex-column justify-content-center align-items-center"
-                >
-                  <h2 class="fw-bold mb-0">${{ property.rentPerWeek }}</h2>
-                  <small class="text-secondary">per week</small>
-                </div>
-              </div>
-            </div>
-            <!-- Key Features -->
-            <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
-              <h5 class="fw-bold mb-3">Key Features</h5>
-
-              <div class="row row-cols-2 row-cols-md-4 align-items-center g-3">
-                <div
-                  class="col d-flex align-items-center justify-content-start gap-2"
-                >
-                  <div class="bg-primary bg-opacity-10 rounded-4 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-bed"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                      <path d="M22 17v-3h-20" />
-                      <path d="M2 8v9" />
-                      <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
-                    </svg>
-                  </div>
-                  <div class="d-flex flex-column ms-1">
-                    <h4 class="fw-bold mb-0">{{ property.numBedrooms }}</h4>
-                    <small>Bedrooms</small>
-                  </div>
-                </div>
-                <div
-                  class="col d-flex align-items-center justify-content-start gap-2"
-                >
-                  <div class="bg-primary bg-opacity-10 rounded-4 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-bath"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path
-                        d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
-                      />
-                      <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
-                      <path d="M4 21l1 -1.5" />
-                      <path d="M20 21l-1 -1.5" />
-                    </svg>
-                  </div>
-                  <div class="d-flex flex-column ms-1">
-                    <h4 class="fw-bold mb-0">{{ property.numBathrooms }}</h4>
-                    <small>Bathrooms</small>
-                  </div>
-                </div>
-                <div
-                  class="col d-flex align-items-center justify-content-start gap-2"
-                >
-                  <div class="bg-primary bg-opacity-10 rounded-4 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-diagonal"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M16 4l4 0l0 4" />
-                      <path d="M14 10l6 -6" />
-                      <path d="M8 20l-4 0l0 -4" />
-                      <path d="M4 20l6 -6" />
-                    </svg>
-                  </div>
-                  <div class="d-flex flex-column ms-1">
-                    <h4 class="fw-bold mb-0">{{ property.livingArea }}</h4>
-                    <small>Sq Mt</small>
-                  </div>
-                </div>
-                <div
-                  class="col d-flex align-items-center justify-content-start gap-2"
-                >
-                  <div class="bg-primary bg-opacity-10 rounded-4 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-calendar"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path
-                        d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12"
-                      />
-                      <path d="M16 3v4" />
-                      <path d="M8 3v4" />
-                      <path d="M4 11h16" />
-                      <path d="M11 15h1" />
-                      <path d="M12 15v3" />
-                    </svg>
-                  </div>
-                  <div class="d-flex flex-column ms-1">
-                    <h6 class="fw-bold mb-0">Available</h6>
-                    <small>{{ property.availableDate }}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Description -->
-            <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
-              <h5 class="fw-bold mb-3">Description</h5>
-              <p>
-                {{ property.description }}
-              </p>
-            </div>
-            <!-- Amenities & Features  -->
-            <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
-              <h5 class="fw-bold mb-3">Amenities & Features</h5>
-              <div class="row row-cols-1 row-cols-md-2 align-items-center g-3"> 
-                {% for amenity in amenities %}
-                <div class="pe-2">
-                  <div
-                    class="d-flex gap-2 align-items-center p-2 rounded-3 bg-light text-muted"
-                  >
-                  {% if 'High-Speed Wifi' in amenity.amenity %}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-wifi"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M12 18l.01 0" />
-                      <path d="M9.172 15.172a4 4 0 0 1 5.656 0" />
-                      <path d="M6.343 12.343a8 8 0 0 1 11.314 0" />
-                      <path d="M3.515 9.515c4.686 -4.687 12.284 -4.687 17 0" />
-                    </svg>
-                    
-
-                {% elif 'Parking Space' in amenity.amenity %}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-car"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                      <path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                      <path
-                        d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"
-                      />
-                    </svg>
-                    
-
-                {% elif 'Fitness Center' in amenity.amenity %}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-barbell"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M2 12h1" />
-                      <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2" />
-                      <path
-                        d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1"
-                      />
-                      <path d="M9 12h6" />
-                      <path
-                        d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1"
-                      />
-                      <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2" />
-                      <path d="M22 12h-1" />
-                    </svg>
-                    
-
-                {% elif 'Shared Kitchen' in amenity.amenity %}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="23"
-                      height="23"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.9"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-tools-kitchen-2"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path
-                        d="M19 3v12h-5c-.023 -3.681 .184 -7.406 5 -12m0 12v6h-1v-3m-10 -14v17m-3 -17v3a3 3 0 1 0 6 0v-3"
-                      />
-                    </svg>
-                {% endif %}
-                    <p class="mb-0">{{ amenity.amenity }}</p>
-                  </div>
-                </div>
-              {% endfor %}
-                
-              </div>
-            </div>
-            <!-- Nearby Universities  -->
-            <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
-              <h5 class="fw-bold mb-3">Nearby Universities</h5>
-              {% for nearby in nearby %}
-              <div
-                class="d-flex gap-3 align-items-center p-2 rounded-3 bg-light text-muted mb-3"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-school"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
-                  <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
-                </svg>
-                <p class="mb-0 flex-fill text-truncate">
-                  {{ nearby.name }}
-                </p>
-                <small>{{ nearby.distance }} km</small>
-              </div>
-              {% endfor %}
-            </div>
-            <!-- Property Documentation  -->
-            <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
-              <h5 class="fw-bold mb-3">Property Documentation</h5>
-              <div
-                class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-file-description"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                  <path
-                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
-                  />
-                  <path d="M9 17h6" />
-                  <path d="M9 13h6" />
-                </svg>
-                <div class="flex-fill d-flex flex-column">
-                  <p class="fw_500 text-truncate mb-0">Property Contract</p>
-                  <small class="text-truncate text-muted"
-                    >TXT&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;1 KB</small
-                  >
-                </div>
-                <a 
-                  class="icon_btn text-dark border-0 p-2 rounded-2"
-                  href="{{ url_for('static', filename='files/testing.txt') }}"
-                  download="testing.txt"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-download"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                    <path d="M7 11l5 5l5 -5" />
-                    <path d="M12 4l0 12" />
-                  </svg>
-                </a>
-              </div>
-              <div
-                class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-file-description"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                  <path
-                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
-                  />
-                  <path d="M9 17h6" />
-                  <path d="M9 13h6" />
-                </svg>
-                <div class="flex-fill d-flex flex-column">
-                  <p class="fw_500 text-truncate mb-0">
-                    Property Appraisal Report
-                  </p>
-                  <small class="text-truncate text-muted"
-                    >PDF&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;1.2 MB</small
-                  >
-                </div>
-                <a 
-                  class="icon_btn text-dark border-0 p-2 rounded-2"
-                  href="{{ url_for('static', filename='files/testing.txt') }}"
-                  download="testing.txt"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-download"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                    <path d="M7 11l5 5l5 -5" />
-                    <path d="M12 4l0 12" />
-                  </svg>
-                </a>
-              </div>
-              <div
-                class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-file-description"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                  <path
-                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
-                  />
-                  <path d="M9 17h6" />
-                  <path d="M9 13h6" />
-                </svg>
-                <div class="flex-fill d-flex flex-column">
-                  <p class="fw_500 text-truncate mb-0">
-                    Building Inspection Report
-                  </p>
-                  <small class="text-truncate text-muted"
-                    >PDF&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;890 KB</small
-                  >
-                </div>
-                <a 
-                  class="icon_btn text-dark border-0 p-2 rounded-2"
-                  href="{{ url_for('static', filename='files/testing.txt') }}"
-                  download="testing.txt"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-download"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                    <path d="M7 11l5 5l5 -5" />
-                    <path d="M12 4l0 12" />
-                  </svg>
-                </a>
-              </div>
-              <div
-                class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-file-description"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                  <path
-                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
-                  />
-                  <path d="M9 17h6" />
-                  <path d="M9 13h6" />
-                </svg>
-                <div class="flex-fill d-flex flex-column">
-                  <p class="fw_500 text-truncate mb-0">Disclosure Statement</p>
-                  <small class="text-truncate text-muted"
-                    >PDF&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;156 KB</small
-                  >
-                </div>
-                <a 
-                  class="icon_btn text-dark border-0 p-2 rounded-2"
-                  href="{{ url_for('static', filename='files/testing.txt') }}"
-                  download="testing.txt"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-download"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                    <path d="M7 11l5 5l5 -5" />
-                    <path d="M12 4l0 12" />
-                  </svg>
-                </a>
-              </div>
-            </div>
+<div class="container p-0 my-4">
+  <div class="row {% if session.get('user', {}).get('user_role') == 'Agent' or not session.get('user', {}) %}justify-content-center{% endif %} mb-4">
+    <div class="col-12 {% if session.get('user', {}).get('user_role') == 'Agent' or not session.get('user', {}) %}col-lg-8{% endif %}">
+      <div class="rounded-4 overflow-hidden shadow-sm" style="height: 500px">
+        <div id="carouselExampleIndicators" class="carousel slide h-100">
+          {% if gallery_images %}
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide-to="0" class="active" aria-current="true"></button>
+            {% for img in gallery_images %}
+            <button type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide-to="{{ loop.index }}"></button>
+            {% endfor %}
           </div>
-
-          {% if session.get('user', {}).get('user_role')  == 'Tenant' %}
-          <div class="col-lg-4 mb-4">
-            <div class="sticky-lg-top" style="top: 20px">
-              <div class="d-flex flex-column bg-white rounded-4 shadow-sm p-4">
-                <h5 class="fw-bold mb-2">Interested in this property?</h5>
-                <small class="text-muted mb-4">
-                  Submit an enquiry and our agent will get back to you shortly.
-                </small>
-
-                <div class="form-floating flex-fill">
-                  <input
-                    type="tel"
-                    class="form-control rounded-3"
-                    id="floatingPhoneNumber"
-                    placeholder="Phone Number"
-                  />
-                  <label for="floatingPhoneNumber"
-                    >Enquiry </label
-                  >
-                </div>
-                <hr class="my-4" />
-                <a 
-                  href="{{ url_for('details.property_enquiry', property_id=property.id) }}" 
-                  class="btn btn-dark fw_500 w-100 mb-2 text-decoration-none d-flex align-items-center justify-content-center"
-                >
-                  Enquire Now
-                </a>
-                <a 
-                  href="{{ url_for('details.property_offer', property_id=property.id) }}" 
-                  class="btn btn-dark fw_500 w-100 mb-2 text-decoration-none d-flex align-items-center justify-content-center"
-                >
-                  Make an Offer
-                </a>
-                <form action = "{{ url_for('details.add_bookmark', property_id = property.id )}}" method = "POST" class = "w-100">
-                <button type="submit"
-                  class="btn d-flex align-items-center justify-content-center gap-2 outlined_btn w-100"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.7"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-heart"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path
-                      d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"
-                    />
-                  </svg>
-                  <p class="mb-0 fw_500">Bookmark Property</p>
-                </button>
-                </form>
-              </div>
+          {% endif %}
+          <div class="carousel-inner h-100">
+            <div class="carousel-item active h-100">
+              <img class="d-block w-100 h-100 object-fit-cover"
+                   src="{{ url_for('static', filename='img/' + image.url) }}"
+                   alt="Property Image" />
             </div>
+            {% for img in gallery_images %}
+            <div class="carousel-item h-100">
+              <img class="d-block w-100 h-100 object-fit-cover"
+                   src="{{ url_for('static', filename='img/' + img.url) }}"
+                   alt="Property Image {{ loop.index + 1 }}" />
+            </div>
+            {% endfor %}
           </div>
+          {% if gallery_images %}
+          <button class="carousel-control-prev" type="button"
+                  data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button"
+                  data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
           {% endif %}
         </div>
       </div>
+    </div>
+  </div>
+  <div
+    class="row {% if session.get('user', {}).get('user_role') == 'Agent' or not session.get('user', {}) %}justify-content-center{% endif %}">
+    <div class="col-lg-8">
+      <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
+        <div class="d-flex align-items-center justify-content-between gap-3">
+          <div
+            class="d-flex flex-column {% if session.get('user', {}).get('role') == 'agent' %}align-items-center text-center{% else %}align-items-start{% endif %}">
+            <h2 class="fw-bold">{{ property.title }}</h2>
+            <span class="text-muted">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 28 28" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0" />
+              </svg>
+              {{ property.address }}
+            </span>
+            <div class="py-1 px-3 rounded-pill bg-primary-subtle small fw_600 mt-3">
+              {{ property.propertyType }}
+            </div>
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <h2 class="fw-bold mb-0">${{ property.rentPerWeek }}</h2>
+            <small class="text-secondary">per week</small>
+          </div>
+        </div>
+      </div>
+      <!-- Key Features -->
+      <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
+        <h5 class="fw-bold mb-3">Key Features</h5>
+
+        <div class="row row-cols-2 row-cols-md-4 align-items-center g-3">
+          <div class="col d-flex align-items-center justify-content-start gap-2">
+            <div class="bg-primary bg-opacity-10 rounded-4 p-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-bed">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M22 17v-3h-20" />
+                <path d="M2 8v9" />
+                <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+              </svg>
+            </div>
+            <div class="d-flex flex-column ms-1">
+              <h4 class="fw-bold mb-0">{{ property.numBedrooms }}</h4>
+              <small>Bedrooms</small>
+            </div>
+          </div>
+          <div class="col d-flex align-items-center justify-content-start gap-2">
+            <div class="bg-primary bg-opacity-10 rounded-4 p-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-bath">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1" />
+                <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                <path d="M4 21l1 -1.5" />
+                <path d="M20 21l-1 -1.5" />
+              </svg>
+            </div>
+            <div class="d-flex flex-column ms-1">
+              <h4 class="fw-bold mb-0">{{ property.numBathrooms }}</h4>
+              <small>Bathrooms</small>
+            </div>
+          </div>
+          <div class="col d-flex align-items-center justify-content-start gap-2">
+            <div class="bg-primary bg-opacity-10 rounded-4 p-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-diagonal">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M16 4l4 0l0 4" />
+                <path d="M14 10l6 -6" />
+                <path d="M8 20l-4 0l0 -4" />
+                <path d="M4 20l6 -6" />
+              </svg>
+            </div>
+            <div class="d-flex flex-column ms-1">
+              <h4 class="fw-bold mb-0">{{ property.livingArea }}</h4>
+              <small>Sq Mt</small>
+            </div>
+          </div>
+          <div class="col d-flex align-items-center justify-content-start gap-2">
+            <div class="bg-primary bg-opacity-10 rounded-4 p-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-calendar">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12" />
+                <path d="M16 3v4" />
+                <path d="M8 3v4" />
+                <path d="M4 11h16" />
+                <path d="M11 15h1" />
+                <path d="M12 15v3" />
+              </svg>
+            </div>
+            <div class="d-flex flex-column ms-1">
+              <h6 class="fw-bold mb-0">Available</h6>
+              <small>{{ property.availableDate }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Description -->
+      <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
+        <h5 class="fw-bold mb-3">Description</h5>
+        <p>
+          {{ property.description }}
+        </p>
+      </div>
+      <!-- Amenities & Features  -->
+      <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
+        <h5 class="fw-bold mb-3">Amenities & Features</h5>
+        <div class="row row-cols-1 row-cols-md-2 align-items-center g-3">
+          {% for amenity in amenities %}
+          <div class="pe-2">
+            <div class="d-flex gap-2 align-items-center p-2 rounded-3 bg-light text-muted">
+              {% if 'High-Speed Wifi' in amenity.amenity %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-wifi">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 18l.01 0" />
+                <path d="M9.172 15.172a4 4 0 0 1 5.656 0" />
+                <path d="M6.343 12.343a8 8 0 0 1 11.314 0" />
+                <path d="M3.515 9.515c4.686 -4.687 12.284 -4.687 17 0" />
+              </svg>
+
+
+              {% elif 'Parking Space' in amenity.amenity %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-car">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" />
+              </svg>
+
+
+              {% elif 'Fitness Center' in amenity.amenity %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-barbell">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M2 12h1" />
+                <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2" />
+                <path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1" />
+                <path d="M9 12h6" />
+                <path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1" />
+                <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2" />
+                <path d="M22 12h-1" />
+              </svg>
+
+
+              {% elif 'Shared Kitchen' in amenity.amenity %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-tools-kitchen-2">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M19 3v12h-5c-.023 -3.681 .184 -7.406 5 -12m0 12v6h-1v-3m-10 -14v17m-3 -17v3a3 3 0 1 0 6 0v-3" />
+              </svg>
+              {% endif %}
+              <p class="mb-0">{{ amenity.amenity }}</p>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      <!-- Nearby Universities  -->
+      <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
+        <h5 class="fw-bold mb-3">Nearby Universities</h5>
+        {% for nearby in nearby %}
+        <div class="d-flex gap-3 align-items-center p-2 rounded-3 bg-light text-muted mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-school">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
+            <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+          </svg>
+          <p class="mb-0 flex-fill text-truncate">
+            {{ nearby.name }}
+          </p>
+          <small>{{ nearby.distance }} km</small>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Property Documentation  -->
+      <div class="bg-white rounded-4 shadow-sm py-4 px-4 px-xxl-5 mb-4">
+        <h5 class="fw-bold mb-3">Property Documentation</h5>
+        <div
+          class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+            <path d="M9 17h6" />
+            <path d="M9 13h6" />
+          </svg>
+          <div class="flex-fill d-flex flex-column">
+            <p class="fw_500 text-truncate mb-0">Property Contract</p>
+            <small class="text-truncate text-muted">TXT&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;1 KB</small>
+          </div>
+          <a class="icon_btn text-dark border-0 p-2 rounded-2"
+            href="{{ url_for('static', filename='files/testing.txt') }}" download="testing.txt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+              <path d="M7 11l5 5l5 -5" />
+              <path d="M12 4l0 12" />
+            </svg>
+          </a>
+        </div>
+        <div
+          class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+            <path d="M9 17h6" />
+            <path d="M9 13h6" />
+          </svg>
+          <div class="flex-fill d-flex flex-column">
+            <p class="fw_500 text-truncate mb-0">
+              Property Appraisal Report
+            </p>
+            <small class="text-truncate text-muted">PDF&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;1.2 MB</small>
+          </div>
+          <a class="icon_btn text-dark border-0 p-2 rounded-2"
+            href="{{ url_for('static', filename='files/testing.txt') }}" download="testing.txt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+              <path d="M7 11l5 5l5 -5" />
+              <path d="M12 4l0 12" />
+            </svg>
+          </a>
+        </div>
+        <div
+          class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+            <path d="M9 17h6" />
+            <path d="M9 13h6" />
+          </svg>
+          <div class="flex-fill d-flex flex-column">
+            <p class="fw_500 text-truncate mb-0">
+              Building Inspection Report
+            </p>
+            <small class="text-truncate text-muted">PDF&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;890 KB</small>
+          </div>
+          <a class="icon_btn text-dark border-0 p-2 rounded-2"
+            href="{{ url_for('static', filename='files/testing.txt') }}" download="testing.txt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+              <path d="M7 11l5 5l5 -5" />
+              <path d="M12 4l0 12" />
+            </svg>
+          </a>
+        </div>
+        <div
+          class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+            <path d="M9 17h6" />
+            <path d="M9 13h6" />
+          </svg>
+          <div class="flex-fill d-flex flex-column">
+            <p class="fw_500 text-truncate mb-0">Disclosure Statement</p>
+            <small class="text-truncate text-muted">PDF&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;156 KB</small>
+          </div>
+          <a class="icon_btn text-dark border-0 p-2 rounded-2"
+            href="{{ url_for('static', filename='files/testing.txt') }}" download="testing.txt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+              <path d="M7 11l5 5l5 -5" />
+              <path d="M12 4l0 12" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% if session.get('user', {}).get('user_role') == 'Tenant' %}
+    <div class="col-lg-4 mb-4">
+      <div class="sticky-lg-top" style="top: 20px">
+        <div class="d-flex flex-column bg-white rounded-4 shadow-sm p-4">
+          <h5 class="fw-bold mb-2">Interested in this property?</h5>
+          <small class="text-muted mb-4">
+            Submit an enquiry and our agent will get back to you shortly.
+          </small>
+          <form action="{{ url_for('details.property_enquiry', property_id=property.id) }}" method="POST">
+            <div class="form-floating mb-3">
+              <input type="text" name="message" class="form-control rounded-3" id="floatingEnquiry"
+                placeholder="Enquiry" required />
+              <label for="floatingEnquiry">Enquiry</label>
+            </div>
+            <button type="submit" class="btn btn-dark fw_500 w-100 mb-2">
+              Enquire Now
+            </button>
+          </form>
+          <form action="{{ url_for('details.property_offer', property_id=property.id) }}" method="POST" class="mb-2">
+            <button type="submit" class="btn btn-dark fw_500 w-100">
+              Make an Offer
+            </button>
+          </form>
+          <hr class="my-3" />
+          <form action="{{ url_for('details.add_bookmark', property_id=property.id) }}" method="POST" class="w-100">
+            <button type="submit" class="btn d-flex align-items-center justify-content-center gap-2 outlined_btn w-100">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-heart">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+              <p class="mb-0 fw_500">Bookmark Property</p>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
