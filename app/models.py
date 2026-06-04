@@ -6,12 +6,12 @@ from app.constants import Defaults, EnquiryStatus, OfferStatus, PropertyAmenity,
 @dataclass
 class User:
     id: str
-    username: str
     first_name: str
     last_name: str
     email: str
     phone: str
     role: UserRole  # use 'role' attribute to indicate user role instead of generalization so we dont need to map to the correct role class when fetching from db
+    created_at: date
     avatar_url: str | None = None
 
 @dataclass
@@ -42,6 +42,7 @@ class Property:
     living_area: float
     available_date: date
     agent: User  # the agent who manages this property
+    created_at: date
 
     primary_image_url: str = Defaults.IMAGE.value # primary images
     image_urls: List[str] = field(default_factory=list) # this one is for gallery images

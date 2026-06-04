@@ -102,7 +102,7 @@
                 </td>
                 <td>
                   <div class="text-truncate">
-                    mm-dd-yyyy
+                    {{ account.created_at.strftime("%Y-%m-%d") }}
                   </div>
                 </td>
 
@@ -160,8 +160,8 @@
                 </th>
                 <th scope="col" class="d-none d-md-table-cell text-muted">Rent</th>
                 <th scope="col" class="d-none d-lg-table-cell text-muted">Details</th>
-                <th scope="col" class="d-none d-xl-table-cell text-muted">Available Date</th>
-                <th scope="col" class="text-muted">Alerts</th>
+                <th scope="col" class="text-muted">Type</th>
+                <th scope="col" class="d-none d-xl-table-cell text-muted">Uploaded</th>
                 <th scope="col" class="text-muted" >Actions</th>
               </tr>
             </thead>
@@ -236,61 +236,13 @@
                     {{ property.bathroom_count }}</span
                   >
                 </td>
-                <td class="d-none d-xl-table-cell">
-                  <span class="text-dark">📅 {{ property.available_date.strftime("%d %b, %Y") }}</span>
-                </td>
                 <td>
-                  <div class="d-flex align-items-center gap-1">
-                    <div class="tooltip-wrapper">
-                      <span class="tooltip-text small bg-warning-subtle text-dark">
-                        Pending Offers
-                      </span>
-                      <span 
-                      class="btn px-2 py-1 badge bg-warning-subtle offer-color offer-badge" 
-                      data-bs-toggle="modal"
-                      data-bs-target="#offer-modal-{{ property.id }}"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="15"
-                          viewBox="0 0 25 25"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="icon icon-tabler icons-tabler-outline icon-tabler-bell"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path
-                            d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"
-                          />
-                          <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
-                        </svg>
-                        {{ property.pending_offer_count}}
-                      </span>
-                    </div>  
-                    <div class="tooltip-wrapper">
-                      <span class="tooltip-text small bg-primary-subtle text-dark">
-                        New Enquiries
-                      </span>
-                      <span 
-                        class="btn px-2 py-1 badge bg-primary-subtle enquiry-color enquiry-badge"
-                        data-bs-toggle="modal"
-                        data-bs-target="#enquiry-modal-{{ property.id }}"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-report">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12" />
-                          <path d="M12 8v3" />
-                          <path d="M12 14v.01" />
-                        </svg>
-                        {{ property.new_enquiry_count }}
-                      </span>
-                    </div>
-                  </div>
+                  <p class="text-dark m-0 p-0">{{ property.property_type.value }}</p>
                 </td>
+                <td class="d-none d-xl-table-cell">
+                  <p class="text-dark m-0 p-0">{{ property.created_at.strftime("%Y-%m-%d") }}</p>
+                </td>
+
 
                 <td>
                   <div class="d-flex align-items-center">
@@ -377,7 +329,7 @@
             </th>
             <th scope="col" class="d-none d-md-table-cell text-muted">Rent</th>
             <th scope="col" class="d-none d-lg-table-cell text-muted">Details</th>
-            <th scope="col" class="d-none d-xl-table-cell text-muted">Available Date</th>
+            <th scope="col" class="d-none d-xl-table-cell text-muted">Uploaded</th>
             <th scope="col" class="text-muted">Alerts</th>
             <th scope="col" class="text-muted" >Actions</th>
           </tr>
@@ -454,7 +406,7 @@
               >
             </td>
             <td class="d-none d-xl-table-cell">
-              <span class="text-dark">📅 {{ property.available_date.strftime("%d %b, %Y") }}</span>
+              <span class="text-dark">{{ property.created_at.strftime("%Y-%m-%d") }}</span>
             </td>
             <td>
               <div class="d-flex align-items-center gap-1">

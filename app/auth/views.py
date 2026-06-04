@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, session, request
 from app.utilities import hash_password
 from . import auth_login_bp, auth_register_bp, auth_logout_bp
 from .forms import LoginForm, RegisterForm
-from app.db import get_user_by_email, user_exists_by_email, add_user
+from app.db import get_user_by_email, user_exists_by_email, register_user
 from app.wrappers import guest_required
 import datetime
 
@@ -47,7 +47,7 @@ def register():
             flash('Email already exists.', 'danger')
             return render_template('pages/register.html', form=form, selected_role=selected_role)
 
-        add_user(password=hash_password(form.password.data),
+        register_user(password=hash_password(form.password.data),
             first_name=form.first_name.data.strip(),
             last_name=form.last_name.data.strip(),
             email=email,

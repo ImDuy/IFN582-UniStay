@@ -12,11 +12,11 @@ def get_properties_by_agent(agent_id):
     # fetch properties and their corresponding agents
     cur.execute("""SELECT p.id as p_id, p.title, p.address,
         p.description, p.propertyType, p.rentPerWeek, p.numBedrooms, 
-        p.numBathrooms, p.livingArea, p.availableDate,
-        u.id AS u_id, u.username, u.firstName, u.lastName,
-        u.email, u.phone, u.avatarUrl, u.role  
+        p.numBathrooms, p.livingArea, p.availableDate, p.createdAt as uploaded,
+        u.id AS u_id, u.firstName, u.lastName,
+        u.email, u.phone, u.avatarUrl, u.createdAt, u.role  
         FROM property p JOIN user u ON p.agentId = u.id
-        WHERE p.agentId = %s ORDER BY p.id DESC""", (agent_id,))
+        WHERE p.agentId = %s ORDER BY p.createdAt DESC""", (agent_id,))
     results = cur.fetchall()
 
     properties = []
@@ -58,14 +58,15 @@ def get_properties_by_agent(agent_id):
             primary_image_url=primary_image_url,
             image_urls= gallery_image_urls,
             documentations=documents if documents else [Defaults.DOCUMENT.value],
-            agent=User(id=str(row['u_id']),username=row['username'], first_name=row['firstName'], 
+            created_at=row['uploaded'],
+            agent=User(id=str(row['u_id']), first_name=row['firstName'], 
                         last_name=row['lastName'], email=row['email'], phone=row['phone'],
-                        role=UserRole(row['role']),
+                        role=UserRole(row['role']), created_at=row['createdAt'],
                         avatar_url=row['avatarUrl'] if 'avatarUrl' in row else '',)
         )
         # enquiries
         cur.execute("""SELECT e.senderId as tenant_id, e.submittedDate, e.status, e.message,
-                    u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl, u.role
+                    u.firstName, u.lastName, u.email, u.phone, u.avatarUrl, u.createdAt ,u.role
                     FROM enquiry e
                     JOIN user u ON e.senderId = u.id
                     WHERE e.targetPropertyId = %s
@@ -73,13 +74,13 @@ def get_properties_by_agent(agent_id):
                         FIELD(e.status, 'New', 'Responded', 'Closed'),
                         e.submittedDate DESC""", (property_id,))
         prop.enquiries = [Enquiry(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
-                    sender= User(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['avatarUrl']),
+                    sender= User(str(row['tenant_id']), row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['createdAt'], row['avatarUrl']),
                     message= row['message'],
                     status= EnquiryStatus(row['status']),
                     created_at=row['submittedDate']) for row in cur.fetchall()]
         # offers 
         cur.execute("""SELECT o.senderId as tenant_id, o.submittedDate, o.status,
-            u.username, u.firstName, u.lastName, u.email, u.phone, u.avatarUrl, u.role
+            u.firstName, u.lastName, u.email, u.phone, u.avatarUrl, u.createdAt, u.role
             FROM offer o
             JOIN user u ON o.senderId = u.id
             WHERE o.targetPropertyId = %s
@@ -87,7 +88,7 @@ def get_properties_by_agent(agent_id):
                 FIELD(o.status, 'Pending', 'Accepted', 'Rejected'),
                 o.submittedDate DESC""", (property_id,))
         prop.offers = [Offer(id = str(uuid.uuid4()), # since enquiry contains composite PK in database, we use the uuid to create unique id in the conceptual model
-            sender= User(str(row['tenant_id']), row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['avatarUrl']),
+            sender= User(str(row['tenant_id']), row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['createdAt'], row['avatarUrl']),
             status= OfferStatus(row['status']),
             created_at=row['submittedDate']) for row in cur.fetchall()]
 
@@ -135,9 +136,10 @@ def get_property_by_id(property_id):
             primary_image_url=primary_image_url,
             image_urls= gallery_image_urls,
             documentations=documents if documents else [Defaults.DOCUMENT.value],
-            agent=User(id=str(row['agentId']),username='', first_name='', 
+            created_at=row['createdAt'],
+            agent=User(id=str(row['agentId']), first_name='', 
                     last_name='', email='', phone='',
-                    role=UserRole.AGENT,
+                    role=UserRole.AGENT, created_at=datetime.now(),
                     avatar_url='',)
     )
 
@@ -146,11 +148,11 @@ def get_all_properties():
     cur = mysql.connection.cursor()
     cur.execute("""SELECT p.id as p_id, p.title, p.address,
             p.description, p.propertyType, p.rentPerWeek, p.numBedrooms, 
-            p.numBathrooms, p.livingArea, p.availableDate,
-            u.id AS u_id, u.username, u.firstName, u.lastName,
-            u.email, u.phone, u.avatarUrl, u.role  
+            p.numBathrooms, p.livingArea, p.availableDate, p.createdAt as uploaded,
+            u.id AS u_id, u.firstName, u.lastName,
+            u.email, u.phone, u.avatarUrl, u.createdAt, u.role  
             FROM property p JOIN user u ON p.agentId = u.id
-            ORDER BY p.id DESC""")
+            ORDER BY p.createdAt DESC""")
     results = cur.fetchall()
 
     properties = []
@@ -192,9 +194,10 @@ def get_all_properties():
             primary_image_url=primary_image_url,
             image_urls= gallery_image_urls,
             documentations=documents if documents else [Defaults.DOCUMENT.value],
-            agent=User(id=str(row['u_id']),username=row['username'], first_name=row['firstName'], 
+            created_at=row['uploaded'],
+            agent=User(id=str(row['u_id']), first_name=row['firstName'], 
                         last_name=row['lastName'], email=row['email'], phone=row['phone'], 
-                        role=UserRole(row['role']),
+                        role=UserRole(row['role']), created_at=row['createdAt'],
                         avatar_url=row['avatarUrl'] if 'avatarUrl' in row else '',)
         )
         properties.append(prop)
@@ -207,12 +210,12 @@ def add_property(form, agent_id):
     # insert property record
     cur.execute("""INSERT INTO property (
                 title, address, description, propertyType, rentPerWeek,
-                numBedrooms, numBathrooms, livingArea, availableDate, agentId
+                numBedrooms, numBathrooms, livingArea, availableDate, createdAt, agentId
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, ( form.title.data, form.address.data, form.description.data,
             form.property_type.data.value, form.rent_per_week.data, form.bedroom_count.data,
-            form.bathroom_count.data, form.living_area.data, form.available_date.data,
+            form.bathroom_count.data, form.living_area.data, form.available_date.data, datetime.now(),
             agent_id
         ))
     
@@ -369,19 +372,19 @@ def update_offers_by_property(property_id, form):
 def get_users_except_admin():
     # this is for admin -> no need to fetch enquiry and offer data for each property
     cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM user WHERE role != 'Admin' ORDER BY id DESC""")
+    cur.execute("""SELECT * FROM user WHERE role != 'Admin' ORDER BY createdAt DESC""")
     results = cur.fetchall()
 
     cur.close()
-    return [User(str(row['id']),row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['avatarUrl']) for row in results]
+    return [User(str(row['id']), row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['createdAt'], row['avatarUrl']) for row in results]
 
 def add_user(form):
     cur = mysql.connection.cursor()
     # insert property record
-    cur.execute("""INSERT INTO user ( password, firstName, lastName, email, phone, role)
-            VALUES (%s, %s, %s, %s, %s, %s)""", 
+    cur.execute("""INSERT INTO user ( password, firstName, lastName, email, phone, role, createdAt)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)""", 
             ( hash_password(form.password.data), form.first_name.data, form.last_name.data, 
-              form.email.data, form.phone.data, form.role.data))
+              form.email.data, form.phone.data, form.role.data, datetime.now()))
     mysql.connection.commit()
     cur.close()
 
@@ -421,6 +424,7 @@ def get_bookmark_by_tenant(user_id):
                 bathroom_count=row['numBathrooms'],
                 living_area=float(row['livingArea']),
                 available_date=None,
+                created_at= None,
                 agent=None,
                 image_urls=row['url']
             ),
@@ -470,6 +474,7 @@ def get_all_properties_db(q=None):
             bathroom_count=row['numBathrooms'],
             living_area=float(row['livingArea']),
             available_date=row['availableDate'],
+            created_at=row['createdAt'],
             agent=None
         )
         for row in result
@@ -594,6 +599,7 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
             bathroom_count=row['numBathrooms'],
             living_area=float(row['livingArea']),
             available_date=row['availableDate'],
+            created_at=None,
             agent=None
         )
         for row in result
@@ -615,7 +621,7 @@ def user_exists_by_email(email):
     return user
 
 
-def add_user(password, first_name, last_name, email, phone, avatar_url, role, date):
+def register_user(password, first_name, last_name, email, phone, avatar_url, role):
     cursor = mysql.connection.cursor()
     cursor.execute("""INSERT INTO user (password, firstName, lastName, email, phone, avatarUrl, role, createdAt)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
