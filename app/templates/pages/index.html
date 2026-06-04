@@ -1,11 +1,24 @@
 {% extends "base.html" %}
 
 {% block main %}
+
       <!-- hero section -->
-      <section
-        class="d-flex flex-column justify-content-center align-items-center"
-        id="home_hero_section"
-      >
+        <section class="d-flex flex-column justify-content-center align-items-center position-relative"
+                id="home_hero_section">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="position-absolute top-0 start-50 translate-middle-x w-100 px-3" style="z-index: 10; margin-top: 20px;">
+              <div class="container">
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endwith %}
         <div id="cities_banner">
           <p class="fs-1 fw-bold text-center text-light mb-0">
             Find Your Perfect Student Home

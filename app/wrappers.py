@@ -24,3 +24,12 @@ def role_required(allowed_roles):
             return func(*args, **kwargs)
         return wrapper
     return decorator
+
+def guest_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'user' in session:
+            flash('You are already logged in.', 'warning')
+            return redirect(url_for('home.index'))
+        return func(*args, **kwargs)
+    return wrapper

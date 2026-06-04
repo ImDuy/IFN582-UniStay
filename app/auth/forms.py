@@ -13,8 +13,7 @@ class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email(), Length(max=50)])
     phone = StringField('Phone', validators=[DataRequired(),
         Length(min=10, max=10),
-        Regexp(r'^04[0-9]{8}$', message='Enter a valid Australian mobile number.')
-    ])
+        Regexp(r'^04[0-9]{8}$', message='Enter a valid Australian mobile number.')])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     role = SelectField('I am a...', choices=[('tenant', 'Tenant'), ('agent', 'Agent')], validators=[DataRequired()])
