@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %} {{ 'Edit' if property else 'Create' }} Listing{% endblock %}
+
+{% block main %}
+<div class="container py-4 d-flex justify-content-center">
+  <div class="bg-white rounded-4 shadow-sm p-4 w-100" style="max-width: 520px;">
+    <h3 class="text-center mb-3">{{'Edit' if property else 'Create'}} Listing</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} mb-3" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('management.edit_property_listing',property_id=property.id) if property else url_for('management.create_property_listing') }}">
+        {{ form.hidden_tag() }}  {# prevent CSRF #}
+        {# title #}
+        <div class="mb-3">
+            {{ form.title.label(class="form-label fw-semibold") }}
+            {{ form.title(class="form-control", placeholder='Enter property title') }}
+            {% for error in form.title.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %} 
+        </div>
+        {# weekly rent - available date #}
+        <div class="row row-cols-2 g-3 mb-3">
+            <div class="col">
+                {{ form.rent_per_week.label(class="form-label fw-semibold") }}
+                {{ form.rent_per_week(class="form-control", placeholder='Enter weekly rent') }} 
+                {% for error in form.rent_per_week.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %} 
+            </div>
+            <div class="col">
+                {{ form.available_date.label(class="form-label fw-semibold") }} 
+                {{ form.available_date(class="form-control") }}
+                {% for error in form.available_date.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %} 
+            </div>
+        </div>
+        {# address #}
+        <div class="mb-3">
+            {{ form.address.label(class="form-label fw-semibold") }} 
+            {{ form.address(class="form-control", placeholder='Enter address') }} 
+            {% for error in form.address.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %} 
+        </div>
+        {# bathrooms - bedrooms - living area #}
+        <div class="row row-cols-3 g-3 mb-3">
+            <div class="col">
+                {{ form.bedroom_count.label(class="form-label fw-semibold") }}
+                {{ form.bedroom_count(class="form-control") }}
+                {% for error in form.bedroom_count.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %} 
+            </div>
+            <div class="col">
+                {{ form.bathroom_count.label(class="form-label fw-semibold") }}
+                {{ form.bathroom_count(class="form-control") }}
+                {% for error in form.bathroom_count.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %} 
+            </div>
+            <div class="col">
+                {{ form.living_area.label(class="form-label fw-semibold") }}
+                {{ form.living_area(class="form-control") }}
+                {% for error in form.living_area.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %} 
+            </div>
+        </div>
+        {# property type #}
+        <div class="mb-3">
+            {{ form.property_type.label(class="form-label fw-semibold") }} 
+            {{ form.property_type(class="form-select") }}
+            {% for error in form.property_type.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %} 
+        </div>
+        {# amenities #}
+        <div class="mb-3">
+            {{ form.amenities.label(class="form-label fw-semibold") }}
+            <div class="row row-cols-2 px-1 gy-2">
+                {% for subfield in form.amenities %}
+                <div class="col">
+                    <div class="form-check d-flex align-items-center gap-2 px-2">
+                        {{ subfield(class="form-check-input m-0", type='checkbox') }}
+                        {{ subfield.label(class="form-check-label text-dark") }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {# description #}
+        <div class="mb-3">
+            {{ form.description.label(class="form-label fw-semibold") }}
+            {{ form.description(class="form-control", rows="3", placeholder='Enter description') }}
+            {% for error in form.description.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %} 
+        </div>
+        {{ form.submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold my-2") }}
+    </form>
+
+    <a href="{{ url_for('management.index') }}" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</a href="{{ url_for('management.index') }}">
+
+  </div>
+</div>
+{% endblock %}

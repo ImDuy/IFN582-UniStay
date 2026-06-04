@@ -1,0 +1,723 @@
+{% extends "base.html" %} 
+{% block main %}
+<div class="py-4">
+  <!-- SUMMARY SECTION -->
+  <div
+    class="container d-flex flex-column flex-md-row align-items-center gap-3 py-2"
+  >
+    <div class="w-100 bg-white rounded-3 shadow-sm p-3 justify-content-center align-self-stretch">
+      <small class="text-muted">Total Properties</small>
+      <p class="text-center text-md-start fw-bold fs-3 mb-0">{{ listings | length }}</p>
+    </div>
+
+    {% if user_role == UserRole.ADMIN.value%}
+    <div class="w-100 bg-white rounded-3 shadow-sm p-3 justify-content-center align-self-stretch">
+      <small class="text-muted">Total User Accounts</small>
+      <p class="text-center text-md-start fw-bold fs-3 mb-0">12</p>
+    </div>
+    {% else %}
+    <div class="w-100 bg-white rounded-3 shadow-sm p-3 justify-content-center align-self-stretch">
+      <small class="text-muted">Pending Offers</small>
+      <p class="offer-color text-center text-md-start fw-bold fs-3 mb-0">{{ total_pending_offers }}</p>
+    </div>
+    <div class="w-100 bg-white rounded-3 shadow-sm p-3 justify-content-center align-self-stretch">
+      <small class="text-muted">New Enquiries</small>
+      <p class="enquiry-color text-center text-md-start fw-bold fs-3 mb-0">{{ total_new_enquiries }}</p>
+    </div>
+    {% endif%}
+
+    <a
+      class="w-100 btn d-flex flex-column align-items-center justify-content-center gap-1 rounded-3 shadow-sm p-4 align-self-stretch primary_btn"
+      href="{{ url_for('management.create_user_account') if user_role == UserRole.ADMIN.value else url_for('management.create_property_listing')}}"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="icon icon-tabler icons-tabler-filled icon-tabler-plus"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path
+          d="M12 4a1 1 0 0 1 1 1v6h6a1 1 0 0 1 0 2h-6v6a1 1 0 0 1 -2 0v-6h-6a1 1 0 0 1 0 -2h6v-6a1 1 0 0 1 1 -1"
+        />
+      </svg>
+      Create {{"Property Listing" if user_role==UserRole.AGENT.value else "User Account"}}
+    </a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container mt-3">
+    {% if user_role == UserRole.ADMIN.value%}
+
+    <!-- ADMIN ONLY -->
+    <!-- nav tabs -->
+    <nav class="nav nav-tabs border-dark justify-content-center" id="admin-tabs" role="tablist">
+      <a class="nav-link active px-4 fs-6" data-bs-toggle="tab" href="#nav-accounts" role="tab">User Accounts</a>
+      <a class="nav-link px-4 fs-6" data-bs-toggle="tab" href="#nav-properties" role="tab">Properties</a>
+    </nav>
+
+    <div class="tab-content mt-3">
+      <!-- Accounts Tab -->
+      <div class="tab-pane fade show active" id="nav-accounts" role="tabpanel">
+        <div class="{% if user_accounts %}rounded-4{% else %}rounded-top-4{% endif%} overflow-hidden shadow-sm bg-white mt-4 p-0">
+          <table
+            class="table table-hover align-middle mb-0"
+            style="table-layout: fixed"
+          >
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="text-muted ps-3" style="width: 180px">Name</th>
+                <th scope="col" class="d-none d-md-table-cell text-muted">Email</th>
+                <th scope="col" class="d-none d-lg-table-cell text-muted">Phone</th>
+                <th scope="col" class="d-none d-xl-table-cell text-muted" style="width: 150px">Role</th>
+                <th scope="col" class="text-muted">Joined</th>
+                <th scope="col" class="text-muted" style="width: 10%">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for account in user_accounts %}
+              <tr>
+                <td class="ps-3">
+                  <h6 class="mb-1 lh-1 text-truncate">
+                    {{ account.first_name }} {{ account.last_name }}
+                  </h6>
+                </td>
+                <td class="d-none d-md-table-cell">
+                  <div class="text-truncate py-3" style="font-weight: 600">
+                    {{ account.email }}
+                  </div>
+                </td>
+                <td class="d-none d-lg-table-cell">
+                  <span class="me-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-phone">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+                    </svg> (+61) {{ account.phone | phone }}
+                  </span>
+                </td>
+                <td class="d-none d-xl-table-cell">
+                  <span class="text-dark">{{ account.role.value }}</span>
+                </td>
+                <td>
+                  <div class="text-truncate">
+                    mm-dd-yyyy
+                  </div>
+                </td>
+
+                <td>
+                  <form method="POST" action="{{url_for('management.delete_user_account', account_id=account.id)}}">
+                    <button type="submit" class="icon_btn btn-link text-danger ms-3 p-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 7l16 0" />
+                        <path d="M10 11l0 6" />
+                        <path d="M14 11l0 6" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                      </svg>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- No account notification text  -->
+        {% if not user_accounts %}
+        <div class="p-5 text-center">
+        <div class="text-secondary mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-x">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+            <path d="M22 22l-5 -5" />
+            <path d="M17 22l5 -5" />
+          </svg>
+        </div>
+        <h5 class="fw-semibold text-secondary mb-1">No accounts now</h5>
+        <p class="text-muted small mb-0">
+          Start adding accounts to see them here
+        </p>
+        </div>
+        {% endif %}        
+      </div>
+
+      <!-- Properties Tab -->
+      <div class="tab-pane fade" id="nav-properties" role="tabpanel">
+        <!-- table section -->
+        <div class="{% if listings %}rounded-4{% else %}rounded-top-4{% endif%} overflow-hidden shadow-sm bg-white mt-4 p-0">
+          <table
+            class="table table-hover align-middle mb-0"
+            style="table-layout: fixed"
+          >
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="property-column text-muted ps-3">
+                  Property
+                </th>
+                <th scope="col" class="d-none d-md-table-cell text-muted">Rent</th>
+                <th scope="col" class="d-none d-lg-table-cell text-muted">Details</th>
+                <th scope="col" class="d-none d-xl-table-cell text-muted">Available Date</th>
+                <th scope="col" class="text-muted">Alerts</th>
+                <th scope="col" class="text-muted" >Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for property in listings %}
+              <tr>
+                <td class="ps-3">
+                  <div class="d-flex align-items-center gap-2 py-2">
+                    <img
+                      src="{{url_for('static', filename='img/' + property.primary_image_url)}} "
+                      id="property_rental_img"
+                      class="rounded-3 object-fit-cover"
+                    />
+                    <div class="flex-grow-1" style="min-width: 0">
+                      <h6 class="fw-bold mb-1 lh-1 text-truncate">
+                        {{ property.title }}
+                      </h6>
+                      <p class="small text-muted lh-1 mb-0 text-truncate">
+                        {{ property.address }}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="d-none d-md-table-cell">
+                  <div class="fw-bold text-truncate">
+                    ${{ property.rent_per_week }}/week
+                  </div>
+                </td>
+                <td class="d-none d-lg-table-cell">
+                  <span class="me-2"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-bed"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                      <path d="M22 17v-3h-20" />
+                      <path d="M2 8v9" />
+                      <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                    </svg>
+                    {{ property.bedroom_count }}</span
+                  >
+                  <span
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 26 26"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-bath"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path
+                        d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                      />
+                      <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                      <path d="M4 21l1 -1.5" />
+                      <path d="M20 21l-1 -1.5" />
+                    </svg>
+                    {{ property.bathroom_count }}</span
+                  >
+                </td>
+                <td class="d-none d-xl-table-cell">
+                  <span class="text-dark">📅 {{ property.available_date.strftime("%d %b, %Y") }}</span>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center gap-1">
+                    <div class="tooltip-wrapper">
+                      <span class="tooltip-text small bg-warning-subtle text-dark">
+                        Pending Offers
+                      </span>
+                      <span 
+                      class="btn px-2 py-1 badge bg-warning-subtle offer-color offer-badge" 
+                      data-bs-toggle="modal"
+                      data-bs-target="#offer-modal-{{ property.id }}"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 25 25"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="icon icon-tabler icons-tabler-outline icon-tabler-bell"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path
+                            d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"
+                          />
+                          <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+                        </svg>
+                        {{ property.pending_offer_count}}
+                      </span>
+                    </div>  
+                    <div class="tooltip-wrapper">
+                      <span class="tooltip-text small bg-primary-subtle text-dark">
+                        New Enquiries
+                      </span>
+                      <span 
+                        class="btn px-2 py-1 badge bg-primary-subtle enquiry-color enquiry-badge"
+                        data-bs-toggle="modal"
+                        data-bs-target="#enquiry-modal-{{ property.id }}"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-report">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12" />
+                          <path d="M12 8v3" />
+                          <path d="M12 14v.01" />
+                        </svg>
+                        {{ property.new_enquiry_count }}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="d-flex align-items-center">
+                    <a
+                      class="icon_btn btn-sm text-dark p-1"
+                      href="{{ url_for('management.edit_property_listing', property_id=property.id) }}"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="21"
+                        height="21"
+                        viewBox="0 0 23 23"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-edit"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                          d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                        />
+                        <path
+                          d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415"
+                        />
+                        <path d="M16 5l3 3" />
+                      </svg>
+                    </a>
+                    <form method="POST" action="{{url_for('management.delete_property_listing', property_id=property.id)}}">
+                      <button type="submit" class="icon_btn btn-link text-danger p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M4 7l16 0" />
+                          <path d="M10 11l0 6" />
+                          <path d="M14 11l0 6" />
+                          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        </svg>
+                      </button>
+                    </form>
+
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- No Listing notification text -->
+        {% if not listings %}
+        <div class="p-5 text-center">
+        <div class="text-secondary mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-x">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 13.4v-1.4h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" />
+          <path d="M9 21v-6a2 2 0 0 1 2 -2h2c.402 0 .777 .119 1.091 .323" />
+          <path d="M21.5 21.5l-5 -5" />
+          <path d="M16.5 21.5l5 -5" />
+          </svg>
+        </div>
+        <h5 class="fw-semibold text-secondary mb-1">No listings now</h5>
+        <p class="text-muted small mb-0">
+          Start adding properties to see them here
+        </p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+  {% else %}
+
+    <!-- AGENT ONLY -->
+    <!-- table section -->
+    <div class="{% if listings %}rounded-4{% else %}rounded-top-4{% endif%} overflow-hidden shadow-sm bg-white mt-4 p-0">
+      <table
+        class="table table-hover align-middle mb-0"
+        style="table-layout: fixed"
+      >
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="property-column text-muted ps-3">
+              Property
+            </th>
+            <th scope="col" class="d-none d-md-table-cell text-muted">Rent</th>
+            <th scope="col" class="d-none d-lg-table-cell text-muted">Details</th>
+            <th scope="col" class="d-none d-xl-table-cell text-muted">Available Date</th>
+            <th scope="col" class="text-muted">Alerts</th>
+            <th scope="col" class="text-muted" >Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for property in listings %}
+          <tr>
+            <td class="ps-3">
+              <div class="d-flex align-items-center gap-2 py-2">
+                <img
+                  src="{{url_for('static', filename='img/' + property.primary_image_url)}} "
+                  id="property_rental_img"
+                  class="rounded-3 object-fit-cover"
+                />
+                <div class="flex-grow-1" style="min-width: 0">
+                  <h6 class="fw-bold mb-1 lh-1 text-truncate">
+                    {{ property.title }}
+                  </h6>
+                  <p class="small text-muted lh-1 mb-0 text-truncate">
+                    {{ property.address }}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="d-none d-md-table-cell">
+              <div class="fw-bold text-truncate">
+                ${{ property.rent_per_week }}/week
+              </div>
+            </td>
+            <td class="d-none d-lg-table-cell">
+              <span class="me-2"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-bed"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M22 17v-3h-20" />
+                  <path d="M2 8v9" />
+                  <path d="M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5" />
+                </svg>
+                {{ property.bedroom_count }}</span
+              >
+              <span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-bath"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"
+                  />
+                  <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
+                  <path d="M4 21l1 -1.5" />
+                  <path d="M20 21l-1 -1.5" />
+                </svg>
+                {{ property.bathroom_count }}</span
+              >
+            </td>
+            <td class="d-none d-xl-table-cell">
+              <span class="text-dark">📅 {{ property.available_date.strftime("%d %b, %Y") }}</span>
+            </td>
+            <td>
+              <div class="d-flex align-items-center gap-1">
+                <div class="tooltip-wrapper">
+                  <span class="tooltip-text small bg-warning-subtle text-dark">
+                    Pending Offers
+                  </span>
+                  <span 
+                  class="btn px-2 py-1 badge bg-warning-subtle offer-color offer-badge" 
+                  data-bs-toggle="modal"
+                  data-bs-target="#offer-modal-{{ property.id }}"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-bell"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path
+                        d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"
+                      />
+                      <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+                    </svg>
+                    {{ property.pending_offer_count}}
+                  </span>
+                </div>  
+                <div class="tooltip-wrapper">
+                  <span class="tooltip-text small bg-primary-subtle text-dark">
+                    New Enquiries
+                  </span>
+                  <span 
+                    class="btn px-2 py-1 badge bg-primary-subtle enquiry-color enquiry-badge"
+                    data-bs-toggle="modal"
+                    data-bs-target="#enquiry-modal-{{ property.id }}"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-report">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12" />
+                      <path d="M12 8v3" />
+                      <path d="M12 14v.01" />
+                    </svg>
+                    {{ property.new_enquiry_count }}
+                  </span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="d-flex align-items-center">
+                <a
+                  class="icon_btn btn-sm text-dark p-1"
+                  href="{{ url_for('management.edit_property_listing', property_id=property.id)}}"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="21"
+                    height="21"
+                    viewBox="0 0 23 23"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                    />
+                    <path
+                      d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415"
+                    />
+                    <path d="M16 5l3 3" />
+                  </svg>
+                </a>
+                <form method="POST" action="{{url_for('management.delete_property_listing', property_id=property.id)}}">
+                  <button type="submit" class="icon_btn btn-link text-danger p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M4 7l16 0" />
+                      <path d="M10 11l0 6" />
+                      <path d="M14 11l0 6" />
+                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Enquiry Modal -->
+          <form method="POST" action="{{ url_for('management.update_property_enquiries',property_id=property.id) }}">
+            <div class="modal fade" id="enquiry-modal-{{ property.id }}" data-bs-backdrop="static">
+              <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content rounded-4 px-1">   
+                    <div class="modal-header border-bottom position-relative mt-1 px-0 pb-0">
+                      <div class="w-100">
+                        <div class="ps-3 pe-5 border-bottom pb-1 w-100">
+                            <h5 class="modal-title fw-bold text-dark text_max_2_lines" id="propertyModalLabel">{{ property.title }}</h5>
+                            <p class="text-muted small mb-1 text-truncate">{{ property.address }}</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center px-3 py-3 text-primary border-bottom border-2 border-primary" >
+                          Enquiries
+                          {% if property.new_enquiry_count > 0 %} 
+                          <span class="badge rounded-pill bg-primary-subtle text-primary ms-2 small fw-normal">{{ property.new_enquiry_count }} new</span>
+                          {% endif%}
+                        </div>
+                      </div>
+                      <button type="reset" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body p-4 bg-light-subtle">
+                      <div class="d-flex flex-column gap-3">
+                        {% if property.enquiries | length == 0%}
+                        <p class="text-muted fst-italic align-self-center my-1">There is no enquiry for this property</p>
+                        {% endif%}
+                        {{ enquiry_forms[property.id].hidden_tag() }}
+                        {% for enquiry in property.enquiries %}
+                          {% set enquiry_status_form = enquiry_forms[property.id].enquiries[loop.index0] %}
+                          <div class="p-4 bg-white border border-light-subtle rounded-3 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="d-flex flex-fill align-items-center gap-3" style="min-width: 0">
+                                <div class="bg-primary-subtle text-primary fw-bold rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 54px; height: 54px;">
+                                  {{ enquiry.sender.first_name[0] | upper }}{{ enquiry.sender.last_name[0] | upper }}
+                                </div>
+                                <div class="flex-fill" style="min-width: 0">
+                                  <h6 class="fw-bold mb-0 text-dark text-truncate">{{ enquiry.sender.username }}</h6>
+                                  <p class="text-muted small text-truncate mb-0">{{ enquiry.sender.email }}</p>
+                                  <div class="text-muted small mt-1">
+                                      <i class="bi bi-calendar3 me-1"></i> {{ enquiry.created_at.strftime("%d %b, %Y") }}
+                                  </div>
+                                </div>
+                              </div>
+                              {{ enquiry_status_form.tenant_id }}
+                              <div style="width: 140px;">
+                                {{ enquiry_status_form.status(class="form-select rounded-3 border-dark-subtle tex-dark px-3 py-2") }}
+                              </div>
+                            </div>
+                            <p class="text-secondary small mb-0 mt-3 ps-1">{{ enquiry.message }}</p>
+                          </div>
+                        {% endfor %}
+                      </div>   
+                    </div>
+                    
+                    <div class="modal-footer border-top">
+                      {% if property.enquiries | length > 0 %}
+                        <div class="d-flex w-100 gap-1">
+                          <button type="reset" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                          {{ enquiry_forms[property.id].submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold") }}
+                        </div>
+                      {% else %}
+                        <button type="reset" class="btn primary_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Close</button>
+                      {% endif %}
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Offer Modal -->
+          <form method="POST" action="{{ url_for('management.update_property_offers',property_id=property.id) }}">
+            <div class="modal fade" id="offer-modal-{{ property.id }}" data-bs-backdrop="static">
+              <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content rounded-4 px-1">   
+                    <div class="modal-header border-bottom position-relative mt-1 px-0 pb-0">
+                      <div class="w-100">
+                        <div class="ps-3 pe-5 border-bottom pb-1 w-100">
+                            <h5 class="modal-title fw-bold text-dark text_max_2_lines" id="propertyModalLabel">{{ property.title }}</h5>
+                            <p class="text-muted small mb-1 text-truncate">{{ property.address }}</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center px-3 py-3 offer-color border-bottom border-2 border-warning" >
+                          Offers
+                          {% if property.pending_offer_count > 0 %} 
+                          <span class="badge rounded-pill bg-warning-subtle offer-color ms-2 small fw-normal">{{ property.pending_offer_count }} pending</span>
+                          {% endif%}
+                        </div>
+                      </div>
+                      <button type="reset" class="btn-close position-absolute top-0 end-0 mt-4 me-4" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body p-4 bg-light-subtle">
+                      <div class="d-flex flex-column gap-3">
+                        {% if property.offers | length == 0%}
+                        <p class="text-muted fst-italic align-self-center my-1">There is no offer for this property</p>
+                        {% endif%}
+                        {{ offer_forms[property.id].hidden_tag() }}
+                        {% for offer in property.offers %}
+                          {% set offer_status_form = offer_forms[property.id].offers[loop.index0] %}
+                          <div class="p-4 bg-white border border-light-subtle rounded-3 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center gap-2 gap-lg-4">
+                              <div class="d-flex flex-fill align-items-center gap-3" style="min-width: 0">
+                                <div class="bg-warning-subtle offer-color fw-bold rounded-circle d-flex align-items-center justify-content-center p-3" style="width: 54px; height: 54px;">
+                                  {{ offer.sender.first_name[0] | upper }}{{ offer.sender.last_name[0] | upper }}
+                                </div>
+                                <div class="flex-fill" style="min-width: 0">
+                                  <h6 class="fw-bold mb-0 text-dark text-truncate">{{ offer.sender.username }}</h6>
+                                  <p class="text-muted small text-truncate mb-0">{{ offer.sender.email }}</p>
+                                  <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-lg-2 mt-1">
+                                    <p class="fw-bold m-0 text-truncate">${{ property.rent_per_week }}/wk</p>
+                                    <span class="d-none d-lg-inline text-secondary">•</span>
+                                    <div class="text-muted small m-0">
+                                      <i class="bi bi-calendar3 me-1"></i> {{ offer.created_at.strftime("%d %b, %Y") }}
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {{ offer_status_form.tenant_id }}
+                              <div style="width: 140px;">
+                                {{ offer_status_form.status(class="form-select rounded-3 border-dark-subtle tex-dark px-3 py-2") }}
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>   
+                    </div>
+                    <div class="modal-footer border-top">
+                      {% if property.offers | length > 0 %}
+                        <div class="d-flex w-100 gap-1">
+                          <button type="reset" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                          {{ offer_forms[property.id].submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold") }}
+                        </div>
+                      {% else %}
+                        <button type="reset" class="btn primary_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Close</button>
+                      {% endif %}
+
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </form>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- No Listing notification text -->
+    {% if not listings %}
+    <div class="p-5 text-center">
+    <div class="text-secondary mb-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-x">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M19 13.4v-1.4h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" />
+      <path d="M9 21v-6a2 2 0 0 1 2 -2h2c.402 0 .777 .119 1.091 .323" />
+      <path d="M21.5 21.5l-5 -5" />
+      <path d="M16.5 21.5l5 -5" />
+      </svg>
+    </div>
+    <h5 class="fw-semibold text-secondary mb-1">No listings now</h5>
+    <p class="text-muted small mb-0">
+      Start adding properties to see them here
+    </p>
+    </div>
+    {% endif %}
+
+  {% endif %}
+  </div>
+
+</div>
+{% endblock %} 

@@ -1,14 +1,9 @@
-
-import hashlib
 from flask import render_template, redirect, url_for, flash, session, request
+from app.utilities import hash_password
 from . import auth_login_bp, auth_register_bp, auth_logout_bp
 from .forms import LoginForm, RegisterForm
 from app.db import get_user_by_email, user_exists_by_email, add_user
 from app.wrappers import guest_required
-
-
-def hash_password(password):
-    return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
 
 @auth_login_bp.route('/login', methods=['GET', 'POST'])

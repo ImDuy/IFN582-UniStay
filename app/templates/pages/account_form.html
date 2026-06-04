@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %} Create Account{% endblock %}
+
+{% block main %}
+<div class="container py-4 d-flex justify-content-center">
+  <div class="bg-white rounded-4 shadow-sm p-4 w-100" style="max-width: 520px;">
+    <h3 class="text-center mb-3">Create Account</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} mb-3" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('management.create_user_account') }}">
+        {{ form.hidden_tag() }}  {# prevent CSRF #}
+        <div class="row mb-3">
+            <div class="col-6">
+            {{ form.first_name.label(class="form-label fw-semibold") }}
+            {{ form.first_name(class="form-control", placeholder="Enter first name") }}
+            {% for error in form.first_name.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+            </div>
+            <div class="col-6">
+            {{ form.last_name.label(class="form-label fw-semibold") }}
+            {{ form.last_name(class="form-control", placeholder="Enter last name") }}
+            {% for error in form.last_name.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="mb-3">
+            {{ form.email.label(class="form-label fw-semibold") }}
+            {{ form.email(class="form-control", placeholder="Enter email") }}
+            {% for error in form.email.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.phone.label(class="form-label fw-semibold") }}
+            {{ form.phone(class="form-control", placeholder="Enter phone number") }}
+            {% for error in form.phone.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.role.label(class="form-label fw-semibold") }}
+            {{ form.role(class="form-select") }}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="form-label fw-semibold") }}
+            {{ form.password(class="form-control", placeholder="Enter password") }}
+            {% for error in form.password.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.confirm_password.label(class="form-label fw-semibold") }}
+            {{ form.confirm_password(class="form-control", placeholder="Confirm password") }}
+            {% for error in form.confirm_password.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.avatar_url.label(class="form-label fw-semibold") }}
+            {{ form.avatar_url(class="form-control", placeholder="https://example.com/image.jpg", disabled=True) }}
+            <p class="form-text text-muted mb-0">
+            Image functionality is not implemented yet.
+            </p>
+        </div>
+        {{ form.submit(class="btn primary_btn w-100 py-3 rounded-3 fw-semibold my-2") }}
+    </form>
+
+    <a href="{{ url_for('management.index') }}" class="btn outlined_btn w-100 py-3 rounded-3 fw-semibold" data-bs-dismiss="modal">Cancel</a href="{{ url_for('management.index') }}">
+
+  </div>
+</div>
+{% endblock %}

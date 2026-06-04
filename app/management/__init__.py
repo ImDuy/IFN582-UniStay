@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 
-listings_bp = Blueprint('listings', __name__)
+management_bp = Blueprint('management', __name__)
 
 
 from . import views 

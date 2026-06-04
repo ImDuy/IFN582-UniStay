@@ -1,15 +1,15 @@
 from flask_wtf import FlaskForm, Form
-from wtforms.fields import DateField, FieldList, FormField, HiddenField, SelectField, IntegerField, SelectMultipleField, SubmitField, StringField, TextAreaField, URLField
-from wtforms.validators import  InputRequired, Length, NumberRange
+from wtforms.fields import DateField, FieldList, FormField, HiddenField, PasswordField, SelectField, IntegerField, SelectMultipleField, SubmitField, StringField, TextAreaField, URLField
+from wtforms.validators import  Email, EqualTo, InputRequired, Length, NumberRange, Regexp
 from wtforms.widgets import CheckboxInput
-from app.constants import EnquiryStatus, OfferStatus, PropertyAmenity, PropertyType
+from app.constants import EnquiryStatus, OfferStatus, PropertyAmenity, PropertyType, UserRole
 
 class PropertyForm(FlaskForm):
     title = StringField('Property Title*', validators=[InputRequired(), Length(max=100,message='This field only accepts maximum of 100 characters.')])
     rent_per_week = IntegerField('Weekly Rent ($)*', validators=[InputRequired(), NumberRange(min=1)])
     available_date = DateField('Available From*', validators=[InputRequired()], format='%Y-%m-%d')
     property_type = SelectField('Property Type*', 
-        choices=[propType.value for propType in PropertyType],
+        choices=[type.value for type in PropertyType],
         coerce= PropertyType, # convert value of the choice to PropertyType(Enum) for matching with the value of property_type when populating data to the form 
         validators=[InputRequired()]
         )
@@ -19,7 +19,7 @@ class PropertyForm(FlaskForm):
     living_area = IntegerField('Living Area*', default=1, validators=[InputRequired(), NumberRange(min=1)])
 
     amenities = SelectMultipleField('Amenities',
-        choices=[propAmenity.value for propAmenity in PropertyAmenity],
+        choices=[amenity.value for amenity in PropertyAmenity],
         option_widget=CheckboxInput(),  # change UI from selects to checkboxes
         coerce= PropertyAmenity # convert value of the choice to PropertyType(Enum) for matching with the value of amenities when populating 
     )
@@ -27,6 +27,19 @@ class PropertyForm(FlaskForm):
     image_url = URLField('Image URL')
     documentation = URLField('Documentation URL')
 
+    submit = SubmitField('Confirm')
+
+class AccountForm(FlaskForm):
+    first_name = StringField('First Name*', validators=[InputRequired()])
+    last_name = StringField('Last Name*', validators=[InputRequired()])
+    email = StringField('Email*', validators=[InputRequired(), Email()])
+    phone = StringField('Phone*', validators=[InputRequired(), Regexp(r"^04\d{8}$",
+            message="Phone number must start with 04 and be exactly 10 digits."
+        )],)
+    password = PasswordField('Password*', validators=[InputRequired(), Length(min=6, message='Password must be at least 6 characters.')])
+    confirm_password = PasswordField('Confirm Password*', validators=[InputRequired(), EqualTo('password')])
+    avatar_url = URLField('Avatar URL')
+    role = SelectField('Role', choices=[role.value for role in UserRole if role != UserRole.ADMIN])
     submit = SubmitField('Confirm')
 
 # Enquiry form

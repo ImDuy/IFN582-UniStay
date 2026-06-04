@@ -26,14 +26,14 @@ def create_app():
     from .auth import auth_register_bp
     from .auth import auth_logout_bp
     from .home import home_bp
-    from .listings import listings_bp
+    from .management import management_bp
     from .bookmarks import bookmarks_bp
     from .details import details_bp
 
     app.register_blueprint(auth_login_bp, url_prefix = '/auth')
     app.register_blueprint(auth_register_bp, url_prefix = '/auth')
     app.register_blueprint(auth_logout_bp, url_prefix = '/auth')
-    app.register_blueprint(listings_bp, url_prefix = '/listings')
+    app.register_blueprint(management_bp, url_prefix = '/management')
     app.register_blueprint(bookmarks_bp, url_prefix = '/bookmarks')
     app.register_blueprint(details_bp, url_prefix = '/properties')
     app.register_blueprint(home_bp)

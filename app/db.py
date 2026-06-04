@@ -3,6 +3,8 @@ import uuid
 from app.models import *
 from app.constants import PropertyType, PropertyAmenity
 import uuid
+
+from app.utilities import hash_password
 from . import mysql
 
 def get_properties_by_agent(agent_id):
@@ -94,6 +96,51 @@ def get_properties_by_agent(agent_id):
     cur.close()
     return properties
 
+def get_property_by_id(property_id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM property WHERE id = %s", (property_id,))
+    row = cur.fetchone()
+    # fetch associated amenities, images, and documents
+    # amenities
+    cur.execute(
+    "SELECT amenity FROM propertyAmenity WHERE propertyId = %s",
+    (property_id,)
+    )
+    amenities = [PropertyAmenity(r["amenity"]) for r in cur.fetchall()]
+    # images
+    cur.execute(
+        "SELECT url, isPrimary FROM propertyImage WHERE propertyId = %s",
+        (property_id,)
+    )
+    primary_image_url = next((r["url"] for r in cur.fetchall() if r["isPrimary"]), Defaults.IMAGE.value)
+    gallery_image_urls = [r["url"] for r in cur.fetchall() if not r["isPrimary"]]
+    # documents
+    cur.execute(
+        "SELECT url FROM propertyDocumentation WHERE propertyId = %s",
+        (property_id,)
+    )
+    documents = [r["url"] for r in cur.fetchall()]
+    return Property(
+            id=str(property_id),
+            title=row["title"],
+            address=row["address"],
+            description=row["description"],
+            property_type=PropertyType(row["propertyType"]),
+            rent_per_week=row["rentPerWeek"],
+            bedroom_count=row["numBedrooms"],
+            bathroom_count=row["numBathrooms"],
+            living_area=row["livingArea"],
+            available_date=row["availableDate"],
+            amenities=amenities,
+            primary_image_url=primary_image_url,
+            image_urls= gallery_image_urls,
+            documentations=documents if documents else [Defaults.DOCUMENT.value],
+            agent=User(id=str(row['agentId']),username='', first_name='', 
+                    last_name='', email='', phone='',
+                    role=UserRole.AGENT,
+                    avatar_url='',)
+    )
+
 def get_all_properties():
     # this is for admin -> no need to fetch enquiry and offer data for each property
     cur = mysql.connection.cursor()
@@ -155,19 +202,10 @@ def get_all_properties():
     cur.close()
     return properties
 
-def get_user_accounts_except_admin():
-    # this is for admin -> no need to fetch enquiry and offer data for each property
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM user WHERE role != 'Admin' ORDER BY id DESC""")
-    results = cur.fetchall()
-
-    cur.close()
-    return [User(str(row['id']),row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['avatarUrl']) for row in results]
-
 def add_property(form, agent_id):
     cur = mysql.connection.cursor()
     # insert property record
-    cur.execute(""" INSERT INTO property (
+    cur.execute("""INSERT INTO property (
                 title, address, description, propertyType, rentPerWeek,
                 numBedrooms, numBathrooms, livingArea, availableDate, agentId
             )
@@ -180,7 +218,6 @@ def add_property(form, agent_id):
     
     # insert amenity records
     amenities = form.amenities.data
-    print(amenities)
     property_id = cur.lastrowid # get the id of the inserted property
     for amenity in amenities:
         cur.execute("""INSERT INTO propertyAmenity(propertyId, amenity)
@@ -214,11 +251,9 @@ def update_property(property_id, form):
     cur.close()
     
 def delete_property(property_id):
-
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM property WHERE id = %s", (property_id,))
     # amenities, images, documents are also deleted in database with ON DELETE CASCADE 
-
     mysql.connection.commit()
     cur.close()
 
@@ -324,6 +359,30 @@ def update_offers_by_property(property_id, form):
     mysql.connection.commit()
     cur.close()
 
+def get_users_except_admin():
+    # this is for admin -> no need to fetch enquiry and offer data for each property
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM user WHERE role != 'Admin' ORDER BY id DESC""")
+    results = cur.fetchall()
+
+    cur.close()
+    return [User(str(row['id']),row['username'], row['firstName'], row['lastName'], row['email'], row['phone'], UserRole(row['role']), row['avatarUrl']) for row in results]
+
+def add_user(form):
+    cur = mysql.connection.cursor()
+    # insert property record
+    cur.execute("""INSERT INTO user ( password, firstName, lastName, email, phone, role)
+            VALUES (%s, %s, %s, %s, %s, %s)""", 
+            ( hash_password(form.password.data), form.first_name.data, form.last_name.data, 
+              form.email.data, form.phone.data, form.role.data))
+    mysql.connection.commit()
+    cur.close()
+
+def delete_user(account_id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM user WHERE id = %s", (account_id,))
+    mysql.connection.commit()
+    cur.close()
 
 def get_bookmark_by_tenant(user_id):
     
