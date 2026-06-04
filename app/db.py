@@ -443,7 +443,7 @@ def get_nearby_db():
     # build dict, propertyId as key, list as value to store more than one nearby uni
     nearby_map = {}
     for n in result:
-        pid = n['propertyId']
+        pid = str(n['propertyId'])
         if pid not in nearby_map:
             nearby_map[pid] = []
         nearby_map[pid].append(Nearby(
