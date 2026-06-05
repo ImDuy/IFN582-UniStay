@@ -336,25 +336,30 @@
           {% endif %}
         </form>
         <hr class="my-3" />
-        <form action="{{ url_for('details.add_bookmark', property_id=property.id) }}" method="POST" class="w-100">
-          <button type="submit" class="btn d-flex align-items-center justify-content-center gap-2 outlined_btn w-100">
-            {% if has_bookmark %}
+        {% if has_bookmark %}
+          <form action="{{ url_for('bookmarks.delete_bookmark', tenant_id=session['user']['user_id'], property_id=property.id) }}" method="POST" class="w-100">
+            <input type="hidden" name="from" value="details">
+            <button type="submit" class="btn d-flex align-items-center justify-content-center gap-2 outlined_btn w-100">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                 stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
               </svg>
               <p class="mb-0 fw_500">Bookmarked</p>
-            {% else %}
+            </button>
+          </form>
+        {% else %}
+          <form action="{{ url_for('details.add_bookmark', property_id=property.id) }}" method="POST" class="w-100">
+            <button type="submit" class="btn d-flex align-items-center justify-content-center gap-2 outlined_btn w-100">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
               </svg>
               <p class="mb-0 fw_500">Bookmark Property</p>
-            {% endif %}
-          </button>
-        </form>
+            </button>
+          </form>
+        {% endif %}
 
       </div>
     </div>

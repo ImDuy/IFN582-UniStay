@@ -3,7 +3,7 @@ from . import details_bp
 from app import mysql
 from app.wrappers import role_required
 from app.constants import UserRole
-from app.db import add_bookmark_by_id, bookmark_overlap, get_property, get_primary_image_url, get_gallery_image_urls, get_amenities, get_uni_nearby, enquiry, offer, get_documents
+from app.db import add_bookmark_by_id, bookmark_overlap, get_property, get_primary_image_url, get_gallery_image_urls, get_amenities, get_uni_nearby, enquiry, offer, get_documents, check_has_offer, check_has_bookmark
 
 @details_bp.route("/details/<int:property_id>")
 def property_details(property_id):
@@ -22,21 +22,10 @@ def property_details(property_id):
     #Load documents
     documents = get_documents(property_id)
     #Offer button
-    has_offer = False
-    if session.get('user'):
-        cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM offer WHERE senderId = %s AND targetPropertyId = %s",
-                    (session['user']['user_id'], property_id))
-        has_offer = cursor.fetchone() is not None
-        cursor.close()
+    has_offer = check_has_offer(session['user']['user_id'], property_id) if session.get('user') else False
     #Bookmark button
-    has_bookmark = False
-    if session.get('user'):
-        cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM bookmark WHERE tenantId = %s AND propertyId = %s",
-                    (session['user']['user_id'], property_id))
-        has_bookmark = cursor.fetchone() is not None
-        cursor.close()
+    has_bookmark = check_has_bookmark(session['user']['user_id'], property_id) if session.get('user') else False
+    
     return render_template('pages/details.html', property=property_data, image=primary_image, gallery_images=gallery_images, amenities=amenities, nearby=uni_nearby, documents=documents, has_offer=has_offer, has_bookmark=has_bookmark)
 
 @details_bp.route("details/<int:property_id>/add_bookmark", methods=['POST'])

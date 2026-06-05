@@ -1,5 +1,5 @@
 from flask import render_template, session, flash
-from flask import redirect, url_for
+from flask import redirect, url_for, request
 from app.constants import UserRole
 from . import bookmarks_bp
 from app.db import get_bookmark_by_tenant, delete_bookmark_by_id
@@ -20,7 +20,9 @@ def index():
 @role_required([UserRole.TENANT.value])
 def delete_bookmark(tenant_id, property_id):
     delete_bookmark_by_id(tenant_id, property_id)
-    flash('Deleted successful!','success')
+    flash('Deleted successful!', 'success')
+    if request.form.get('from') == 'details':
+        return redirect(url_for('details.property_details', property_id=property_id))
     return redirect(url_for('bookmarks.index'))
 # todo show tenant note
 # todo edit note

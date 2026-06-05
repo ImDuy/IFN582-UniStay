@@ -637,3 +637,19 @@ def register_user(password, first_name, last_name, email, phone, avatar_url, rol
         (password, first_name, last_name, email, phone, avatar_url, role, date))
     mysql.connection.commit()
     cursor.close()
+    
+def check_has_offer(user_id, property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM offer WHERE senderId = %s AND targetPropertyId = %s",
+                   (user_id, property_id))
+    result = cursor.fetchone() is not None
+    cursor.close()
+    return result
+
+def check_has_bookmark(user_id, property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM bookmark WHERE tenantId = %s AND propertyId = %s",
+                   (user_id, property_id))
+    result = cursor.fetchone() is not None
+    cursor.close()
+    return result
