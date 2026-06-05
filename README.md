@@ -1,11 +1,9 @@
-# IFN582-UniStay
-
-UniStay - Property Rental Website
+# UniStay — Student Property Rental Web Application
 
 ## Tech Stack
 
 - **Backend:** Python, Flask
-- **Frontend:** HTML, CSS, Bootstrap, Jinja2
+- **Frontend:** HTML, CSS, Bootstrap 5, Jinja2
 - **Database:** MySQL
 
 ## Description
