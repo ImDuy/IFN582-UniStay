@@ -17,9 +17,9 @@ def login():
         user = get_user_by_email(email)
 
         if user:
-            user_id = user['id']
-            stored_password = user['password']
-            role = user['role']
+            user_id = user.id
+            stored_password = user.password
+            role = user.role.value
 
             if stored_password == hash_password(form.password.data):
                 session.clear()
@@ -60,7 +60,6 @@ def register():
         return redirect(url_for('auth_login.login'))
 
     return render_template('pages/register.html', form=form, selected_role=selected_role)
-
 
 @auth_logout_bp.route('/logout')
 def logout():

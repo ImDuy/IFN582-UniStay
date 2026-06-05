@@ -13,6 +13,7 @@ class User:
     role: UserRole  # use 'role' attribute to indicate user role instead of generalization so we dont need to map to the correct role class when fetching from db
     created_at: date
     avatar_url: str | None = None
+    password: str = ""
 
 @dataclass
 class Enquiry:
