@@ -8,16 +8,6 @@
     <h2 class="text-center mb-2">UniStay Login</h2>
     <p class="text-center text-secondary mb-4">Sign in to access your account</p>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }} mb-3" role="alert">
-            {{ message }}
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-
     <form method="POST">
       {{ form.hidden_tag() }}
 
