@@ -28,14 +28,6 @@
             </div>
           {% endfor %}
         </div>
-
-        <script>
-          setTimeout(function () {
-            document.querySelectorAll('.flash-message').forEach(function (alert) {
-              bootstrap.Alert.getOrCreateInstance(alert).close();
-            });
-          }, 5000);
-        </script>
       {% endif %}
     {% endwith %}
     <header>
