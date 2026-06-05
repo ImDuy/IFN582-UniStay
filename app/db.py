@@ -113,8 +113,9 @@ def get_property_by_id(property_id):
         "SELECT url, isPrimary FROM propertyImage WHERE propertyId = %s",
         (property_id,)
     )
-    primary_image_url = next((r["url"] for r in cur.fetchall() if r["isPrimary"]), Defaults.IMAGE.value)
-    gallery_image_urls = [r["url"] for r in cur.fetchall() if not r["isPrimary"]]
+    images = cur.fetchall()
+    primary_image_url = next((r["url"] for r in images if r["isPrimary"]), Defaults.IMAGE.value)
+    gallery_image_urls = [r["url"] for r in images if not r["isPrimary"]]
     # documents
     cur.execute(
         "SELECT url FROM propertyDocumentation WHERE propertyId = %s",
