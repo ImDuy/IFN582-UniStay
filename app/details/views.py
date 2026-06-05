@@ -21,7 +21,23 @@ def property_details(property_id):
     uni_nearby = get_uni_nearby(property_id)
     #Load documents
     documents = get_documents(property_id)
-    return render_template('pages/details.html', property=property_data, image=primary_image, gallery_images=gallery_images, amenities=amenities, nearby=uni_nearby, documents=documents)
+    #Offer button
+    has_offer = False
+    if session.get('user'):
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM offer WHERE senderId = %s AND targetPropertyId = %s",
+                    (session['user']['user_id'], property_id))
+        has_offer = cursor.fetchone() is not None
+        cursor.close()
+    #Bookmark button
+    has_bookmark = False
+    if session.get('user'):
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM bookmark WHERE tenantId = %s AND propertyId = %s",
+                    (session['user']['user_id'], property_id))
+        has_bookmark = cursor.fetchone() is not None
+        cursor.close()
+    return render_template('pages/details.html', property=property_data, image=primary_image, gallery_images=gallery_images, amenities=amenities, nearby=uni_nearby, documents=documents, has_offer=has_offer, has_bookmark=has_bookmark)
 
 @details_bp.route("details/<int:property_id>/add_bookmark", methods=['POST'])
 @role_required([UserRole.TENANT.value])

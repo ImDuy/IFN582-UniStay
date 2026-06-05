@@ -200,20 +200,15 @@
             </div>
           
             <form action="{{url_for('bookmarks.delete_bookmark', tenant_id=bookmark.tenantId, property_id = bookmark.property.id)}}" method="POST">
-              <div class="modal-body d-flex flex-column gap-4">
-
-                <div>
-                  <p class="fw-semibold mb-2">Do you sure you want to delete this property?</p>
-                </div>
+              <div class="modal-body d-flex flex-column">
+                <div class="mb-2">Are you sure you want to delete this user account?</div>
               </div>
 
-              <div class="modal-footer border-top d-flex0 gap-3">
-                <button type="button" data-bs-dismiss="modal" class="btn py-3 rounded-3 fw-semibold flex-fill"
-                style="background:#101828; color:white;">
+              <div class="modal-footer border-top d-flex gap-1">
+                <button type="button" data-bs-dismiss="modal" class="btn outlined_btn flex-fill py-3 rounded-3 fw-semibold">
                 No
               </button>
-              <button type="submit" class="btn py-3 rounded-3 fw-semibold flex-fill"
-                style="background:#101828; color:white;">
+              <button type="submit" class="btn primary_btn flex-fill py-3 rounded-3 fw-semibold">
                 Yes
               </button>
               </div>

@@ -61,7 +61,7 @@ def create_property_listing():
     if request.method == 'POST':
         if form.validate_on_submit():
             add_property(form, session['user']['user_id'])
-            flash('New property listing has been added!')
+            flash('New property listing has been added.', 'success')
             return redirect(url_for('management.index'))
     return render_template('/pages/property_form.html', form= form)
 
@@ -75,7 +75,7 @@ def edit_property_listing(property_id):
     if request.method == 'POST':
         if form.validate_on_submit():
             update_property(property_id=property_id, form=form)
-            flash('Edited successful!')
+            flash("Property listing updated successfully.", 'success')
             return redirect(url_for('management.index'))
     else: # --- for GET, populate the data to the form
         form = PropertyForm(obj= property)
@@ -87,7 +87,7 @@ def edit_property_listing(property_id):
 @role_required([UserRole.AGENT.value, UserRole.ADMIN.value])
 def delete_property_listing(property_id):
     delete_property(property_id)
-    flash('Deleted successful!')
+    flash("The property listing has been removed.", 'success')
     return redirect(url_for('management.index'))
 
 # routes for updating enquiries and offers status
@@ -98,7 +98,7 @@ def update_property_enquiries(property_id):
     form = PropertyEnquiryForm()
     if form.validate_on_submit():
         update_enquiries_by_property(property_id=property_id, form=form)
-        flash('Updated successful!')
+        flash('Enquiry statuses updated successfully.', 'success')
     return redirect(url_for('management.index'))
 @management_bp.post('/listings/<string:property_id>/update-offers')
 @login_required
@@ -107,7 +107,7 @@ def update_property_offers(property_id):
     form = PropertyOfferForm()
     if form.validate_on_submit():
         update_offers_by_property(property_id=property_id, form=form)
-        flash('Updated successful!')
+        flash('Offer statuses updated successfully.', 'success')
     return redirect(url_for('management.index'))
 
 # routes for creating and deleting user accounts
@@ -118,7 +118,7 @@ def create_user_account():
     form = AccountForm()
     if form.validate_on_submit():
         add_user(form)
-        flash('New user account has been added!')
+        flash('New user account has been added.', 'success')
         return redirect(url_for('management.index'))
     return render_template('/pages/account_form.html', form=form)
 
@@ -127,5 +127,5 @@ def create_user_account():
 @role_required([UserRole.ADMIN.value])
 def delete_user_account(account_id):
     delete_user(account_id)
-    flash('Deleted successful!')
+    flash('The user account has been removed.', 'success')
     return redirect(url_for('management.index'))
