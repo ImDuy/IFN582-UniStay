@@ -260,97 +260,78 @@ def delete_property(property_id):
     mysql.connection.commit()
     cur.close()
 
-def get_property(property_id):
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM property WHERE id = %s", (property_id,))
-    property_data = cursor.fetchone()
-    cursor.close()
-    return property_data
-
-def get_primary_image_url(property_id):
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT url FROM propertyimage WHERE propertyId = %s and isPrimary = 1", (property_id,))
-    primary_image = cursor.fetchone()
-    cursor.close()
-    return primary_image
-
-def get_gallery_image_urls(property_id):
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT url FROM propertyimage WHERE propertyId = %s and isPrimary = 0", (property_id,))
-    gallery_images = cursor.fetchall()
-    cursor.close()
-    return gallery_images
-
-def get_amenities(property_id):
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT amenity FROM propertyamenity WHERE propertyId = %s", (property_id,))
-    amenities = cursor.fetchall()
-    cursor.close()
-    return amenities
-
 def get_uni_nearby(property_id):
     cursor = mysql.connection.cursor()
-    uni_nearby ="""
-    SELECT a.name, b.distance
-    FROM nearby as b
-    LEFT JOIN university as a ON b.universityId = a.id
-    WHERE b.propertyId = %s
-    """
-    cursor.execute(uni_nearby, (property_id,))
-    nearby_universities = cursor.fetchall()
+    cursor.execute("""
+        SELECT a.id as uni_id, a.name, b.distance
+        FROM nearby as b
+        LEFT JOIN university as a ON b.universityId = a.id
+        WHERE b.propertyId = %s
+    """, (property_id,))
+    uniNearby = cursor.fetchall()
     cursor.close()
-    return nearby_universities
 
-def get_documents(property_id):
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT url FROM propertydocumentation WHERE propertyId = %s", (property_id,))
-    documents = cursor.fetchall()
-    cursor.close()
-    return documents
+    return [
+        Nearby(
+            id=None,
+            property=None,
+            university=University(
+                id=str(row['uni_id']),
+                name=row['name'],
+                address=''
+            ),
+            distance=float(row['distance'])
+        )
+        for row in uniNearby
+    ]
 
 def bookmark_overlap(tenant_id, property_id):
-    cursor = mysql.connect.cursor()
+    cursor = mysql.connection.cursor()
     cursor.execute("SELECT propertyId FROM bookmark WHERE tenantId = %s AND propertyId = %s ", (tenant_id, property_id))
     check = cursor.fetchone()
     cursor.close()
-    return check
+    return check is not None
 
-def enquiry(tenant_id, property_id, enquiry):
+def check_enquiry(tenant_id, property_id):
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT senderId FROM enquiry WHERE senderId = %s AND targetPropertyId = %s ", (tenant_id, property_id))
-    check = cursor.fetchone()
-    if check:
-        cursor.close()
-        return
-    cursor.execute(
-        """
+    cursor.execute("SELECT senderId FROM enquiry WHERE senderId = %s AND targetPropertyId = %s", (tenant_id, property_id))
+    result = cursor.fetchone()
+    cursor.close()
+    return result is not None
+
+def add_enquiry(tenant_id, property_id, message):
+    cursor = mysql.connection.cursor()
+    cursor.execute("""
         INSERT INTO enquiry (senderId, targetPropertyId, message, submittedDate, status)
         VALUES (%s, %s, %s, NOW(), 'New')
-        """,
-        (tenant_id, property_id, enquiry)
-    )
+    """, (tenant_id, property_id, message))
     mysql.connection.commit()
     cursor.close()
-    return True
 
-def offer(tenant_id, property_id):
+def check_offer(tenant_id, property_id):
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT senderId FROM offer WHERE senderId = %s AND targetPropertyId = %s ", (tenant_id, property_id))
-    check = cursor.fetchone()
-    if check:
-        cursor.close()
-        return
-    cursor.execute(
-        """
+    cursor.execute("SELECT senderId FROM offer WHERE senderId = %s AND targetPropertyId = %s", (tenant_id, property_id))
+    result = cursor.fetchone()
+    cursor.close()
+    return result
+
+def add_offer(tenant_id, property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("""
         INSERT INTO offer (senderId, targetPropertyId, submittedDate, status)
         VALUES (%s, %s, NOW(), 'Pending')
-        """,
-        (tenant_id, property_id)
-    )
+    """, (tenant_id, property_id))
     mysql.connection.commit()
     cursor.close()
-    return True
 
+def check_has_bookmark(user_id, property_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM bookmark WHERE tenantId = %s AND propertyId = %s",
+                   (user_id, property_id))
+    result = cursor.fetchone() is not None
+    cursor.close()
+    return result
+    
 def update_enquiries_by_property(property_id, form):
     cur = mysql.connection.cursor()
     for enquiry_form in form.enquiries:
