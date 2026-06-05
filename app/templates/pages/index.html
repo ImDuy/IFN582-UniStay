@@ -208,6 +208,8 @@
                                     <span class="fw-bold">{{ display_nearby.value.distance }} km</span>
                                     from {{ display_nearby.value.university.name }}
                                   </small></small>
+                                {% else %}
+                                  <small><small class="text-muted"><i class="bi bi-x-circle me-1"></i>No nearby University info</small></small>
                                 {% endif %}
                             </div>
                           </div>

@@ -574,6 +574,8 @@ def get_filtered_properties_db(q=None, uni=None, property_type=None, dist=None, 
         for amenity in amenities:
             sql += " AND p.id IN (SELECT propertyId FROM propertyAmenity WHERE amenity = %s)"
             params.append(amenity)
+            
+    sql += " ORDER BY p.createdAt DESC"
 
     cur.execute(sql, params)
     result = cur.fetchall()
