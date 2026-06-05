@@ -204,12 +204,12 @@
                                   {% if display_nearby.value is none %}
                                     {% set display_nearby.value = nearby_list[0] %}
                                   {% endif %}
-                                  <small><small>
+                                  <small><small class="text_max_2_lines">
                                     <span class="fw-bold">{{ display_nearby.value.distance }} km</span>
                                     from {{ display_nearby.value.university.name }}
                                   </small></small>
                                 {% else %}
-                                  <small><small class="text-muted"><i class="bi bi-x-circle me-1"></i>No nearby University info</small></small>
+                                  <small><small class="text-muted text_max_2_lines"><i class="bi bi-x-circle me-1"></i>No nearby University info</small></small>
                                 {% endif %}
                             </div>
                           </div>
@@ -257,7 +257,7 @@
                               <small class="card-text flex-1 text-truncate ms-1">{{ property.address }}</small>
                             </div>
                             <div class="border rounded-3 border-gray p-1 px-2 nearby-info">
-                              <small><small>
+                              <small><small class="text_max_2_lines">
                                 <span class="fw-bold">{{ n.distance }} km</span>
                                 from {{ n.university.name }}
                               </small></small>
