@@ -60,15 +60,14 @@
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> Bookmark </a>
                 </li>
+                {% if request.endpoint == 'home.index' %}
                 <li class="nav-item">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="#pills-tabContent">Go to images</a>
+                  <a class="nav-link fw-semibold text-white nav-hover" href="#pills-tabContent">View properties</a>
                 </li>
+                {% endif %}
               {% elif session.get('user', {}).get('user_role')  == 'Admin' %}
                 <li class="nav-item">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="#"> Manage user </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('management.index') }}"> Listing page </a>
+                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('management.index') }}"> Management </a>
                 </li>
               {% endif %}
             </ul>

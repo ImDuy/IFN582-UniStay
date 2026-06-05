@@ -400,17 +400,18 @@ def get_bookmark_by_tenant(user_id):
 
     cursor.execute("""
         SELECT *
+        ,CONCAT(a.tenantId, a.propertyId) as mainId
         FROM unistay.bookmark a
         JOIN unistay.property b ON a.propertyId = b.id
         LEFT JOIN unistay.propertyimage i 
             ON b.id = i.propertyId AND i.isPrimary = 1
-        WHERE a.tenantId = %s ORDER BY createdAt DESC
+        WHERE a.tenantId = %s ORDER BY a.createdAt DESC
     """,(user_id,))
     results = cursor.fetchall()
     cursor.close()
     return  [
         Bookmark(
-            id=str(row['id']),
+            id=str(row['mainId']),
             tenantId=str(row['tenantId']),
             property=Property(
                 id=str(row['propertyId']),
@@ -445,9 +446,9 @@ def add_bookmark_by_id(tenant_id, property_id):
     cursor.close()
     
 
-def delete_bookmark_by_id(bookmark_id):
+def delete_bookmark_by_id(tenant_id, property_id):
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM bookmark WHERE id = %s", (bookmark_id,))
+    cur.execute("DELETE FROM bookmark WHERE tenantId = %s and propertyId = %s", (tenant_id, property_id,))
 
     mysql.connection.commit()
     cur.close()

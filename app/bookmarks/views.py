@@ -16,11 +16,11 @@ def index():
     return render_template('/pages/bookmarks.html', bookmarks=bookmarks)
 
 # redirect to bookmarks page when delete bookmarks
-@bookmarks_bp.post('/<string:bookmark_id>/delete')
+@bookmarks_bp.post('/<string:tenant_id>/<string:property_id>/delete')
 @role_required([UserRole.TENANT.value])
-def delete_bookmark(bookmark_id):
-    delete_bookmark_by_id(bookmark_id)
-    flash('Deleted successful!')
+def delete_bookmark(tenant_id, property_id):
+    delete_bookmark_by_id(tenant_id, property_id)
+    flash('Deleted successful!','success')
     return redirect(url_for('bookmarks.index'))
 # todo show tenant note
 # todo edit note
