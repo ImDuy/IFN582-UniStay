@@ -123,20 +123,52 @@
                 </td>
 
                 <td>
-                  <form method="POST" action="{{url_for('management.delete_user_account', account_id=account.id)}}">
-                    <button type="submit" class="icon_btn btn-link text-danger ms-3 p-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M4 7l16 0" />
-                        <path d="M10 11l0 6" />
-                        <path d="M14 11l0 6" />
-                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                      </svg>
-                    </button>
-                  </form>
+                  <button type="button" class="icon_btn btn-link text-danger ms-3 p-1" data-bs-toggle="modal" data-bs-target="#delete-account-{{ account.id }}-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M4 7l16 0" />
+                      <path d="M10 11l0 6" />
+                      <path d="M14 11l0 6" />
+                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                  </button>
                 </td>
               </tr>
+
+              <!-- Warning Modal -->
+              <form method="POST" action="{{url_for('management.delete_user_account', account_id=account.id)}}">
+                <div class="modal fade" id="delete-account-{{ account.id }}-warning" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+
+                      <div class="modal-header border-bottom position-relative">
+                        <h5 class="modal-title w-100 text-center">Warning message</h5>
+                        <button 
+                        type="button" 
+                        class="btn-close position-absolute end-0 me-3" 
+                        data-bs-dismiss="modal"
+                        >
+                        </button>
+                      </div>
+        
+                      <div class="modal-body d-flex flex-column">
+                        <div class="mb-2">Are you sure you want to delete this user account?</div>
+                      </div>
+
+                      <div class="modal-footer border-top d-flex gap-1">
+                        <button type="button" data-bs-dismiss="modal" class="btn outlined_btn flex-fill py-3 rounded-3 fw-semibold">
+                        No
+                      </button>
+                      <button type="submit" class="btn primary_btn flex-fill py-3 rounded-3 fw-semibold">
+                        Yes
+                      </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
               {% endfor %}
             </tbody>
           </table>
@@ -288,22 +320,55 @@
                         <path d="M16 5l3 3" />
                       </svg>
                     </a>
-                    <form method="POST" action="{{url_for('management.delete_property_listing', property_id=property.id)}}">
-                      <button type="submit" class="icon_btn btn-link text-danger p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path d="M4 7l16 0" />
-                          <path d="M10 11l0 6" />
-                          <path d="M14 11l0 6" />
-                          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                        </svg>
-                      </button>
-                    </form>
+                    <button type="button" class="icon_btn btn-link text-danger p-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete-property-{{ property.id }}-warning" >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 7l16 0" />
+                        <path d="M10 11l0 6" />
+                        <path d="M14 11l0 6" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                      </svg>
+                    </button>
 
                   </div>
                 </td>
               </tr>
+
+              <!-- Warning Modal -->
+              <form method="POST" action="{{url_for('management.delete_property_listing', property_id=property.id)}}">
+                <div class="modal fade" id="delete-property-{{ property.id }}-warning" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+
+                      <div class="modal-header border-bottom position-relative">
+                        <h5 class="modal-title w-100 text-center">Warning message</h5>
+                        <button 
+                        type="button" 
+                        class="btn-close position-absolute end-0 me-3" 
+                        data-bs-dismiss="modal"
+                        >
+                        </button>
+                      </div>
+        
+                      <div class="modal-body d-flex flex-column">
+                        <div class="mb-2">Are you sure you want to delete this property?</div>
+                      </div>
+
+                      <div class="modal-footer border-top d-flex gap-1">
+                        <button type="button" data-bs-dismiss="modal" class="btn outlined_btn flex-fill py-3 rounded-3 fw-semibold">
+                        No
+                      </button>
+                      <button type="submit" class="btn primary_btn flex-fill py-3 rounded-3 fw-semibold">
+                        Yes
+                      </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
               {% endfor %}
             </tbody>
           </table>
@@ -505,18 +570,18 @@
                     <path d="M16 5l3 3" />
                   </svg>
                 </a>
-                <form method="POST" action="{{url_for('management.delete_property_listing', property_id=property.id)}}">
-                  <button type="submit" class="icon_btn btn-link text-danger p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M4 7l16 0" />
-                      <path d="M10 11l0 6" />
-                      <path d="M14 11l0 6" />
-                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                    </svg>
-                  </button>
-                </form>
+                <button type="button" class="icon_btn btn-link text-danger p-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete-property-{{ property.id }}-warning" >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 7l16 0" />
+                    <path d="M10 11l0 6" />
+                    <path d="M14 11l0 6" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                  </svg>
+                </button>
               </div>
             </td>
           </tr>
@@ -661,6 +726,40 @@
               </div>
             </div>
           </form>
+
+          <!-- Warning Modal -->
+          <form method="POST" action="{{url_for('management.delete_property_listing', property_id=property.id)}}">
+            <div class="modal fade" id="delete-property-{{ property.id }}-warning" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4">
+
+                  <div class="modal-header border-bottom position-relative">
+                    <h5 class="modal-title w-100 text-center">Warning message</h5>
+                    <button 
+                    type="button" 
+                    class="btn-close position-absolute end-0 me-3" 
+                    data-bs-dismiss="modal"
+                    >
+                    </button>
+                  </div>
+    
+                  <div class="modal-body d-flex flex-column">
+                    <div class="mb-2">Are you sure you want to delete this property?</div>
+                  </div>
+
+                  <div class="modal-footer border-top d-flex gap-1">
+                    <button type="button" data-bs-dismiss="modal" class="btn outlined_btn flex-fill py-3 rounded-3 fw-semibold">
+                    No
+                  </button>
+                  <button type="submit" class="btn primary_btn flex-fill py-3 rounded-3 fw-semibold">
+                    Yes
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
           {% endfor %}
         </tbody>
       </table>
@@ -668,19 +767,19 @@
     <!-- No Listing notification text -->
     {% if not listings %}
     <div class="p-5 text-center">
-    <div class="text-secondary mb-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-x">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M19 13.4v-1.4h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" />
-      <path d="M9 21v-6a2 2 0 0 1 2 -2h2c.402 0 .777 .119 1.091 .323" />
-      <path d="M21.5 21.5l-5 -5" />
-      <path d="M16.5 21.5l5 -5" />
-      </svg>
-    </div>
-    <h5 class="fw-semibold text-secondary mb-1">No listings now</h5>
-    <p class="text-muted small mb-0">
-      Start adding properties to see them here
-    </p>
+      <div class="text-secondary mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-x">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M19 13.4v-1.4h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" />
+        <path d="M9 21v-6a2 2 0 0 1 2 -2h2c.402 0 .777 .119 1.091 .323" />
+        <path d="M21.5 21.5l-5 -5" />
+        <path d="M16.5 21.5l5 -5" />
+        </svg>
+      </div>
+      <h5 class="fw-semibold text-secondary mb-1">No listings now</h5>
+      <p class="text-muted small mb-0">
+        Start adding properties to see them here
+      </p>
     </div>
     {% endif %}
 
@@ -689,3 +788,7 @@
 
 </div>
 {% endblock %} 
+
+{% block modals%}
+
+{% endblock %}
