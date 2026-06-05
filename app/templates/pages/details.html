@@ -325,9 +325,15 @@
           </button>
         </form>
         <form action="{{ url_for('details.property_offer', property_id=property.id) }}" method="POST" class="mb-2">
-          <button type="submit" class="btn btn-dark fw_500 w-100">
-            Make an Offer
-          </button>
+          {% if has_offer %}
+            <button type="button" class="btn btn-dark fw_500 w-100" disabled>
+              Offer Made
+            </button>
+          {% else %}
+            <button type="submit" class="btn btn-dark fw_500 w-100">
+              Make an Offer
+            </button>
+          {% endif %}
         </form>
         <hr class="my-3" />
         <form action="{{ url_for('details.add_bookmark', property_id=property.id) }}" method="POST" class="w-100">
