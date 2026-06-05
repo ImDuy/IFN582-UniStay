@@ -68,28 +68,28 @@
           >
             <thead class="table-light">
               <tr>
-                <th scope="col" class="text-muted ps-3" style="width: 180px">Name</th>
-                <th scope="col" class="d-none d-md-table-cell text-muted">Email</th>
-                <th scope="col" class="d-none d-lg-table-cell text-muted">Phone</th>
-                <th scope="col" class="d-none d-xl-table-cell text-muted" style="width: 150px">Role</th>
-                <th scope="col" class="text-muted">Joined</th>
-                <th scope="col" class="text-muted" style="width: 10%">Actions</th>
+                <th scope="col" class="d-none d-lg-table-cell text-muted ps-3">Name</th>
+                <th scope="col" class="email-column text-muted ps-3 ps-lg-0">Email</th>
+                <th scope="col" class="d-none d-xl-table-cell text-muted" style="width: 220px;">Phone</th>
+                <th scope="col" class="text-muted role-column">Role</th>
+                <th scope="col" class="d-none d-md-table-cell text-muted">Joined</th>
+                <th scope="col" class="text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {% for account in user_accounts %}
               <tr>
-                <td class="ps-3">
+                <td class="d-none d-lg-table-cell ps-3">
                   <h6 class="mb-1 lh-1 text-truncate">
                     {{ account.first_name }} {{ account.last_name }}
                   </h6>
                 </td>
-                <td class="d-none d-md-table-cell">
-                  <div class="text-truncate py-3" style="font-weight: 600">
+                <td>
+                  <div class="text-truncate ps-3 ps-lg-0 py-3" style="font-weight: 600">
                     {{ account.email }}
                   </div>
                 </td>
-                <td class="d-none d-lg-table-cell">
+                <td class="d-none d-xl-table-cell">
                   <span class="me-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-phone">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -97,10 +97,10 @@
                     </svg> (+61) {{ account.phone | phone }}
                   </span>
                 </td>
-                <td class="d-none d-xl-table-cell">
+                <td>
                   <span class="badge text-{{ account.role.color }} bg-{{ account.role.color }}-subtle rounded-pill px-2 py-1" style="font-weight: 500; font-size: 13px">{{ account.role.value }}</span>
                 </td>
-                <td>
+                <td class="d-none d-md-table-cell">
                   <div class="text-truncate">
                     {{ account.created_at.strftime("%Y-%m-%d") }}
                   </div>
@@ -190,9 +190,9 @@
                 <th scope="col" class="property-column text-muted ps-3">
                   Property
                 </th>
-                <th scope="col" class="d-none d-md-table-cell text-muted">Rent</th>
+                <th scope="col" class="text-muted">Rent</th>
                 <th scope="col" class="d-none d-lg-table-cell text-muted">Details</th>
-                <th scope="col" class="text-muted">Type</th>
+                <th scope="col" class="d-none d-md-table-cell text-muted">Type</th>
                 <th scope="col" class="d-none d-xl-table-cell text-muted">Uploaded</th>
                 <th scope="col" class="text-muted" >Actions</th>
               </tr>
@@ -217,7 +217,7 @@
                     </div>
                   </div>
                 </td>
-                <td class="d-none d-md-table-cell">
+                <td>
                   <div class="fw-bold text-truncate">
                     ${{ property.rent_per_week }}/week
                   </div>
@@ -268,7 +268,7 @@
                     {{ property.bathroom_count }}</span
                   >
                 </td>
-                <td>
+                <td class="d-none d-md-table-cell">
                   <span class="badge text-{{ property.property_type.color }} bg-{{ property.property_type.color }}-subtle rounded-pill px-2 py-1" style="font-weight: 500; font-size: 13px">{{ property.property_type.value }}</span>
                 </td>
                 <td class="d-none d-xl-table-cell">
