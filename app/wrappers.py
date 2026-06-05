@@ -6,7 +6,7 @@ def login_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if 'user' not in session:
-            flash('Please log in before moving on.', 'error')
+            flash('Please log in before moving on.', 'danger')
             return redirect(url_for('auth_login.login'))
         if not session['user'].get('user_role') or not session['user'].get('user_id'):
             raise Exception("Something wrong occur!\nUser already logged in but missing user id or user role")
@@ -19,7 +19,7 @@ def role_required(allowed_roles):
         @wraps(func)
         def wrapper(*args, **kwargs):
             if session['user']['user_role'] not in allowed_roles:
-                flash('You do not have permission to view this page.', 'error')
+                flash('You do not have permission to view this page.', 'danger')
                 return redirect(url_for('home.index'))
             return func(*args, **kwargs)
         return wrapper

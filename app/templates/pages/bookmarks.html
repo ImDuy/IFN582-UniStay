@@ -21,7 +21,7 @@
       >
         <div class="hover_item d-flex align-items-start gap-3 px-4 py-3">
           <img
-            src="{{ url_for('static', filename='img/' + (bookmark.property.primary_image_url) or 'properties_default.jpeg') }}"
+            src="{{ url_for('static', filename='img/' + (bookmark.property.primary_image_url or 'properties_default.jpeg')) }}"
             id="property_rental_img"
             style="width: 80px"
             class="rounded-3 object-fit-cover"
