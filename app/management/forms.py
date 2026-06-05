@@ -30,10 +30,10 @@ class PropertyForm(FlaskForm):
     submit = SubmitField('Confirm')
 
 class AccountForm(FlaskForm):
-    first_name = StringField('First Name*', validators=[InputRequired()])
-    last_name = StringField('Last Name*', validators=[InputRequired()])
-    email = StringField('Email*', validators=[InputRequired(), Email()])
-    phone = StringField('Phone*', validators=[InputRequired(), Regexp(r"^04\d{8}$",
+    first_name = StringField('First Name*', validators=[InputRequired(), Length(max=50)])
+    last_name = StringField('Last Name*', validators=[InputRequired(), Length(max=50)])
+    email = StringField('Email*', validators=[InputRequired(), Email(), Length(max=50)])
+    phone = StringField('Phone*', validators=[InputRequired(), Length(min=10, max=10), Regexp(r'^04[0-9]{8}$',
             message="Phone number must start with 04 and be exactly 10 digits."
         )],)
     password = PasswordField('Password*', validators=[InputRequired(), Length(min=6, message='Password must be at least 6 characters.')])
