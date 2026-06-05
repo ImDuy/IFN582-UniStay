@@ -72,11 +72,9 @@
           </button> 
           <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mx-4 mb-2 mb-lg-0">
-              {% if request.endpoint == 'home.index' %}
-                <li class="nav-item">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="#pills-tabContent">View properties</a>
-                </li>
-              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('home.index') }}#pills-tabContent">Browsing properties</a>
+              </li>
               {% if session.get('user', {}).get('user_role')  == 'Agent' %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('management.index') }}"> Listing </a>
