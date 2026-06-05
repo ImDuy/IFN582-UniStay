@@ -409,7 +409,7 @@ def get_bookmark_by_tenant(user_id):
                 available_date=None,
                 created_at= None,
                 agent=None,
-                image_urls=row['url']
+                primary_image_url=row['url']
             ),
             note=row.get('note', ''),
             created_at=row.get('createdAt')
