@@ -408,8 +408,8 @@ header .outlined_btn:hover {
   color: white !important;
 }
 
-.navbar .nav-hover:hover {
-  background-color: rgba(255, 255, 255, 0.15) !important;
+.navbar .nav-hover:hover {  
+  text-decoration: underline;
 }
 
 .property-column {
