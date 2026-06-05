@@ -83,8 +83,8 @@
             </ul>
           </div>
           <div class="ms-auto d-flex align-items-center gap-3">
-            <span class="text-white text-light small">Welcome back, {{session.get('user', {}).get('user_name')}}</span>
             {% if session.get('user', {}).get('user_role')  %}
+            <span class="text-white text-light small">Welcome back, {{session.get('user', {}).get('user_name')}}</span>
             <div class="ms-auto d-flex gap-2">
               <a href="{{ url_for('auth_logout.logout') }}" class="btn primary_btn">Log out</a>
             </div>

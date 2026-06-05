@@ -20,7 +20,7 @@ def login():
             user_id = user.id
             stored_password = user.password
             role = user.role.value
-            name = user.firstName
+            name = user.first_name
 
             if stored_password == hash_password(form.password.data):
                 session.clear()
