@@ -82,16 +82,19 @@
               {% endif %}
             </ul>
           </div>
-          {% if session.get('user', {}).get('user_role')  %}
-          <div class="ms-auto d-flex gap-2">
-            <a href="{{ url_for('auth_logout.logout') }}" class="btn primary_btn">Log out</a>
+          <div class="ms-auto d-flex align-items-center gap-3">
+            <span class="text-white text-light small">Welcome back, {{session.get('user', {}).get('user_name')}}</span>
+            {% if session.get('user', {}).get('user_role')  %}
+            <div class="ms-auto d-flex gap-2">
+              <a href="{{ url_for('auth_logout.logout') }}" class="btn primary_btn">Log out</a>
+            </div>
+            {% else %}
+            <div class="ms-auto d-flex gap-2">
+              <a href="{{ url_for('auth_register.register') }}" class="btn me-1 outlined_btn">Sign up</a>
+              <a href="{{ url_for('auth_login.login') }}" class="btn primary_btn">Log in</a>
+            </div>
+            {% endif %}
           </div>
-          {% else %}
-          <div class="ms-auto d-flex gap-2">
-            <a href="{{ url_for('auth_register.register') }}" class="btn me-1 outlined_btn">Sign up</a>
-            <a href="{{ url_for('auth_login.login') }}" class="btn primary_btn">Log in</a>
-          </div>
-          {% endif %}
         </div>
       </nav>
     </header>

@@ -20,11 +20,12 @@ def login():
             user_id = user.id
             stored_password = user.password
             role = user.role.value
+            name = user.firstName
 
             if stored_password == hash_password(form.password.data):
                 session.clear()
                 session['user'] = {'user_id': user_id,
-                    'user_role': role}
+                    'user_role': role, 'user_name': name}
                 flash('Login successful.', 'success')
                 return redirect(url_for('home.index'))
 
