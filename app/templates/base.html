@@ -62,7 +62,6 @@
             </svg>
           </div>
           <a class="text-light navbar-brand ms-2 fw-bold fs-4" href="{{ url_for('home.index') }}">UniStay</a>
-          {% if session.get('user', {}).get('user_role')  %}
           <button
             class="navbar-toggler navbar-dark"
             type="button"
@@ -73,16 +72,16 @@
           </button> 
           <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mx-4 mb-2 mb-lg-0">
+              {% if request.endpoint == 'home.index' %}
+                <li class="nav-item">
+                  <a class="nav-link fw-semibold text-white nav-hover" href="#pills-tabContent">View properties</a>
+                </li>
+              {% endif %}
               {% if session.get('user', {}).get('user_role')  == 'Agent' %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('management.index') }}"> Listing </a>
                 </li>
               {% elif session.get('user', {}).get('user_role')  == 'Tenant' %}
-                {% if request.endpoint == 'home.index' %}
-                <li class="nav-item">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="#pills-tabContent">View properties</a>
-                </li>
-                {% endif %}
                 <li class="nav-item">
                   <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> Bookmark </a>
                 </li>
@@ -93,6 +92,7 @@
               {% endif %}
             </ul>
           </div>
+          {% if session.get('user', {}).get('user_role')  %}
           <div class="ms-auto d-flex gap-2">
             <a href="{{ url_for('auth_logout.logout') }}" class="btn primary_btn">Log out</a>
           </div>
