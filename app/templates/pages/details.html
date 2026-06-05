@@ -2,6 +2,20 @@
 
 {% block main %}
 <div class="container p-0 my-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="position-absolute top-0 start-50 translate-middle-x w-100 px-3" style="z-index: 10; margin-top: 80px;">
+        <div class="container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
   <div
     class="row {% if session.get('user', {}).get('user_role') == 'Agent' or not session.get('user', {}) %}justify-content-center{% endif %} mb-4">
     <div
