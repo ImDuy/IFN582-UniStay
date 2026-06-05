@@ -71,6 +71,17 @@ a {
   color: var(--main-color);
 }
 
+
+.outlined_btn:focus,
+.outlined_btn:active {
+  outline: none;
+  box-shadow: none;
+  border-color: var(--main-color);
+  background-color: var(--contrast-color);
+  color: var(--main-color);
+}
+
+
 .rounded_btn {
   border-radius: 200px;
 }

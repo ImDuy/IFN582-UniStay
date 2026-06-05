@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block main %}
     <main class="py-4">
+      <div
+        class="container overflow-hidden mt-4 p-0"
+      >
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center ms-2 gap-2">
+            <h2 class="fw-bold mb-0">My Bookmarks</h2>
+          </div>
+          <small class="text-muted me-2">
+            {{ bookmarks|length }} saved
+          </small>
+        </div>
+      </div>
       <!-- table section -->
       {% if bookmarks %}
       {% for bookmark in bookmarks %}
