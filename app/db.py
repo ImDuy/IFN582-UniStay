@@ -630,7 +630,7 @@ def user_exists_by_email(email):
     return user
 
 
-def register_user(password, first_name, last_name, email, phone, avatar_url, role):
+def register_user(password, first_name, last_name, email, phone, avatar_url, role, date):
     cursor = mysql.connection.cursor()
     cursor.execute("""INSERT INTO user (password, firstName, lastName, email, phone, avatarUrl, role, createdAt)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
