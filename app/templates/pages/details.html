@@ -282,19 +282,15 @@
               <path d="M12 4l0 12" />
             </svg>
           </a>
-
         </div>
-
         {% endfor %}
         {% else %}
         <div class="text-start text-muted py-3 ps-1">
           <p class="mb-0">No documentation found for this property.</p>
         </div>
         {% endif %}
-
       </div>
     </div>
-  </div>
 
   {% if session.get('user', {}).get('user_role') == 'Tenant' %}
   <div class="col-lg-4 mb-4">
@@ -336,6 +332,5 @@
     </div>
   </div>
   {% endif %}
-</div>
 </div>
 {% endblock %}
