@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock %} - UniStay</title>
+    <title>{% block title %}{% endblock %}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -69,11 +69,11 @@
               </li>
               {% if session.get('user', {}).get('user_role')  == 'Agent' %}
                 <li class="nav-item me-2">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('management.index') }}"> Listing </a>
+                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('management.index') }}"> Listings </a>
                 </li>
               {% elif session.get('user', {}).get('user_role')  == 'Tenant' %}
                 <li class="nav-item me-2">
-                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> Bookmark </a>
+                  <a class="nav-link fw-semibold text-white nav-hover" href="{{ url_for('bookmarks.index') }}"> Bookmarks </a>
                 </li>
               {% elif session.get('user', {}).get('user_role')  == 'Admin' %}
                 <li class="nav-item me-2">

@@ -1,4 +1,6 @@
 {% extends "base.html" %} 
+
+{% block title %} {{ 'Management' if user_role == UserRole.ADMIN.value else 'Listings' }} {% endblock %}
 {% block main %}
 <div class="py-4">
   <!-- SUMMARY SECTION -->
