@@ -292,26 +292,13 @@
           <form action="{{ url_for('details.property_enquiry', property_id=property.id) }}" method="POST">
             {{ enquiry_form.hidden_tag() }}
             <div class="mb-3">
-              <textarea name="message"
-                id="message"
-                class="form-control rounded-3 {% if enquiry_form.message.errors %}is-invalid{% endif %}"
-                placeholder="Write your enquiry here..."
-                rows="4"
-                maxlength="1000"
-                {% if has_enquiry %}disabled{% endif %}
-                required>{{ enquiry_form.message.data or '' }}</textarea>
+              {{ enquiry_form.message(rows=1, disabled=has_enquiry, class="form-control rounded-3 pt-2 border-secondary-subtle  {% if enquiry_form.message.errors %}is-invalid{% endif %}", style="height: 46px;",
+                                      placeholder='You have already enquired this property.' if has_enquiry else 'Write your enquiry here...') }} 
               {% if enquiry_form.message.errors %}
-              <div class="invalid-feedback">
-                {{ enquiry_form.message.errors[0] }}
-              </div>
-              {% else %}
-              <small class="text-muted">Max 1000 characters</small>
+                <div class="invalid-feedback">{{ enquiry_form.message.errors[0] }}</div>
               {% endif %}
             </div>
-            <button type="submit" class="btn btn-dark fw_500 w-100 mb-2"
-              {% if has_enquiry %}disabled{% endif %}>
-            {% if has_enquiry %}Already Sent Enquiry{% else %}Enquire Now{% endif %}
-            </button>
+            {{ enquiry_form.submit(class="btn btn-dark fw_500 w-100 mb-2 mt-1", value="Already Sent Enquiry" if has_enquiry else "Enquire Now", disabled=has_enquiry) }}
           </form>
           <form action="{{ url_for('details.property_offer', property_id=property.id) }}" method="POST" class="mb-2">
             <button type="submit" class="btn btn-dark fw_500 w-100" {% if has_offer %}disabled{% endif %}>
