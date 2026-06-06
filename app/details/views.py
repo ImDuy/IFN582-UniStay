@@ -4,6 +4,7 @@ from app import mysql
 from app.wrappers import role_required
 from app.constants import UserRole
 from app.db import add_bookmark_by_id, add_enquiry, add_offer, bookmark_overlap, check_enquiry, check_has_bookmark, check_offer, get_property_by_id, get_uni_nearby
+from .forms import EnquiryForm
 
 @details_bp.route("/details/<int:property_id>")
 def property_details(property_id):
@@ -14,7 +15,8 @@ def property_details(property_id):
         return redirect(url_for('home.index'))
     
     nearby_list = get_uni_nearby(property_id)
-    
+    enquiry_form = EnquiryForm()
+
     has_enquiry = False
     has_offer = False
     has_bookmark = False
@@ -23,13 +25,14 @@ def property_details(property_id):
         has_enquiry = check_enquiry(tenant_id, property_id)
         has_offer = check_offer(tenant_id, property_id)
         has_bookmark = check_has_bookmark(tenant_id, property_id)
-    
+        
     return render_template('pages/details.html',
         property=prop,
         nearby_list=nearby_list,
         has_enquiry=has_enquiry,
         has_offer=has_offer,
-        has_bookmark=has_bookmark
+        has_bookmark=has_bookmark,
+        enquiry_form=enquiry_form
     )
 
 @details_bp.route("/details/<int:property_id>/add_bookmark", methods=['POST'])
