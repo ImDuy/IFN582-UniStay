@@ -52,11 +52,16 @@ def add_bookmark(property_id):
 @role_required([UserRole.TENANT.value])
 def property_enquiry(property_id):
     tenant_id = session['user']['user_id']
-    if check_enquiry(tenant_id, property_id):
-        flash("Already enquired!", "warning")
-        return redirect(url_for('details.property_details', property_id=property_id))
-    add_enquiry(tenant_id, property_id, request.form.get('message'))
-    flash("Enquiry sent!", "success")
+    enquiry_form = EnquiryForm()
+
+    if enquiry_form.validate_on_submit():
+        if check_enquiry(tenant_id=tenant_id, property_id=property_id):
+            flash("Already enquired!", "warning")
+            return redirect(url_for('details.property_details', property_id=property_id))
+        add_enquiry(tenant_id=tenant_id, property_id=property_id, message=enquiry_form.message.data)
+        flash("Enquiry sent!", "success")
+    else:
+        flash("Please enter a valid message.", "danger")
     return redirect(url_for('details.property_details', property_id=property_id))
 
 @details_bp.route("/details/<int:property_id>/offer", methods=['POST'])
@@ -68,4 +73,4 @@ def property_offer(property_id):
         return redirect(url_for('details.property_details', property_id=property_id))
     add_offer(tenant_id, property_id)
     flash("Offer sent!", "success")
-    return redirect(url_for('details.property_details', property_id=property_id))
+    return redirect(url_for('details.property_details', property_id=property_id)
