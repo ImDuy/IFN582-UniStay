@@ -80,12 +80,6 @@ class Property:
             count += property.pending_offer_count
         return count
 
-    def get_nearby_universities(self):
-        # this one is to show nearby universities in the property details page
-        # as we dont really implement any distance calculation feature, we gonna create a nearby table in the database and get the nearby data from that
-        pass
-
-
 @dataclass
 class Bookmark:
     id: str
@@ -100,12 +94,6 @@ class University:
     name: str
     address: str
     logoUrl: str | None = None
-
-    def get_nearby_properties(self):
-        # this one is to show nearby properties for each university in the home page
-        # as we dont really implement any distance calculation feature, we gonna create a nearby table in the database and get the nearby data from that
-        pass
-
 
 @dataclass
 class Nearby:
