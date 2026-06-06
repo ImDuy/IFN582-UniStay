@@ -8,3 +8,9 @@ class EnquiryForm(FlaskForm):
         Length(max=1000, message='Message must be less than 1000 characters.')
     ])
     submit = SubmitField('Enquire Now')
+
+class BookmarkForm(FlaskForm):
+    note = TextAreaField('Enquiry', validators=[
+        Length(max=1000, message='Note must be less than 1000 characters.')
+    ])
+    submit = SubmitField('Bookmark')

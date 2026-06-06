@@ -4,7 +4,7 @@ from app import mysql
 from app.wrappers import role_required
 from app.constants import UserRole
 from app.db import add_bookmark_by_id, add_enquiry, add_offer, bookmark_overlap, check_enquiry, check_has_bookmark, check_offer, get_property_by_id, get_uni_nearby
-from .forms import EnquiryForm
+from .forms import BookmarkForm, EnquiryForm
 
 @details_bp.route("/<int:property_id>")
 def property_details(property_id):
@@ -16,6 +16,7 @@ def property_details(property_id):
     
     nearby_list = get_uni_nearby(property_id)
     enquiry_form = EnquiryForm()
+    bookmark_form = BookmarkForm()
 
     has_enquiry = False
     has_offer = False
@@ -32,19 +33,24 @@ def property_details(property_id):
         has_enquiry=has_enquiry,
         has_offer=has_offer,
         has_bookmark=has_bookmark,
-        enquiry_form=enquiry_form
+        enquiry_form=enquiry_form,
+        bookmark_form=bookmark_form
     )
 
 @details_bp.route("/<int:property_id>/add-bookmark", methods=['POST'])
 @role_required([UserRole.TENANT.value])
 def add_bookmark(property_id):
     tenant_id = session['user']['user_id']
-    check = bookmark_overlap(tenant_id, property_id)
-    if check:
-        flash('Already bookmarked!', 'danger')
-        return redirect(url_for('details.property_details', property_id=property_id))
-    add_bookmark_by_id(tenant_id = tenant_id, property_id = property_id)
-    flash('Bookmarked successful!', 'success')
+    bookmark_form = BookmarkForm()
+
+    if bookmark_form.validate_on_submit():
+        if bookmark_overlap(tenant_id, property_id):
+            flash('Already bookmarked!', 'danger')
+        else:
+            add_bookmark_by_id(tenant_id = tenant_id, property_id = property_id, note=bookmark_form.note.data)
+            flash('Bookmarked successful!', 'success')
+    else:
+        flash("Please enter a valid note for bookmark.", "danger")
     return redirect(url_for('details.property_details', property_id = property_id))
 
 #Enquiry and offer
@@ -57,9 +63,11 @@ def property_enquiry(property_id):
     if enquiry_form.validate_on_submit():
         if check_enquiry(tenant_id=tenant_id, property_id=property_id):
             flash("Already enquired!", "warning")
-            return redirect(url_for('details.property_details', property_id=property_id))
-        add_enquiry(tenant_id=tenant_id, property_id=property_id, message=enquiry_form.message.data)
-        flash("Enquiry sent!", "success")
+        else:
+            add_enquiry(tenant_id=tenant_id, property_id=property_id, message=enquiry_form.message.data)
+            flash("Enquiry sent!", "success")
+    else:
+        flash("Please enter a valid message for enquiry.", "danger")
     return redirect(url_for('details.property_details', property_id=property_id))
 
 @details_bp.route("/<int:property_id>/offer", methods=['POST'])
@@ -68,7 +76,7 @@ def property_offer(property_id):
     tenant_id = session['user']['user_id']
     if check_offer(tenant_id, property_id):
         flash("Already offered!", "warning")
-        return redirect(url_for('details.property_details', property_id=property_id))
-    add_offer(tenant_id, property_id)
-    flash("Offer sent!", "success")
+    else:
+        add_offer(tenant_id, property_id)
+        flash("Offer sent!", "success")
     return redirect(url_for('details.property_details', property_id=property_id))

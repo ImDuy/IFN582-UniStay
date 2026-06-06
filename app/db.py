@@ -417,13 +417,13 @@ def get_bookmark_by_tenant(user_id):
         for row in results
     ]
 
-def add_bookmark_by_id(tenant_id, property_id):
+def add_bookmark_by_id(tenant_id, property_id, note):
     cursor = mysql.connection.cursor()
     execute = """
-    INSERT INTO bookmark (tenantId, propertyId, createdAt) values
-    (%s, %s, NOW())
+    INSERT INTO bookmark (tenantId, propertyId, note, createdAt) values
+    (%s, %s, %s, NOW())
     """
-    cursor.execute(execute, (tenant_id, property_id))
+    cursor.execute(execute, (tenant_id, property_id, note))
     mysql.connection.commit()
     cursor.close()
     

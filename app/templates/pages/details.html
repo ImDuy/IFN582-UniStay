@@ -300,12 +300,15 @@
             </div>
             {{ enquiry_form.submit(class="btn btn-dark fw_500 w-100 mb-2 mt-1", value="Already Sent Enquiry" if has_enquiry else "Enquire Now", disabled=has_enquiry) }}
           </form>
-          <form action="{{ url_for('details.property_offer', property_id=property.id) }}" method="POST" class="mb-2">
+          <form action="{{ url_for('details.property_offer', property_id=property.id) }}" method="POST">
             <button type="submit" class="btn btn-dark fw_500 w-100" {% if has_offer %}disabled{% endif %}>
               {% if has_offer %}Already Sent Offer{% else %}Make an Offer{% endif %}
             </button>
           </form>
-          <hr class="my-3" />
+        </div>
+
+        <div class="d-flex flex-column bg-white rounded-4 shadow-sm p-4 mt-4">
+          <h5 class="fw-bold mb-3">{{'The property has been saved!' if has_bookmark else 'Want to save this property?'}}</h5>
           {% if has_bookmark %}
           <form
             action="{{ url_for('bookmarks.delete_bookmark', tenant_id=session['user']['user_id'], property_id=property.id) }}"
@@ -322,6 +325,14 @@
           </form>
           {% else %}
           <form action="{{ url_for('details.add_bookmark', property_id=property.id) }}" method="POST" class="w-100">
+            {{ bookmark_form.hidden_tag() }}
+            <div class="mb-3">
+              {{ bookmark_form.note(rows=1, class="form-control rounded-3 pt-2 border-secondary-subtle  {% if bookmark_form.note.errors %}is-invalid{% endif %}", style="height: 46px;",
+                                      placeholder='Put your note here...') }} 
+              {% if bookmark_form.note.errors %}
+                <div class="invalid-feedback">{{ bookmark_form.note.errors[0] }}</div>
+              {% endif %}
+            </div>
             <button type="submit" class="btn d-flex align-items-center justify-content-center gap-2 outlined_btn w-100">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
