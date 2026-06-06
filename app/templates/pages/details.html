@@ -233,7 +233,7 @@
           <p class="mb-0 flex-fill text-truncate">
             {{ nearby.university.name }}
           </p>
-          <small>{{ nearby.distance }} km</small>
+          <small class="text-nowrap">{{ nearby.distance }} km</small>
         </div>
         {% else %}
         <div class="col-12 text-start text-muted py-3">
@@ -248,8 +248,9 @@
   {% if property.documentations %}
   {% for doc in property.documentations %}
   {% set ext = doc.split('.')[-1] | upper %}
-  <div class="hover_item d-flex align-items-center justify-content-between rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+  <div class="hover_item d-flex align-items-center rounded-3 text-dark border border-secondary-subtle gap-2 px-3 py-2 mb-3">
+    <svg class="flex-shrink-0"
+      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -257,11 +258,11 @@
       <path d="M9 17h6" />
       <path d="M9 13h6" />
     </svg>
-    <div class="flex-fill d-flex flex-column">
+    <div class="flex-fill d-flex flex-column" style="min-width: 0">
       <p class="fw_500 text-truncate mb-0">{{ doc }}</p>
       <small class="text-truncate text-muted">{{ ext }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Document</small>
     </div>
-    <a class="icon_btn text-dark border-0 p-2 rounded-2"
+    <a class="icon_btn text-dark border-0 p-2 rounded-2 flex-shrink-0"
        href="{{ url_for('static', filename='files/' + doc) }}" download="{{ doc }}">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -289,13 +290,27 @@
             Submit an enquiry and our agent will get back to you shortly.
           </small>
           <form action="{{ url_for('details.property_enquiry', property_id=property.id) }}" method="POST">
-            <div class="form-floating mb-3">
-              <input type="text" name="message" class="form-control rounded-3" id="floatingEnquiry"
-                placeholder="Enquiry" {% if has_enquiry %}disabled{% endif %} required />
-              <label for="floatingEnquiry">Enquiry</label>
+            {{ enquiry_form.hidden_tag() }}
+            <div class="mb-3">
+              <textarea name="message"
+                id="message"
+                class="form-control rounded-3 {% if enquiry_form.message.errors %}is-invalid{% endif %}"
+                placeholder="Write your enquiry here..."
+                rows="4"
+                maxlength="1000"
+                {% if has_enquiry %}disabled{% endif %}
+                required>{{ enquiry_form.message.data or '' }}</textarea>
+              {% if enquiry_form.message.errors %}
+              <div class="invalid-feedback">
+                {{ enquiry_form.message.errors[0] }}
+              </div>
+              {% else %}
+              <small class="text-muted">Max 1000 characters</small>
+              {% endif %}
             </div>
-            <button type="submit" class="btn btn-dark fw_500 w-100 mb-2" {% if has_enquiry %}disabled{% endif %}>
-              {% if has_enquiry %}Already Sent Enquiry{% else %}Enquire Now{% endif %}
+            <button type="submit" class="btn btn-dark fw_500 w-100 mb-2"
+              {% if has_enquiry %}disabled{% endif %}>
+            {% if has_enquiry %}Already Sent Enquiry{% else %}Enquire Now{% endif %}
             </button>
           </form>
           <form action="{{ url_for('details.property_offer', property_id=property.id) }}" method="POST" class="mb-2">
