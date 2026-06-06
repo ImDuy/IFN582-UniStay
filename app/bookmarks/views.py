@@ -22,7 +22,7 @@ def index():
 @role_required([UserRole.TENANT.value])
 def delete_bookmark(tenant_id, property_id):
     delete_bookmark_by_id(tenant_id, property_id)
-    flash('Deleted successful!', 'success')
+    flash('Removed bookmark successful!', 'success')
     if request.form.get('from') == 'details':
         return redirect(url_for('details.property_details', property_id=property_id))
     return redirect(url_for('bookmarks.index'))

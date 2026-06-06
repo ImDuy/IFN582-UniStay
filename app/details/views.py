@@ -6,7 +6,7 @@ from app.constants import UserRole
 from app.db import add_bookmark_by_id, add_enquiry, add_offer, bookmark_overlap, check_enquiry, check_has_bookmark, check_offer, get_property_by_id, get_uni_nearby
 from .forms import EnquiryForm
 
-@details_bp.route("/details/<int:property_id>")
+@details_bp.route("/<int:property_id>")
 def property_details(property_id):
     # Load property details
     prop = get_property_by_id(property_id)
@@ -35,7 +35,7 @@ def property_details(property_id):
         enquiry_form=enquiry_form
     )
 
-@details_bp.route("/details/<int:property_id>/add_bookmark", methods=['POST'])
+@details_bp.route("/<int:property_id>/add-bookmark", methods=['POST'])
 @role_required([UserRole.TENANT.value])
 def add_bookmark(property_id):
     tenant_id = session['user']['user_id']
@@ -44,11 +44,11 @@ def add_bookmark(property_id):
         flash('Already bookmarked!', 'danger')
         return redirect(url_for('details.property_details', property_id=property_id))
     add_bookmark_by_id(tenant_id = tenant_id, property_id = property_id)
-    flash('Added successful!', 'success')
+    flash('Bookmarked successful!', 'success')
     return redirect(url_for('details.property_details', property_id = property_id))
 
 #Enquiry and offer
-@details_bp.route("/details/<int:property_id>/enquiry", methods=['POST'])
+@details_bp.route("/<int:property_id>/enquiry", methods=['POST'])
 @role_required([UserRole.TENANT.value])
 def property_enquiry(property_id):
     tenant_id = session['user']['user_id']
@@ -60,11 +60,9 @@ def property_enquiry(property_id):
             return redirect(url_for('details.property_details', property_id=property_id))
         add_enquiry(tenant_id=tenant_id, property_id=property_id, message=enquiry_form.message.data)
         flash("Enquiry sent!", "success")
-    else:
-        flash("Please enter a valid message.", "danger")
     return redirect(url_for('details.property_details', property_id=property_id))
 
-@details_bp.route("/details/<int:property_id>/offer", methods=['POST'])
+@details_bp.route("/<int:property_id>/offer", methods=['POST'])
 @role_required([UserRole.TENANT.value])
 def property_offer(property_id):
     tenant_id = session['user']['user_id']
@@ -73,4 +71,4 @@ def property_offer(property_id):
         return redirect(url_for('details.property_details', property_id=property_id))
     add_offer(tenant_id, property_id)
     flash("Offer sent!", "success")
-    return redirect(url_for('details.property_details', property_id=property_id)
+    return redirect(url_for('details.property_details', property_id=property_id))

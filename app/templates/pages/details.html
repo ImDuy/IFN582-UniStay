@@ -293,7 +293,7 @@
             {{ enquiry_form.hidden_tag() }}
             <div class="mb-3">
               {{ enquiry_form.message(rows=1, disabled=has_enquiry, class="form-control rounded-3 pt-2 border-secondary-subtle  {% if enquiry_form.message.errors %}is-invalid{% endif %}", style="height: 46px;",
-                                      placeholder='You have already enquired this property.' if has_enquiry else 'Write your enquiry here...') }} 
+                                      placeholder='Already enquired!' if has_enquiry else 'Write your enquiry here...') }} 
               {% if enquiry_form.message.errors %}
                 <div class="invalid-feedback">{{ enquiry_form.message.errors[0] }}</div>
               {% endif %}
