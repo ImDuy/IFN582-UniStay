@@ -45,11 +45,12 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 | Email | Password |
 |---------|----------|
 | admin@admin.com | password |
-| samsmith@gmail.com | password |
+| Samsmith@gmail.com | password |
 
 ## Installation
+#### Run the following commands before attempting to run this code. ####
 Make sure to install the required libraries using the `requirements.txt` file.<br>
-Run the following commands before attempting to run this code.
+
 
 ### Windows
 ```bash
@@ -88,9 +89,9 @@ flask --app app run
 
 ![HomePage](image.png)
 
-### Student Search
+### Home Page Property Display
 
-![Property Overview](image-1.png)
+![Property Overview](image-6.png)
 
 ### Saved Properties
 
@@ -100,8 +101,10 @@ flask --app app run
 
 ![Agent Listings](image-5.png)
 
-### Admin Dashboard
+### Admin Dashboard - user management
 
 ![Admin Dashboard - user](image-3.png)
+
+### Admin Dashboard - property management
 
 ![Admin Dashboard - properties](image-4.png)
