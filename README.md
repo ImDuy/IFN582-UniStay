@@ -26,15 +26,15 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 
 ## Testing account
 
-Agent:
+- Agent:
 email: jack@agency.com
 pwd: password
 
-Tenant:
+- Tenant:
 email: minh@student.edu.au
 pwd: password
 
-Admin:
+- Admin:
 email: admin@admin.com
 pwd: password
 
