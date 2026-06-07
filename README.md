@@ -26,27 +26,26 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 
 ## Testing account
 
-- Agent:<br>
-email: jack@agency.com
-pwd: password
+#### Agent
 
-email: sarah@agency.com
-pwd: password
+| Email | Password |
+|---------|----------|
+| jack@agency.com | password |
+| sarah@agency.com | password |
 
+#### Tenant
 
-- Tenant:<br>
-email: minh@student.edu.au
-pwd: password
+| Email | Password |
+|---------|----------|
+| minh@student.edu.au | password |
+| bill@student.edu.au | password |
 
-email: bill@student.edu.au
-pwd: password
+#### Admin
 
-- Admin:<br>
-email: admin@admin.com
-pwd: password
-
-email: Samsmith@gmail.com
-pwd: password
+| Email | Password |
+|---------|----------|
+| admin@admin.com | password |
+| samsmith@gmail.com | password |
 
 ## Installation
 Make sure to install the required libraries using the `requirements.txt` file.<br>
@@ -82,3 +81,27 @@ app.config['MYSQL_PASSWORD'] = '' # change your database password here
 ```bash
 flask --app app run
 ```
+
+## Screenshots
+
+### Home Page
+
+![HomePage](image.png)
+
+### Student Search
+
+![Property Overview](image-1.png)
+
+### Saved Properties
+
+![Bookmark](image-2.png)
+
+### Agent Dashboard
+
+![Agent Listings](image-5.png)
+
+### Admin Dashboard
+
+![Admin Dashboard - user](image-3.png)
+
+![Admin Dashboard - properties](image-4.png)
