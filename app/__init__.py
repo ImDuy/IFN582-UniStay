@@ -8,7 +8,7 @@ mysql = MySQL()
 # a web server will run this web application
 def create_app():
     app = Flask(__name__)
-    app.debug = True
+    app.debug = False
     app.secret_key = 'BetterSecretNeeded123' # need this for session to work
 
     # MySQL configurations
