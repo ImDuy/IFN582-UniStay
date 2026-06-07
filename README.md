@@ -87,7 +87,7 @@ flask --app app run
 
 ### Homepage
 
-![HomePage](image.png)
+![HomePage](static/screenshots/image.png)
 
 ### Homepage Property Display
 
