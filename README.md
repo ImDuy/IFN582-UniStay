@@ -27,19 +27,19 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 ## Testing account
 
 - Agent:<br>
-email: jack@agency.com<br>
+email: jack@agency.com
 pwd: password
 
 - Tenant:<br>
-email: minh@student.edu.au<br>
+email: minh@student.edu.au
 pwd: password
 
 - Admin:<br>
-email: admin@admin.com<br>
+email: admin@admin.com
 pwd: password
 
 ## Installation
-Make sure to install the required libraries using the `requirements.txt` file
+Make sure to install the required libraries using the `requirements.txt` file.<br>
 Run the following commands before attempting to run this code.
 
 ### Windows
