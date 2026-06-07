@@ -99,7 +99,7 @@ flask --app app run
 
 ### Property Detail Page as a tenant
 
-![Property Detail](app/static/screenshots/image-16.png)
+![Property Detail](app/static/screenshots/image-1.png)
 ![Property Detail scroll](app/static/screenshots/image-8.png)
 
 ### Saved Properties
