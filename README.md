@@ -91,45 +91,45 @@ flask --app app run
 
 ### Homepage Property Display
 
-![Property Overview](image-6.png)
+![Property Overview](static/screenshots/image-6.png)
 
 ### Homepage filter
 
-![Homepage Filter](image-11.png)
+![Homepage Filter](static/screenshots/image-11.png)
 
 ### Property Detail Page as a tenant
 
-![Property Detail](image-16.png)
-![Property Detail scroll](image-8.png)
+![Property Detail](static/screenshots/image-16.png)
+![Property Detail scroll](static/screenshots/image-8.png)
 
 ### Saved Properties
 
-![Bookmark](image-2.png)
+![Bookmark](static/screenshots/image-2.png)
 
 ### Agent Dashboard
 
-![Agent Listings](image-5.png)
+![Agent Listings](static/screenshots/image-5.png)
 
 ### Agent Listings Edit
 
-![Agent Listings Edit](image-15.png)
+![Agent Listings Edit](static/screenshots/image-15.png)
 
 ### Agent Enquiries Check
 
-![Enquiries](image-12.png)
+![Enquiries](static/screenshots/image-12.png)
 
 ### Admin Dashboard - user management
 
-![Admin Dashboard - user](image-13.png)
+![Admin Dashboard - user](static/screenshots/image-13.png)
 
 ### Admin Dashboard - property management
 
-![Admin Dashboard - properties](image-14.png)
+![Admin Dashboard - properties](static/screenshots/image-14.png)
 
 ### Login Page
 
-![Login](image-9.png)
+![Login](static/screenshots/image-9.png)
 
 ### Sign up Page
 
-![Sign up](image-10.png)
+![Sign up](static/screenshots/image-10.png)
