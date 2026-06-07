@@ -78,7 +78,7 @@ chmod +x ./mac.sh && sudo ./mac.sh
 
 ## Setup and run the application
 
-1.  Change your MySQL password in `app/__init__.py` line 16
+1.  Change your MySQL password in `app/__init__.py` line 16:
 
 ```bash
 app.config['MYSQL_PASSWORD'] = '' # change your database password here
