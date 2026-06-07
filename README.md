@@ -48,9 +48,8 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 | Samsmith@gmail.com | password |
 
 ## Installation
-#### Run the following commands before attempting to run this code. ####
 Make sure to install the required libraries using the `requirements.txt` file.<br>
-
+Run the following commands to install the libraries.
 
 ### Windows
 ```bash
