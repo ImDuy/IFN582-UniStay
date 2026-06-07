@@ -15,7 +15,7 @@
     {% if user_role == UserRole.ADMIN.value%}
     <div class="w-100 bg-white rounded-3 shadow-sm p-3 justify-content-center align-self-stretch">
       <small class="text-muted">Total User Accounts</small>
-      <p class="text-center text-md-start fw-bold fs-3 mb-0">12</p>
+      <p class="text-center text-md-start fw-bold fs-3 mb-0">{{ user_accounts | length }}</p>
     </div>
     {% else %}
     <div class="w-100 bg-white rounded-3 shadow-sm p-3 justify-content-center align-self-stretch">
