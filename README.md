@@ -110,17 +110,21 @@ flask --app app run
 
 ![Agent Listings](image-5.png)
 
+### Agent Listings Edit
+
+![Agent Listings Edit](image-15.png)
+
 ### Agent Enquiries Check
 
 ![Enquiries](image-12.png)
 
 ### Admin Dashboard - user management
 
-![Admin Dashboard - user](image-3.png)
+![Admin Dashboard - user](image-13.png)
 
 ### Admin Dashboard - property management
 
-![Admin Dashboard - properties](image-4.png)
+![Admin Dashboard - properties](image-14.png)
 
 ### Login Page
 
