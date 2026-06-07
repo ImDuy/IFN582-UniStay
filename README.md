@@ -83,9 +83,10 @@ chmod +x ./mac.sh && sudo ./mac.sh
 ```bash
 app.config['MYSQL_PASSWORD'] = '' # change your database password here
 ```
-2. Run `database.sql` to add sample data 
 
-3.  Run `run.py` file or use this command to run the application:
+2. Run `database.sql` to create database and add sample data 
+
+3.  Run `run.py` or use this command to run the application:
 
 ```bash
 flask --app app run
