@@ -65,10 +65,10 @@ chmod +x ./mac.sh && sudo ./mac.sh
 ## Setup and run the application
 
 1.  Change your MySQL password in **init**.py line 16
-
-        app.config['MYSQL_PASSWORD'] = '' # change your database password here
-
+```bash
+app.config['MYSQL_PASSWORD'] = '' # change your database password here
+```
 2.  run run.py or use this command:
 ```bash
-    flask --app app run
+flask --app app run
 ```
