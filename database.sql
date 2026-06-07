@@ -176,7 +176,7 @@ values
         SHA2('password', 256),
         "Sam",
         "Smith",
-        "Samsmith@gmail.com",
+        "samsmith@gmail.com",
         "0433333333",
         Null,
         'Admin',
