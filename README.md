@@ -45,7 +45,7 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 | Email | Password |
 |---------|----------|
 | admin@admin.com | password |
-| Samsmith@gmail.com | password |
+| samsmith@gmail.com | password |
 
 ## Installation
 Make sure to install the required libraries using the `requirements.txt` file.<br>
