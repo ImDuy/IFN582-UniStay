@@ -28,43 +28,48 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 
 #### Agent
 
-| Email | Password |
-|---------|----------|
-| jack@agency.com | password |
+| Email            | Password |
+| ---------------- | -------- |
+| jack@agency.com  | password |
 | sarah@agency.com | password |
 
 #### Tenant
 
-| Email | Password |
-|---------|----------|
+| Email               | Password |
+| ------------------- | -------- |
 | minh@student.edu.au | password |
 | bill@student.edu.au | password |
 
 #### Admin
 
-| Email | Password |
-|---------|----------|
-| admin@admin.com | password |
+| Email              | Password |
+| ------------------ | -------- |
+| admin@admin.com    | password |
 | samsmith@gmail.com | password |
 
 ## Installation
+
 Make sure to install the required libraries using the `requirements.txt` file.<br>
 Run the following commands to install the libraries.
 
 ### Windows
+
 ```bash
 py -m pip install -r requirements.txt
 ```
 
 ### macOS
+
 You may need to find where mysqlserver has been installed for the following
 script to set some flags.
 To find where it may be installed at, execute the following command on
 the terminal:
+
 ```bash
 sudo find /usr -name mysql.h
 ```
-Then, using what is found, we may need to update the variable named 
+
+Then, using what is found, we may need to update the variable named
 `mysqlhome` if it differs from our default.
 
 ```bash
@@ -73,11 +78,14 @@ chmod +x ./mac.sh && sudo ./mac.sh
 
 ## Setup and run the application
 
-1.  Change your MySQL password in **init**.py line 16
+1.  Change your MySQL password in `app/__init__.py` line 16
+
 ```bash
 app.config['MYSQL_PASSWORD'] = '' # change your database password here
 ```
-2.  run run.py or use this command:
+
+2.  Run `run.py` file or use this command:
+
 ```bash
 flask --app app run
 ```
