@@ -14,25 +14,28 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 
 ## Features
 
-- Property search and filter (by university, price, room type, distance, amenities)
+- Property search by name, address
+- Property filter by university, price, room type, distance, amenities
 - University tab navigation with nearby distance display
-- Bookmark and enquiry system for tenants
+- Enquiry and offer system for property listings
+- Bookmark system for tenants
 - Agent dashboard for property management
+- Admin dashboard for property and account management
 - Role-based access control (Tenant, Agent, Admin)
 - User authentication with SHA-256 password hashing
 
 ## Testing account
 
 Agent:
-account: jack@agency.com
+email: jack@agency.com
 pwd: password
 
 Tenant:
-minh@student.edu.au
+email: minh@student.edu.au
 pwd: password
 
 Admin:
-admin@admin.com
+email: admin@admin.com
 pwd: password
 
 start server
