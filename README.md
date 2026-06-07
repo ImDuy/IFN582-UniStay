@@ -14,7 +14,7 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 
 ## Features
 
-- Property search by name, address
+- Property search by property name, address
 - Property filter by university, price, room type, distance, amenities
 - University tab navigation with nearby distance display
 - Enquiry and offer system for property listings
@@ -30,12 +30,22 @@ The unique aspect of UniStay is its "Academic Peer-Proximity" discovery model. U
 email: jack@agency.com
 pwd: password
 
+email: sarah@agency.com
+pwd: password
+
+
 - Tenant:<br>
 email: minh@student.edu.au
 pwd: password
 
+email: bill@student.edu.au
+pwd: password
+
 - Admin:<br>
 email: admin@admin.com
+pwd: password
+
+email: Samsmith@gmail.com
 pwd: password
 
 ## Installation
