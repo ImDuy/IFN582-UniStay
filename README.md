@@ -38,14 +38,37 @@ pwd: password
 email: admin@admin.com<br>
 pwd: password
 
-start server
+## Installation
+Make sure to install the required libraries using the `requirements.txt` file
+Run the following commands before attempting to run this code.
 
-### Installation
+### Windows
+```bash
+py -m pip install -r requirements.txt
+```
 
-1.  change the config in **init**.py line 16
+### macOS
+You may need to find where mysqlserver has been installed for the following
+script to set some flags.
+To find where it may be installed at, execute the following command on
+the terminal:
+```bash
+sudo find /usr -name mysql.h
+```
+Then, using what is found, we may need to update the variable named 
+`mysqlhome` if it differs from our default.
+
+```bash
+chmod +x ./mac.sh && sudo ./mac.sh
+```
+
+## Setup and run the application
+
+1.  Change your MySQL password in **init**.py line 16
 
         app.config['MYSQL_PASSWORD'] = '' # change your database password here
 
-2.  run run.py
-    or use the command
+2.  run run.py or use this command:
+```bash
     flask --app app run
+```
